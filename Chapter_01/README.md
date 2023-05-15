@@ -35,6 +35,9 @@ file.C
 **Answer**: This fragment is not legal, there is a premature end line ";" in beetween the comand. The operator "<<" needs a stream operator.
 
 - Wrong
+
+**`[Error] expected primary-expression before '<<' token`**
+
 ```cpp
     std::cout << "The sum of " << v1; <- [premature end line]
     << " and " << v2;
@@ -46,4 +49,7 @@ file.C
     << " and " << v2
     << " is " << v1 + v2 << std::endl;
 ```
+## [Exercise 1.7:](Exercise_07/Ex07.cpp)
+*Compile a program that has incorrectly nested comments.*
+
 
