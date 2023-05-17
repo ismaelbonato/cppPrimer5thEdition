@@ -8,6 +8,3 @@ int main()
     std::cout << "sum is " << sum << std::endl;
     return 0;
 }
-
-
-// the sum of all values between -100 and +100 is 0

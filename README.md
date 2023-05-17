@@ -1,8 +1,11 @@
-# Solutions to Exercises in **C++ Primer** 5th Edition
+# **C++ Primer** 5th Edition
 
-This repo is the solutions to exercises in book [_C++ Primer_ (5th Edition)]
+This repo is the solutions of the exercises [_C++ Primer_ (5th Edition)]
 ### Contents
 
-#### [Chapter 1: Getting Started](Chapter_01)
-
-#### [Chapter 2: Variables and Basic Types](Chapter_02)
+- [Chapter 1: Getting Started](Chapter_01/README.md)
+- Part I: The Basics
+  - [Chapter 2: Variables and Basic Types](Chapter_02/README.md)
+- Part II: The C++ Library
+- Part III: Tools for Class Authors
+- Part IV:  Advanced Topics
