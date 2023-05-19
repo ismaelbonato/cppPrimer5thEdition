@@ -1,7 +1,5 @@
 ## Chapter 1: Getting Started
 
-
-
 ### How to compile:
 
 GCC 6.0+ or clang 3.3+
@@ -55,7 +53,7 @@ file.C
     << " is " << v1 + v2 << std::endl;
 ```
 
-**Error Message:**
+**Output:**
 
 ```cpp
     [Error] expected primary-expression before '<<' token
@@ -105,7 +103,7 @@ std::cout << /* "*/" /* "/*" */;
 
 - `std::cout << "*/";` =  **`Legal`**
 
-- `std::cout << /* "*/" */;` = **`Ilegal`**
+- `std::cout << /* "*/" */;` = **`Illegal`**
 
 - `std::cout << /* "*/" /* "/*" */;` = **`Legal`**
 

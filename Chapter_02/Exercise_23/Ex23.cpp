@@ -17,10 +17,6 @@ int main() {
     std::cout << "pValid_2: " << pValid_2 << std::endl;
     std::cout << "pNullPtr: " << pNullPtr << std::endl;
     std::cout << "pInvalid: " << pInvalid << std::endl;
-
-
-    // you cannot determine if p is pointed to an object address or a invalid address.
-    // because in memory we can't diferenciate between an valid address and invalid address.
-
+    
     return 0;
 }
