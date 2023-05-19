@@ -22,8 +22,3 @@ int main()
 
     return 0;
 }
-
-
-/*
- * This fragment is not legal, because of the end line ; in between the lines, the operator left-hard part of * the operator "<<" needs a stream operator.
-*/

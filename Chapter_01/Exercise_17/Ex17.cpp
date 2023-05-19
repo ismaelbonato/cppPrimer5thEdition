@@ -22,15 +22,3 @@ int main()
     } // outermost if statement ends here
     return 0;
 }
-
-
-/* Exercise 1.17: What happens in the program presented in this section if the
- * input values are all equal?
- *
- * It never prints the the else statement unless you put a diferent number.
- *
- *
- * What if there are no duplicated values?
- *
- * it works as spected, but it doens't print the last number'
-*/

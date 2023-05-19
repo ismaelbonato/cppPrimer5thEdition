@@ -2,7 +2,7 @@
 
 int main()
 {
-    // Worng
+    // Wrong
     //std::cout << "/*" << std::endl;
     //std::cout << "*/" << std::endl;
     //std::cout << /* "*/" */;
