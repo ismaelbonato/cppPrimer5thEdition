@@ -8,7 +8,6 @@ GCC 6.0+ or clang 3.3+
 
 `clang++ -std=c++11 app_name.cpp -o target`
 
-
 ### Exercise 2.1:
 
 ##### *What are the differences between `int`, `long`, `long long`, and `short`? Between an `unsigned` and a `signed` type? Between a `float` and a `double`?*
@@ -419,6 +418,106 @@ long *lp = &i;
 - **(a)** - Illegal: `const` needs to be initialized.
 - **(b)** - Legal:
 - **(c)** - Legal:
-- **(d)** - Illegal: ++cnt is legal but `++sz` is Illegal, the value of a `const` cannot changed.
+- **(d)** - Illegal: `++sz` is Illegal, the value of a `const` cannot be changed.
 
+#### Exercise 2.27:
 
+##### *Which of the following initializations are legal? Explain why.*
+
+```cpp
+(a) int i = -1, &r = 0;
+(b) int *const p2 = &i2;
+(c) const int i = -1, &r = 0;
+(d) const int *const p3 = &i2;
+(e) const int *p1 = &i2;
+(f) const int &const r2;
+(g) const int i2 = i, &r = i;
+```
+**Answer**
+
+- **(a)** - Illegal: there is no object in witch `r` can hold a reference, a reference cannot hold a number as reference unless it is a const reference.
+- **(b)** - Legal: `p2` is a const pointer to an `int`, so `i2` needs to be an `int`.
+- **(c)** - Legal: `r` is a reference to a  `const int` temporary variable of value 0.
+- **(d)** - Legal: `p3` is a const pointer to an `const int`, it means, you can't change the value of both, the object address it holds and value of the pointed object.
+- **(e)** - Legal: `p1`is a pointer to an object of type `const int`.
+- **(f)** - Illegal: the reference `r2`has to be initialized.
+- **(g)** - Legal: `r` is a reference to a `const int`.
+
+#### Exercise 2.28: 
+##### *Explain the following definitions. Identify any that are illegal.*
+
+```cpp
+(a) int i, *const cp;
+(b) int *p1, *const p2;
+(c) const int ic, &r = ic;
+(d) const int *const p3;
+(e) const int *p;
+```
+**Answer**
+
+- **(a)** - Illegal: a `const` pointer has to be initialized.
+- **(b)** - Illegal: a `const` pointer has to be initialized.
+- **(c)** - Illegal: a `const int` variable has to be initialized.
+- **(d)** - Illegal: it's a `const` pointer has to be initialized.
+- **(e)** - Legal: it's a pointer to a `const int`.
+
+#### Exercise 2.29:
+
+##### *Using the variables in the previous exercise, which of the following assignments are legal? Explain why.*
+
+```cpp
+(a) i = ic;
+(b) p1 = p3;
+(c) p1 = &ic;
+(d) p3 = &ic;
+(e) p2 = p1;
+(f) ic = *p3;
+```
+**Answer**
+
+- **(a)** - Legal: `ic` is a `const int`and `i`is an `int`.
+- **(b)** - Illegal: `p1` is a pointer to an `int` and `p3`is a top-level `const int` pointer, so the qualifiers mismatch, you cannot change the value of a `const`.
+- **(c)** - Illegal: a pointer to `const int` cannot be pointed to a `int`.
+- **(d)** - Illegal: a top-level `const` pointer cannot be modified after its initialization.
+- **(e)** - Illegal: a top-level `const` pointer cannot be assigned.
+- **(f)** - Illegal: a `const int` cannot be assigned.
+
+#### Exercise 2.30:
+
+##### *For each of the following declarations indicate whether the object being declared has top-level or low-level const.*
+
+```cpp
+const int i = 0, v2 = 0; 
+int v1 = v2;
+int *p1 = &v1, &r1 = v1;
+const int *p2 = &v2, *const p3 = &i, &r2 = v2;
+```
+**Answer**
+- **`v2`** - Top-level
+- **`p1`** - Low-level
+- **`r1`** - Low-level
+- **`p2`** - Low-level
+- **`p3`** - Top-level & Low-level
+
+#### Exercise 2.31:
+
+##### *Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level const applies in each case.*
+
+```cpp
+(a) r1 = v2;
+(b) p1 = p2; 
+(c) p1 = p3;
+(d) p2 = p1;
+(e) p2 = p3;
+```
+**Answer**
+
+- **(a)** - Legal: `v2` has a top-level `const` and it will be converted so `const` will be ignored.
+- **(b)** - Illegal: `p2` has a Low-level `const`, `p1` has not.
+- **(c)** - Illegal: `p3` has a low-level `const`, `p1` has not.
+- **(d)** - Legal: `p2` has a low-level `const`, `p1` has not, but it will be converted to an `const int`.
+- **(e)** - Legal: `p2` and `p3` have a low-level `const`.
+
+#### Exercise 2.32:
+
+##### *Is the following code legal or not? If not, how might you make it legal?*
