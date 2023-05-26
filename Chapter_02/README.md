@@ -10,7 +10,7 @@ GCC 6.0+ or clang 3.3+
 
 ### Exercise 2.1:
 
-##### *What are the differences between `int`, `long`, `long long`, and `short`? Between an `unsigned` and a `signed` type? Between a `float` and a `double`?*
+*What are the differences between `int`, `long`, `long long`, and `short`? Between an `unsigned` and a `signed` type? Between a `float` and a `double`?*
 
 **Answer:**
 - The differences between `int`, `long`, `long long`, and `short` are the amount o bytes to describe each data type, those data type are are often described as int = 32 Bits (4 bytes), long = 32 bits (4 bytes), long long = 64 bits (8 bytes) and short = 16 bits (2 bytes)
@@ -26,13 +26,13 @@ GCC 6.0+ or clang 3.3+
 
 ### Exercise 2.2:
 
-##### *To calculate a mortgage payment, what types would you use for the rate, principal, and payment? Explain why you selected each type.*
+*To calculate a mortgage payment, what types would you use for the rate, principal, and payment? Explain why you selected each type.*
 
 # TO DO
 
 ### Exercise 2.3:
 
-##### *What output will the following code produce?*
+*What output will the following code produce?*
 
 ```cpp
 unsigned u = 10, u2 = 42;
@@ -55,7 +55,7 @@ std::cout << u - i << std::endl;
 
 ### [Exercise 2.4:](Exercise_04/Ex04.cpp)
 
-##### *Write a program to check whether your predictions were correct. If not, study this section until you understand what the problem is.*
+*Write a program to check whether your predictions were correct. If not, study this section until you understand what the problem is.*
 
 **Output**
 ```cpp
@@ -68,7 +68,7 @@ std::cout << u - i << std::endl;
 ```
 ### Exercise 2.5:
 
-##### *Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples*
+*Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples*
 
 **Answer:**
 
@@ -100,7 +100,7 @@ std::cout << u - i << std::endl;
 
 ### Exercise 2.6:
 
-##### *What, if any, are the differences between the following definitions:*
+*What, if any, are the differences between the following definitions:*
 
 ```cpp
 (a) int month = 9, day = 7;
@@ -113,7 +113,7 @@ std::cout << u - i << std::endl;
 - **(b)** - The values are Octal, but the number 9 in octal does not exist. the compiler will rise an error.        
 
 ### Exercise 2.7:
-##### *What values do these literals represent? What type does each have?*
+*What values do these literals represent? What type does each have?*
 
 ```cpp
 (a) "Who goes with F\145rgus?\012"
@@ -167,7 +167,7 @@ or
 
 ### [Exercise 2.10:](Exercise_10/Ex10.cpp)
 
-##### *What are the initial values, if any, of each of the following variables?*
+*What are the initial values, if any, of each of the following variables?*
 
 ```cpp
 std::string global_str;
@@ -195,7 +195,7 @@ local_str =
 ```
 ### [Exercise 2.11:](Exercise_11/Ex11.cpp)
 
-##### *Explain whether each of the following is a declaration or a definition:*
+*Explain whether each of the following is a declaration or a definition:*
 
 ```cpp
 (a) extern int ix = 1024;
@@ -210,7 +210,7 @@ local_str =
 
 ### [Exercise 2.12:](Exercise_12/Ex12.cpp)
 
-##### *Which, if any, of the following names are invalid?*
+*Which, if any, of the following names are invalid?*
 
 ```cpp
 (a) int double = 3.14;
@@ -229,7 +229,7 @@ local_str =
 
 ### [Exercise 2.13:](Exercise_13/Ex13.cpp)
 
-#####  *What is the value of j in the following program?*
+ *What is the value of j in the following program?*
 
 ```cpp
 int i = 42;
@@ -247,7 +247,7 @@ int main()
 
 ### [Exercise 2.14:](Exercise_14/Ex14.cpp)
 
-##### *Is the following program legal? If so, what values are*
+*Is the following program legal? If so, what values are*
 
 ```cpp
 int i = 100, sum = 0;
@@ -266,7 +266,7 @@ std::cout << i << " " << sum << std::endl;
 ```
 ### [Exercise 2.14:](Exercise_15/Ex15.cpp)
 
-##### *Which of the following definitions, if any, are invalid? Why?*
+*Which of the following definitions, if any, are invalid? Why?*
 
 ```cpp
 (a) int ival = 1.01;
@@ -281,7 +281,7 @@ std::cout << i << " " << sum << std::endl;
 
 ### [Exercise 2.16:](Exercise_16/Ex16.cpp)
 
-##### *Which, if any, of the following assignments are invalid? If they are valid, explain what they do.*
+*Which, if any, of the following assignments are invalid? If they are valid, explain what they do.*
 
 ```cpp
 int i = 0, &r1 = i; double d = 0, &r2 = d;
@@ -299,7 +299,7 @@ int i = 0, &r1 = i; double d = 0, &r2 = d;
 
 ### [Exercise 2.17:](Exercise_17/Ex17.cpp)
 
-##### *What does the following code print?*
+*What does the following code print?*
 
 ```cpp
 int i, &ri = i;
@@ -312,11 +312,11 @@ std::cout << i << " " << ri << std::endl;
 
 ### [Exercise 2.18:](Exercise_18/Ex18.cpp)
 
-##### *Write code to change the value of a pointer. Write code to change the value to which the pointer points.*
+*Write code to change the value of a pointer. Write code to change the value to which the pointer points.*
 
 ### Exercise 2.19:
 
-##### *Explain the key differences between pointers and references.*
+*Explain the key differences between pointers and references.*
 
 **Answer**
 
@@ -344,7 +344,7 @@ int *p1 = &i;
 
 ### Exercise 2.21:
 
-##### *Explain each of the following definitions. Indicate whether any are illegal and, if so, why.*
+*Explain each of the following definitions. Indicate whether any are illegal and, if so, why.*
 
 ```cpp
 int i = 0;
@@ -361,7 +361,7 @@ int i = 0;
 
 ### Exercise 2.22:
 
-##### *Assuming p is a pointer to int, explain the following code:*
+*Assuming p is a pointer to int, explain the following code:*
 ```cpp
 (a) if (p) // ...
 (b) if (*p) // ...
@@ -373,14 +373,15 @@ int i = 0;
 
 ### [Exercise 2.23:](Exercise_23/Ex23.cpp)
 
-##### *Given a pointer p, can you determine whether p points to a valid object? If so, how? If not, why not?*
+*Given a pointer p, can you determine whether p points to a valid object? If so, how? If not, why not?*
 
 **Answer**
+
 - You cannot determine if p is pointed to an valid or a invalid address. In memory we can't distinguish a valid or invalid address.
 
 ### Exercise 2.24:
 
-##### *Why is the initialization of `p` legal but that of `lp` illegal?*
+*Why is the initialization of `p` legal but that of `lp` illegal?*
 
 ```cpp
 int i = 42; 
@@ -392,7 +393,7 @@ long *lp = &i;
 
 #### Exercise 2.25:
 
-##### *Determine the types and values of each of the following variables.*
+*Determine the types and values of each of the following variables.*
 
 ```cpp
 (a) int* ip, &r = ip;
@@ -406,7 +407,7 @@ long *lp = &i;
 
 #### Exercise 2.26:
 
-##### *Which of the following are legal? For those that are illegal, explain why.*
+*Which of the following are legal? For those that are illegal, explain why.*
 ```cpp
 (a) const int buf;
 (b) int cnt = 0;
@@ -422,7 +423,7 @@ long *lp = &i;
 
 #### Exercise 2.27:
 
-##### *Which of the following initializations are legal? Explain why.*
+*Which of the following initializations are legal? Explain why.*
 
 ```cpp
 (a) int i = -1, &r = 0;
@@ -444,7 +445,7 @@ long *lp = &i;
 - **(g)** - Legal: `r` is a reference to a `const int`.
 
 #### Exercise 2.28: 
-##### *Explain the following definitions. Identify any that are illegal.*
+*Explain the following definitions. Identify any that are illegal.*
 
 ```cpp
 (a) int i, *const cp;
@@ -463,7 +464,7 @@ long *lp = &i;
 
 #### Exercise 2.29:
 
-##### *Using the variables in the previous exercise, which of the following assignments are legal? Explain why.*
+*Using the variables in the previous exercise, which of the following assignments are legal? Explain why.*
 
 ```cpp
 (a) i = ic;
@@ -484,7 +485,7 @@ long *lp = &i;
 
 #### Exercise 2.30:
 
-##### *For each of the following declarations indicate whether the object being declared has top-level or low-level const.*
+*For each of the following declarations indicate whether the object being declared has top-level or low-level const.*
 
 ```cpp
 const int i = 0, v2 = 0; 
@@ -501,7 +502,7 @@ const int *p2 = &v2, *const p3 = &i, &r2 = v2;
 
 #### Exercise 2.31:
 
-##### *Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level const applies in each case.*
+*Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level const applies in each case.*
 
 ```cpp
 (a) r1 = v2;
@@ -520,4 +521,120 @@ const int *p2 = &v2, *const p3 = &i, &r2 = v2;
 
 #### Exercise 2.32:
 
-##### *Is the following code legal or not? If not, how might you make it legal?*
+*Is the following code legal or not? If not, how might you make it legal?*
+
+```cpp
+int null = 0, *p = null; 
+```
+**Answer**
+
+- It's Illegal, a pointer can only be initialized with a `literal` `0` or an address, an constexpr pointer can only be initialized with `literal` `0` and an address from global scope.
+    - 1 Using the literal `nullptr`.
+        ```cpp
+        int null = 0, *p = nullptr;
+        ```
+
+    - 2º Initializing `*p` with `0` Using `#define`.
+        ```cpp
+        #define null 0;
+        int *p = null;
+        ```
+
+    - 3º Initializing `*p` with an address.
+        ```cpp
+        int null = 0, *p = &null;
+        ```
+
+#### Exercise 2.33:
+
+*Using the variable definitions from this section, determine what happens in each of these assignments:*
+
+```cpp
+a = 42; b = 42; c = 42; d = 42; e = 42; g = 42;
+```
+**Answer**
+
+- **(a)** - Assign the literal value 42 to a `int`.
+- **(b)** - Assign the literal value 42 to a `int`.
+- **(c)** - Assign the literal value 42 to a `int`.
+- **(d)** - Illegal: `d` is a pointer to an `int`, `*d = 42` to fix the assignment.
+- **(e)** - Illegal: `e` is a pointer to an `const int`, pointer can only point to and address or a literal `nullptr`.
+- **(g)** - Illegal: `g` is a reference to an `const int`, `const` cannot be assigned.
+
+#### [Exercise 2.34:](Exercise_34/Ex34.cpp)
+
+*Write a program containing the variables and assignments from the previous exercise. Print the variables before and after the assignments to check whether your predictions in the previous exercise were correct. If not, study the examples until you can convince yourself you know what led you to the wrong conclusion.*
+
+#### [Exercise 2.35:](Exercise_35/Ex35.cpp) 
+
+*Determine the types deduced in each of the following definitions. Once you’ve figured out the types, write a program to see whether you were correct.*
+
+```cpp
+const int i = 42; auto j = i; 
+const auto &k = i; auto *p = &i;
+const auto j2 = i, &k2 = i;
+```
+**Answer**
+
+- **`j`** - is an `int`.
+- **`k`** - is a reference `const int&`.  
+- **`p`** - is a pointer `const int*`.
+- **`j2`** - is a `const int`.  
+- **`k2`** - is a reference `const int&`.
+
+#### Exercise 2.36:
+
+*In the following code, determine the type of each variable and the value each variable has when the code finishes:*
+
+```cpp
+int a = 3, b = 4;
+decltype(a) c = a;
+decltype((b)) d = a;
+++c;
+++d;
+```
+**Answer**
+
+- **`a`** - is an `int` with value equal to 4.
+- **`b`** - is an `int` with value equal to 4.
+- **`c`** - is an `int` with value equal to 4
+- **`d`** - is an reference `int&`  to `a` with value equal to 4
+
+#### Exercise 2.37: 
+
+*Assignment is an example of an expression that yields a reference type. The type is a reference to the type of the left-hand operand. That is, if i is an `int`, then the type of the expression `i = x is int&`. Using that knowledge, determine the type and value of each variable in this code:*
+
+```cpp
+int a = 3, b = 4;
+decltype(a) c = a;
+decltype(a = b) d = a;
+```
+**Answer**
+
+- **`a`** - is an `int` with value equal to 3.
+- **`b`** - is an `int` with value equal to 4.
+- **`c`** - is an `int` with value equal to 3
+- **`d`** - is an reference `int&` to `a` with value equal to 3
+
+
+#### Exercise 2.38: 
+
+*Describe the differences in type deduction between `decltype` and `auto`. Give an example of an expression where auto and decltype will deduce the same type and an example where they will deduce differing types.*
+
+**Answer**
+
+both use the returned type of an arithmetics expression to deduce right type to be used, but while `auto` specifier use this returned value in its initialization, `decltype` use the returned value just to deduce the type. The deduction method is a little different, as `decltype` deduction method saves the const and reference information, `auto` in some cases just ignore them.
+
+```cpp
+  int i = 0, &a = i;
+```
+- Different Type:
+    ```cpp
+    auto b = a;         // int
+    decltype(a) b = a;  // int&
+    ```
+- Same Type:
+    ```cpp
+    auto c = i;         // int
+    decltype(i) c = i;  // int
+    ```
