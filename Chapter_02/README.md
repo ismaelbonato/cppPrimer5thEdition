@@ -638,3 +638,38 @@ both use the returned type of an arithmetics expression to deduce right type to 
     auto c = i;         // int
     decltype(i) c = i;  // int
     ```
+#### [Exercise 2.39:](Exercise_39/Ex39.cpp) 
+
+*Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.*
+
+```cpp
+struct Foo { /* empty */ } // Note: no semicolon
+int main()
+{
+return 0;
+}
+```
+**Output**
+
+```cpp
+Ex39.cpp:1:27: error: expected ‘;’ after struct definition
+    1 | struct Foo { /* empty */ } // Note: no semicolon
+      |                           ^
+      |                           ;
+```
+
+#### [Exercise 2.40:](Exercise_39/Ex39.cpp)
+
+*Write your own version of the Sales_data class.*
+
+**Answer**
+```cpp
+struct SalesData {
+    std::string bookNo;
+    std::string bookName;
+    unsigned units_sold = 0;
+    double price = 0.0;
+    double discount = 0.0; //in %
+    double revenue = 0.0;
+};
+```
