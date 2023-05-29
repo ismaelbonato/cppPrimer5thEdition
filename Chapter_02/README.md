@@ -673,3 +673,20 @@ struct SalesData {
     double revenue = 0.0;
 };
 ```
+
+#### Exercise 2.41: 
+
+*Use your Sales_data class to rewrite the exercises in § 1.5.1 (p. 22), § 1.5.2 (p. 24), and § 1.6 (p. 25). For now, you should define your Sales_data class in the same file as your main function.*
+
+- #### [Exercise 1.20](Exercise_41/Ex41_20.cpp) 
+- #### [Exercise 1.21](Exercise_41/Ex41_21.cpp) 
+- #### [Exercise 1.22](Exercise_41/Ex41_22.cpp) 
+- #### [Exercise 1.21](Exercise_41/Ex41_23.cpp)
+
+
+
+- #### [Exercise 1.24](Exercise_41/Ex41_25.cpp) 
+
+#### [Exercise 2.42:](Exercise_42/Ex42.cpp) 
+
+*Write your own version of the Sales_data.h header and use it to rewrite the exercise from § 2.6.2 (p. 76).*
