@@ -3,9 +3,10 @@
 This repo is the solutions of the exercises [_C++ Primer_ (5th Edition)]
 ### Contents
 
-- [Chapter 1: Getting Started](Chapter_01/README.md)
+- [Chapter 1. Getting Started](Chapter_01/README.md)
 - Part I: The Basics
-  - [Chapter 2: Variables and Basic Types](Chapter_02/README.md)
+  - [Chapter 2. Variables and Basic Types](Chapter_02/README.md)
+  - [Chapter 3.  Strings, Vectors, and Arrays](Chapter_03/README.md)
 - Part II: The C++ Library
 - Part III: Tools for Class Authors
 - Part IV:  Advanced Topics
