@@ -28,7 +28,9 @@ GCC 6.0+ or clang 3.3+
 
 *To calculate a mortgage payment, what types would you use for the rate, principal, and payment? Explain why you selected each type.*
 
-# TO DO
+**Answer**
+
+- In order to calculate the rate, principal and payment I would use the types float or double, all those values have just 2 decimals digits of precision.
 
 ### Exercise 2.3:
 
