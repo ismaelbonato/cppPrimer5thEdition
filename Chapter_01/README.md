@@ -13,6 +13,8 @@ GCC 6.0+ or clang 3.3+
 
 *Review the documentation for your compiler and determine what file naming convention it uses. Compile and run the main program from page 2.*
 
+**Answer**
+
 - C, C++, Objective-C or Objective-C++ header file to be turned into a precompiled header.
 
 [**Documentation**:](https://gcc.gnu.org/onlinedocs/gcc-4.4.1/gcc/Overall-Options.html#index-file-name-suffix-71)
@@ -58,6 +60,7 @@ file.C
 ```cpp
     [Error] expected primary-expression before '<<' token
 ```
+**Answer**
 
 - This fragment is not legal, there is a premature end line ";" in between the command. The operator "<<" needs a stream operator.
 
@@ -98,15 +101,6 @@ std::cout << "*/";
 std::cout << /* "*/" */;
 std::cout << /* "*/" /* "/*" */;
 ```
-
-- `std::cout << "/*";` = **`Legal`**
-
-- `std::cout << "*/";` =  **`Legal`**
-
-- `std::cout << /* "*/" */;` = **`Illegal`**
-
-- `std::cout << /* "*/" /* "/*" */;` = **`Legal`**
-
 **Error Message**
 
 ```cpp
@@ -117,6 +111,13 @@ Ex08.cpp:8:24: error: missing terminating " character
     8 |     std::cout << /* "*/" */;
       |                        ^~~~~
 ```
+**Answer**
+
+- `std::cout << "/*";` = **`Legal`**
+- `std::cout << "*/";` =  **`Legal`**
+- `std::cout << /* "*/" */;` = **`Illegal`**
+- `std::cout << /* "*/" /* "/*" */;` = **`Legal`**
+
 
 **Correct Code**
 
@@ -157,7 +158,7 @@ int sum = 0;
 for (int i = -100; i <= 100; ++i)
 sum += i;
 ```
-
+**Answer**
 - This loop perform the sum of all values between -100 and +100, so its results is **zero**.
 
 ### [Exercise 1.13:](Exercise_13/Ex13.cpp)
@@ -167,6 +168,8 @@ sum += i;
 ### [Exercise 1.14:](Exercise_14/Ex14.cpp)
 
 *Compare and contrast the loops that used a for with those using a while. Are there advantages or disadvantages to using either form?*
+
+**Answer**
 
 - **`While`** is simpler to use and it's better when you don't know the scope, the amount of iterations or for infinite loops, 
 - **`For`** is easier to use when the scope is limited, we know the the amount of iterations beforehand.
@@ -182,6 +185,8 @@ sum += i;
 ### [Exercise 1.17:](Exercise_17/Ex17.cpp)
 
 *What happens in the program presented in this section if the input values are all equal? What if there are no duplicated values?*
+
+**Answer**
 
 - If all input are `equal` it will never prints the else statement, so it will never count any number.
 
