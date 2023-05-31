@@ -8,4 +8,4 @@ GCC 6.0+ or clang 3.3+
 
 `clang++ -std=c++11 app_name.cpp -o target`
 
-### Exercise 3.1:
+### [Exercise 3.1:](Exercise_01/Ex01.cpp)
