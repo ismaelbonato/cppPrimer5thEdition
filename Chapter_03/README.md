@@ -111,3 +111,131 @@ for (auto &c : s) { /* ... */ }
 **Answer**
 
 - It will be **Illegal** if type `c` perform an any kind of assignment, because it's a reference to a `const char`.
+
+#### Exercise 3.12: 
+
+*Which, if any, of the following vector definitions are in error? For those that are legal, explain what the definition does. For those that are not legal, explain why they are illegal.*
+
+```cpp
+(a) vector<vector<int>> ivec;
+(b) vector<string> svec = ivec;
+(c) vector<string> svec(10, "null");
+```
+**Answer**
+
+- **(a)** - **Legal**: it instantiates an empty `vector` that can hold a `vector` of the type `int`.
+- **(b)** - **Illegal**: it's illegal, `ivec` is a `int` and a `string vector` cannot be initialized with an `int` value.
+- **(c)** - **legal**: it instantiates an `string vector` with 10 `strings` initialized with `"null"` .
+
+
+
+
+#### Exercise 3.13: 
+
+*How many elements are there in each of the following vectors? What are the values of the elements?*
+
+```cpp
+(a) vector<int> v1;
+(b) vector<int> v2(10);
+(c) vector<int> v3(10, 42);
+(d) vector<int> v4{10};
+(e) vector<int> v5{10, 42};
+(f) vector<string> v6{10};
+(g) vector<string> v7{10, "hi"};
+```
+
+**Answer**
+
+- **(a)** - `v1` is an empty `int vector`. 
+- **(b)** - `v2` is a `vector` with size of 10 `int` objects.
+- **(c)** - `v3` is a `vector` with 10 `int` objects initialized with literal 42 each.
+- **(d)** - `v4` is a `vector` in witch holds just one `int` object initialized with the literal 10.
+- **(e)** - `v5` is a `vector` with two `int` objects initialized with the `int` literal 10 and 42 respectively.
+- **(f)** - `v6` is a `vector` that holds 10 empty `string` objects.
+- **(g)** - `v7` is a `vector` with 10 strings initialized each with the `string` literal "hi".
+
+#### [Exercise 3.14:](Exercise_14/Ex14.cpp)
+
+*Write a program to read a sequence of `ints` from `cin` and store those values in a `vector`.*
+
+
+#### [Exercise 3.15:](Exercise_15/Ex15.cpp)
+
+*Repeat the previous program but read `strings` this time.*
+
+
+
+#### [Exercise 3.16:](Exercise_16/Ex16.cpp)
+
+*Write a program to print the size and contents of the vectors from exercise 3.13. Check whether your answers to that exercise were correct. If not, restudy § 3.3.1 (p. 97) until you understand why you were wrong.*
+
+**Output**
+
+```cpp
+vector v1: sizeof= 0 value= 
+vector v2: sizeof= 10 value= 0 0 0 0 0 0 0 0 0 0 
+vector v3: sizeof= 10, value= 42 42 42 42 42 42 42 42 42 42 
+vector v4: sizeof= 1, value= 10 
+vector v5: sizeof= 2 value= 10 42 
+vector v6: sizeof= 10 value=           
+vector v7: sizeof= 10 value= hi hi hi hi hi hi hi hi hi hi
+```
+
+#### [Exercise 3.17:](Exercise_17/Ex17)
+
+*Read a sequence of words from cin and store the values a vector. After you’ve read all the words, process the vector and change each word to uppercase. Print the transformed elements, eight words to a line.*
+
+#### Exercise 3.18:
+
+*Is the following program legal? If not, how might you fix it?*
+
+```cpp
+vector<int> ivec;
+ivec[0] = 42;
+```
+**Answer**
+
+- This program is **Illegal**, the vector is empty, therefore the assignment is illegal. In order to fix this assignment `ivec` has to be previously initialized, like the example below.
+
+```cpp
+vector<int> ivec{0}; //ivec holds an object with the literal value 0;
+ivec[0] = 42;
+```
+
+#### Exercise 3.19:
+
+*List three ways to define a vector and give it ten elements, each with the value 42. Indicate whether there is a preferred way to do so and why.*
+
+**Answer**
+
+```cpp
+// 1º
+vector<int> i(10, 42);
+// 2º
+vector<int> i{42, 42, 42, 42, 42, 42, 42, 42, 42, 42};
+
+// 3º
+vector<int> i;
+
+for (int idx = 0; idx < 10; idx++) {
+    i.push_back(42);    
+}
+
+// 4º
+vector<int> i(10);
+
+for (&v : i) {
+    v = 42;
+}
+```
+
+- I prefer the third one, because it's not required to know the size of the vector in advance and despite the fact it's using a vector it's protected against buffer overflow.
+
+#### [Exercise 3.20:](Exercise_20)
+
+*Read a set of integers into a vector. Print the sum of each pair of adjacent elements. Change your program so that it prints the sum of the first and last elements, followed by the sum of the second and second-to- last, and so on.*
+
+**Answer**
+
+- [Exercise 3.20A:](Exercise_20/Ex20A.cpp)
+- [Exercise 3.20B:](Exercise_20/Ex20B.cpp)
