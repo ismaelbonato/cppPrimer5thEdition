@@ -181,7 +181,7 @@ vector v6: sizeof= 10 value=
 vector v7: sizeof= 10 value= hi hi hi hi hi hi hi hi hi hi
 ```
 
-#### [Exercise 3.17:](Exercise_17/Ex17)
+#### [Exercise 3.17:](Exercise_17/Ex17.cpp)
 
 *Read a sequence of words from cin and store the values a vector. After you’ve read all the words, process the vector and change each word to uppercase. Print the transformed elements, eight words to a line.*
 
@@ -229,7 +229,7 @@ for (&v : i) {
 }
 ```
 
-- I prefer the third one, because it's not required to know the size of the vector in advance and despite the fact it's using a vector it's protected against buffer overflow.
+- I prefer the third one, because it's not required to know the size of the vector in advance and despite the fact it's using push_back function protect against buffer overflow.
 
 #### [Exercise 3.20:](Exercise_20)
 
@@ -239,3 +239,133 @@ for (&v : i) {
 
 - [Exercise 3.20A:](Exercise_20/Ex20A.cpp)
 - [Exercise 3.20B:](Exercise_20/Ex20B.cpp)
+
+
+#### [Exercise 3.21:](Exercise_21/Ex21.cpp)
+*Redo the first exercise from § 3.3.3 (p. 105) using iterators.*
+
+**Answer**
+
+```cpp
+vector v1: sizeof= 0 value= 
+vector v2: sizeof= 10 value= 0 0 0 0 0 0 0 0 0 0 
+vector v3: sizeof= 10, value= 42 42 42 42 42 42 42 42 42 42 
+vector v4: sizeof= 1, value= 10 
+vector v5: sizeof= 2 value= 10 42 
+vector v6: sizeof= 10 value=           
+vector v7: sizeof= 10 value= hi hi hi hi hi hi hi hi hi hi
+```
+
+#### [Exercise 3.22:](Exercise_22/Ex22.cpp) 
+
+*Revise the loop that printed the first paragraph in text to instead change the elements in text that correspond to the first paragraph to all uppercase. After you’ve updated text, print its contents.*
+
+
+#### [Exercise 3.23:](Exercise_23/Ex23.cpp)
+
+*Write a program to create a vector with ten int elements. Using an iterator, assign each element a value that is twice its current value. Test your program by printing the vector.*
+
+#### [Exercise 3.24:](Exercise_24) 
+
+*Redo the last exercise from § 3.3.3 (p. 105) using iterators.*
+
+- [Exercise 3.24A:](Exercise_24/Ex24A.cpp)
+- [Exercise 3.24B:](Exercise_24/Ex24B.cpp)
+
+
+#### [Exercise 3.25:](Exercise_25/Ex25.cpp) 
+
+*Rewrite the grade clustering program from § 3.3.3 (p. 104) using iterators instead of subscripts.*
+
+```cpp
+vector<int> v{1,2,3,4,5,6,7,8,9};
+for (auto &i : v) // for each element in v (note: i is a reference)
+i *= i; // square the element value
+for (auto i : v) // for each element in v
+cout << i << " "; // print the element
+cout << endl;
+```
+
+#### Exercise 3.26: 
+
+*In the binary search program on page 112, why did we write `mid = beg + (end - beg) / 2;` instead of `mid = (beg + end) /2;`?*
+
+**Answer**
+
+- The result of `(beg + end)` will be an index value, we need to sum this up with a valid address to find the address of the iterator as we need, furthermore `Mid` is a iterate type, the result of the arithmetic has to be a valid pointer to this data structure.
+
+#### Exercise 3.27: 
+
+*Assuming txt_size is a function that takes no arguments and returns an int value, which of the following definitions are illegal? Explain why.*
+
+```cpu
+unsigned buf_size = 1024;
+(a) int ia[buf_size];
+(b) int ia[4 * 7 - 14];
+(c) int ia[txt_size()];
+(d) char st[11] = "fundamental";
+```
+
+**Answer**
+
+- **(a)** - Illegal: the size definition is not a `constexpr`.
+- **(b)** - Legal: the arithmetic operation will be performed because it is a `constant expression`.
+- **(c)** - Illegal: the function `txt_size()` is not a `constexpr` function.
+- **(d)** - Illegal: a `char` array assigned with an `string` literal has to have enough space to hold the `string` literal + a newline defined by the compiler. 
+
+#### Exercise 3.28: 
+
+*What are the values in the following arrays?*
+
+```cpp
+string sa[10];
+int ia[10];
+int main() 
+{
+    string sa2[10];
+    int ia2[10];
+}
+```
+
+**Answer**
+
+- **`sa`** - 10 empty objects.
+- **`ia`** - 10 objects initialized with 0.
+- **`sa2`** - 10 empty objects.
+- **`oa2`** - 10 empty non initialized it means it is undefined.
+
+#### Exercise 3.29: 
+
+*List some of the drawbacks of using an array instead of a vector.*
+
+- Arrays has fixed size when defined and its size cannot be increased.
+- Arrays are built in types, therefore can not perform operations like `push_back()`, `cbegin()`, `size()` and so on.
+- Working with arrays can be risk, it has not the same protection that other containers made of templates in the Standard Library.
+
+#### Exercise 3.30: 
+
+*Identify the indexing errors in the following code:*
+
+```cpp
+constexpr size_t array_size = 10;
+int ia[array_size];
+for (size_t ix = 1; ix <= array_size; ++ix)
+ia[ix] = ix;
+```
+
+**Answer**
+
+- The fist index error is in the for statement, `size_t ix = 1` in c++ vectors begin in position 0.
+- The `ia` array begin from 0 to 9, in this case, the arithmetic expression `ix <= array_size` will count up to 10, it will cause a buffer overflow. In order to fix this error, the iterator has to count up to 9, as result `ix` has to be `less` than `array_size` = `ix < array_size`.
+
+#### [Exercise 3.31:](Exercise_31/Ex31.cpp)
+
+*Write a program to define an array of ten `ints`. Give each element the same value as its position in the array.*
+
+#### [Exercise 3.32:](Exercise_32/Ex32.cpp) 
+
+*Copy the array you defined in the previous exercise into another array. Rewrite your program to use vectors.*
+
+#### Exercise 3.33:
+
+*What would happen if we did not initialize the scores array in the program on page 116?*
