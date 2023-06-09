@@ -393,7 +393,7 @@ long *lp = &i;
 - The initialization of `p` is legal because the type `void*` is a type Unknown and so it can hold any other type.
 - The initialization of `lp` is illegal because a pointer can only hold an object of the same type.
 
-#### Exercise 2.25:
+### Exercise 2.25:
 
 *Determine the types and values of each of the following variables.*
 
@@ -407,7 +407,7 @@ long *lp = &i;
 - **(b)** - Legal: `i` is an `int` non initialized it means its value depends on the scope. `ip` is pointer to an `int` with value equal zero.
 - **(c)** - Legal: `* ip` is a pointer to an integer. `ip2` is an integer.
 
-#### Exercise 2.26:
+### Exercise 2.26:
 
 *Which of the following are legal? For those that are illegal, explain why.*
 ```cpp
@@ -423,7 +423,7 @@ long *lp = &i;
 - **(c)** - Legal:
 - **(d)** - Illegal: `++sz` is Illegal, the value of a `const` cannot be changed.
 
-#### Exercise 2.27:
+### Exercise 2.27:
 
 *Which of the following initializations are legal? Explain why.*
 
@@ -446,7 +446,7 @@ long *lp = &i;
 - **(f)** - Illegal: the reference `r2`has to be initialized.
 - **(g)** - Legal: `r` is a reference to a `const int`.
 
-#### Exercise 2.28: 
+### Exercise 2.28: 
 *Explain the following definitions. Identify any that are illegal.*
 
 ```cpp
@@ -464,7 +464,7 @@ long *lp = &i;
 - **(d)** - Illegal: it's a `const` pointer has to be initialized.
 - **(e)** - Legal: it's a pointer to a `const int`.
 
-#### Exercise 2.29:
+### Exercise 2.29:
 
 *Using the variables in the previous exercise, which of the following assignments are legal? Explain why.*
 
@@ -485,7 +485,7 @@ long *lp = &i;
 - **(e)** - Illegal: a top-level `const` pointer cannot be assigned.
 - **(f)** - Illegal: a `const int` cannot be assigned.
 
-#### Exercise 2.30:
+### Exercise 2.30:
 
 *For each of the following declarations indicate whether the object being declared has top-level or low-level const.*
 
@@ -502,7 +502,7 @@ const int *p2 = &v2, *const p3 = &i, &r2 = v2;
 - **`p2`** - Low-level
 - **`p3`** - Top-level & Low-level
 
-#### Exercise 2.31:
+### Exercise 2.31:
 
 *Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level const applies in each case.*
 
@@ -521,7 +521,7 @@ const int *p2 = &v2, *const p3 = &i, &r2 = v2;
 - **(d)** - Legal: `p2` has a low-level `const`, `p1` has not, but it will be converted to an `const int`.
 - **(e)** - Legal: `p2` and `p3` have a low-level `const`.
 
-#### Exercise 2.32:
+### Exercise 2.32:
 
 *Is the following code legal or not? If not, how might you make it legal?*
 
@@ -547,7 +547,7 @@ int null = 0, *p = null;
         int null = 0, *p = &null;
         ```
 
-#### Exercise 2.33:
+### Exercise 2.33:
 
 *Using the variable definitions from this section, determine what happens in each of these assignments:*
 
@@ -563,11 +563,11 @@ a = 42; b = 42; c = 42; d = 42; e = 42; g = 42;
 - **(e)** - Illegal: `e` is a pointer to an `const int`, pointer can only point to and address or a literal `nullptr`.
 - **(g)** - Illegal: `g` is a reference to an `const int`, `const` cannot be assigned.
 
-#### [Exercise 2.34:](Exercise_34/Ex34.cpp)
+### [Exercise 2.34:](Exercise_34/Ex34.cpp)
 
 *Write a program containing the variables and assignments from the previous exercise. Print the variables before and after the assignments to check whether your predictions in the previous exercise were correct. If not, study the examples until you can convince yourself you know what led you to the wrong conclusion.*
 
-#### [Exercise 2.35:](Exercise_35/Ex35.cpp) 
+### [Exercise 2.35:](Exercise_35/Ex35.cpp) 
 
 *Determine the types deduced in each of the following definitions. Once you’ve figured out the types, write a program to see whether you were correct.*
 
@@ -584,7 +584,7 @@ const auto j2 = i, &k2 = i;
 - **`j2`** - is a `const int`.  
 - **`k2`** - is a reference `const int&`.
 
-#### Exercise 2.36:
+### Exercise 2.36:
 
 *In the following code, determine the type of each variable and the value each variable has when the code finishes:*
 
@@ -602,7 +602,7 @@ decltype((b)) d = a;
 - **`c`** - is an `int` with value equal to 4
 - **`d`** - is an reference `int&`  to `a` with value equal to 4
 
-#### Exercise 2.37: 
+### Exercise 2.37: 
 
 *Assignment is an example of an expression that yields a reference type. The type is a reference to the type of the left-hand operand. That is, if i is an `int`, then the type of the expression `i = x is int&`. Using that knowledge, determine the type and value of each variable in this code:*
 
@@ -619,7 +619,7 @@ decltype(a = b) d = a;
 - **`d`** - is an reference `int&` to `a` with value equal to 3
 
 
-#### Exercise 2.38: 
+### Exercise 2.38: 
 
 *Describe the differences in type deduction between `decltype` and `auto`. Give an example of an expression where auto and decltype will deduce the same type and an example where they will deduce differing types.*
 
@@ -640,7 +640,7 @@ both use the returned type of an arithmetics expression to deduce right type to 
     auto c = i;         // int
     decltype(i) c = i;  // int
     ```
-#### [Exercise 2.39:](Exercise_39/Ex39.cpp) 
+### [Exercise 2.39:](Exercise_39/Ex39.cpp) 
 
 *Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.*
 
@@ -660,7 +660,7 @@ Ex39.cpp:1:27: error: expected ‘;’ after struct definition
       |                           ;
 ```
 
-#### [Exercise 2.40:](Exercise_39/Ex39.cpp)
+### [Exercise 2.40:](Exercise_39/Ex39.cpp)
 
 *Write your own version of the Sales_data class.*
 
@@ -676,7 +676,7 @@ struct SalesData {
 };
 ```
 
-#### [Exercise 2.41:](Exercise_41)
+### [Exercise 2.41:](Exercise_41)
 
 *Use your Sales_data class to rewrite the exercises in § 1.5.1 (p. 22), § 1.5.2 (p. 24), and § 1.6 (p. 25). For now, you should define your Sales_data class in the same file as your main function.*
 
@@ -687,7 +687,7 @@ struct SalesData {
 - [Exercise 1.24](Exercise_41/Ex41_25.cpp) 
 
 
-#### [Exercise 2.42:](Exercise_42)
+### [Exercise 2.42:](Exercise_42)
 
 *Write your own version of the Sales_data.h header and use it to rewrite the exercise from § 2.6.2 (p. 76).*
 
