@@ -430,6 +430,7 @@ cout << *cp << endl;
 *Write a program to initialize a vector from an array of `ints`.*
 
 ### [Exercise 3.42:](Exercise_42/Ex42.cpp)
+
 *Write a program to copy a vector of `ints` into an array of `ints`.*
 
 ### [Exercise 3.43:](Exercise_43/Ex43.cpp)
