@@ -128,7 +128,7 @@ z -= 1;
 
 ### Exercise 4.9: 
 
-*Explain the behavior of the condition in the following if:
+*Explain the behavior of the condition in the following if:*
 
 ```cpp
 const char *cp = "Hello World";
@@ -166,7 +166,7 @@ if (a > b && b > c && c > d) {}
 **Answer**
 
 - First the precedence is `( i != (j < k) )`.
-- The result of `j < k` expression is a `bool` that will be converted in an `int` of value `1` or `0` and it will be compared with an `int i`. If `i` is different of `0` or `1` this expression will not work as intended, any value for `i` different of `0` or `1` will give an meaningless result equal to  `true`.
+- The result of `j < k` expression has a type a `bool` that will be converted in an `int` of value `1` or `0` and it will be compared with an `int i`. If `i` is different of `0` or `1` this expression will not work as intended, any value for `i` different of `0` or `1` will give an meaningless result equal to  `true`.
 
 ### Exercise 4.13: 
 
@@ -176,29 +176,109 @@ int i; double d;
 (a) d = i = 3.5;
 (b) i = d = 3.5;
 ```
+**Answer**
+
+- **(a)** - `i = 3`, `d = 3.0`
+- **(b)** - `d = 3.5`, `i = 3` 
 
 ### Exercise 4.14: 
 
 *Explain what happens in each of the if tests:*
 
 ```cpp
-if (42 = i) // ...
-if (i = 42) // ...
+(a) if (42 = i) // ...
+(b) if (i = 42) // ...
 ```
+**Answer**
+
+- **(a)** - It's ilegal because a literal cannot be an `lvalue`, in another word, a literal cannot be assigned.
+- **(b)** - The assignment will be performed the expression `i = 42` will return an `int` value equal to 42, so, this test will never be false, in order to fix for this statement we need to use the compare operator `i == 42` and not the assignment operator.  
 
 ### Exercise 4.15: 
 
 *The following assignment is illegal. Why? How would you correct it?*
 
 ```cpp
-double dval; int ival; int *pi;
+double dval; 
+int ival; 
+int *pi;
+
 dval = ival = pi = 0;
 ```
+
+**Answer**
+- This assignment is illegal, `pi` is a pointer and there is no such thing as an automatic conversion from `int*` to `int` type.
+
+```cpp
+    double dval; 
+    int ival; 
+    int *pi = nullptr;
+
+    dval = ival = 0;
+```
+
 
 ### Exercise 4.16: 
 
 *Although the following are legal, they probably do not behave as the programmer expects. Why? Rewrite the expressions as you think they should be.*
+
 ```cpp
 (a) if (p = getPtr() != 0)
 (b) if (i = 1024)
 ```
+**Answer**
+
+- **(a)** - It will not work as expected because assignment has low precedence, it means that `getPtr() != 0` will be processed before the assignment, in order to fix this exercise the use of of parenthesis is required.
+    ```cpp
+    if ( (p = getPtr()) != 0)
+    ```
+
+- **(b)** - It's legal but it will always give true as result of this statement, the correct way to write this is using the `compare` operator and not the `assignment` operator.
+    ```cpp
+    if (i == 1024)
+    ```
+
+### Exercise 4.17: 
+
+*Explain the difference between prefix and postfix increment.*
+
+**Answer**
+
+- **`Prefix`** has high precedence, it increments or decreases an object by 1, the result is itself.
+- **`Postfix`** has also high precedence, it increments or decreases an object by 1 and the result is its old itself, it means it increments or decrease the object by 1, after that, it creates a temporary object to store the old value before de increment and return this object.
+
+### Exercise 4.18: 
+
+*What would happen if the while loop on page 148 that prints the elements from a vector used the prefix increment operator?*
+
+```cpp
+auto pbeg = v.begin();
+// print elements up to the first negative value
+while (pbeg != v.end() && *beg >= 0)
+cout << *++pbeg << endl;
+```
+**Answer**
+
+- If we use the prefix increment operator, it will start to print from the second element in the vector up to the negative number (with the negative number included).
+
+### Exercise 4.19: 
+
+*Given that `ptr` points to an `int`, that `vec` is a `vector<int>`, and that `ival` is an `int`, explain the behavior of each of these expressions. Which, if any, are likely to be incorrect? Why? How might each be corrected?*
+
+```cpp
+(a) ptr != 0 && *ptr++
+(b) ival++ && ival
+(c) vec[ival++] <= vec[ival]
+```
+
+- **(a)** - This expression is correct, in this expression `!=` has precedence, so, first `ptr != 0` will be computed. This ensure that the expression `*ptr++` will be performed only if ptr is different of `nulptr`.
+It's a great way we can test and use a pointer in the same expression because of the operator `&&` process left side  first.
+- **(b)** - This expression verifies first the left side of the arithmetics, if `ival++` is true, the right side will be tested `ival` but incremented by 1. This expression is meaningless, therefore it's incorrect.
+    ```cpp
+    ival && (ival + 1)
+    ```
+
+- **(c)** - It is incorrect, its behavior is undetermined because we don't know what side of the equation will be performed first when using this operator.
+    ```cpp
+    vec[ival] <= vec[ival + 1]
+    ```
