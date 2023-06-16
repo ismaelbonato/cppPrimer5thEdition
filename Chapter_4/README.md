@@ -282,3 +282,66 @@ It's a great way we can test and use a pointer in the same expression because of
     ```cpp
     vec[ival] <= vec[ival + 1]
     ```
+
+### Exercise 4.20: 
+
+*Assuming that `iter` is a `vector<string>::iterator`, indicate which, if any, of the following expressions are legal. Explain the behavior of the legal expressions and why those that aren’t legal are in error.*
+
+```cpp
+(a) *iter++;
+(b) (*iter)++;
+(c) *iter.empty();
+(d) iter->empty();
+(e) ++*iter;
+(f) iter++->empty();
+```
+
+**Answer**
+
+- **(a)** - **Legal**: `iter` will be incremented and it will return a copy of it with the value before the increment, the copy will be dereferenced instead of the original and then `iter` will be incremented. 
+- **(b)** - **Illegal**: String cannot be incremented.
+- **(c)** - **Illegal**: `dot` operator has higher precedence than the dereference operator, that so, `iter` as an `vector<string>::iterator` type has not a member called `empty()`.
+- **(d)** - **Legal**: `iter` will be dereferenced and then the result of this will try access the function member `empty()`.
+- **(e)** - **Illegal**: it's illegal because it tries to increment and operator. 
+- **(f)** - **Legal**: `iter` will be incremented and it will return the old itself as a copy, so, it will be dereferenced and then it will try to access the function member called `empty()`, last `iter` will be incremented.
+
+### [Exercise 4.21:](Exercise_21/Ex21.cpp)
+
+*Write a program to use a conditional operator to find the elements in a `vector<int>` that have odd value and double the value of each such element.*
+
+### Exercise 4.22:
+
+*Extend the program that assigned high pass, pass, and fail grades to also assign low pass for grades between 60 and 75 inclusive. Write two versions: One version that uses only conditional operators; the other should use one or more if statements. Which version do you think is easier to understand and why?*
+
+- [Exercise 4.22A:](Exercise_22/Ex22A.cpp)
+- [Exercise 4.22B:](Exercise_22/Ex22B.cpp)
+
+**Answer**
+
+- The version with if statement is easier to write and understand specially when we avoid nested statements.
+
+### Exercise 4.23: 
+
+*The following expression fails to compile due to operator precedence. Using Table 4.12 (p. 166), explain why it fails. How would you fix it?*
+
+```cpp
+string s = "word";
+string pl = s + s[s.size() - 1] == 's' ? "" : "s" ;
+```
+
+**Answer**
+
+- It fails because the operator `+` has more precedence than the operator `==`, that so, the comparison between a `string` and a `char` literal `'s'` is illegal. We can have a better intuition of what's happening when we use Parenthesis to show the precedence.
+    ```cpp
+    string pl = ( (s + s[s.size() - 1]) == 's') ? "" : "s" ;
+    ``` 
+
+- In order to fix this expression we need to use parenthesis in the right place, as we can see below.
+    ```cpp
+    string pl = s + ( (s[s.size() - 1] == 's') ? "" : "s");
+    ``` 
+
+### Exercise 4.24:
+
+*Our program that distinguished between high pass, pass, and fail depended on the fact that the conditional operator is right associative. Describe how that operator would be evaluated if the operator were left associative.*
+
