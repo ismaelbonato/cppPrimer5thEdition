@@ -8,6 +8,8 @@ GCC 6.0+ or clang 3.3+
 
 `clang++ -std=c++11 app_name.cpp -o target`
 
+## 2.1.1. Arithmetic Types
+
 ### Exercise 2.1:
 
 *What are the differences between `int`, `long`, `long long`, and `short`? Between an `unsigned` and a `signed` type? Between a `float` and a `double`?*
@@ -31,6 +33,8 @@ GCC 6.0+ or clang 3.3+
 **Answer**
 
 - In order to calculate the rate, principal and payment I would use the types float or double, all those values have just 2 decimals digits of precision.
+
+## 2.1.2. Type Conversions
 
 ### Exercise 2.3:
 
@@ -68,6 +72,8 @@ std::cout << u - i << std::endl;
 0
 0
 ```
+## 2.1.3. Literals
+
 ### Exercise 2.5:
 
 *Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples*
@@ -135,6 +141,8 @@ std::cout << u - i << std::endl;
 
 *Using escape sequences, write a program to print 2M followed by a newline. Modify the program to print 2, then a tab, then an M,  followed by a newline.*
 
+## 2.2.1. Variable Definitions
+
 ### [Exercise 2.9:](Exercise_09/Ex09.cpp)
 
 *Explain the following definitions. For those that are illegal, explain what’s wrong and how to correct it.*
@@ -195,6 +203,9 @@ global_int = 0
 local_int = 32556
 local_str = 
 ```
+
+## 2.2.2. Variable Declarations and Definitions
+
 ### [Exercise 2.11:](Exercise_11/Ex11.cpp)
 
 *Explain whether each of the following is a declaration or a definition:*
@@ -209,6 +220,8 @@ local_str =
 - **(a)** - Definition of a extern variable, it's Illegal.
 - **(b)** - Definition.
 - **(c)** - Only declaration without definition, extern defined elsewhere.
+
+## 2.2.3. Identifiers
 
 ### [Exercise 2.12:](Exercise_12/Ex12.cpp)
 
@@ -228,6 +241,8 @@ local_str =
 - **(c)** - `Invalid`: `catch` is a keyword of the language.
 - **(d)** - `Invalid`: Identifiers cannot begin with a number.
 - **(e)** - `Valid`: It's not consistent with the convention.
+
+## 2.2.4. Scope of a Name
 
 ### [Exercise 2.13:](Exercise_13/Ex13.cpp)
 
@@ -281,6 +296,8 @@ std::cout << i << " " << sum << std::endl;
 - **(c)** - `Valid`: `rval2` will be a reference to `ival` = 1.
 - **(d)** - `Invalid`: a reference needs an object to be initialized.
 
+## 2.3.1. References
+
 ### [Exercise 2.16:](Exercise_16/Ex16.cpp)
 
 *Which, if any, of the following assignments are invalid? If they are valid, explain what they do.*
@@ -311,6 +328,8 @@ std::cout << i << " " << ri << std::endl;
 **Answer**
 
 - It will print `10 10`.
+
+## 2.3.2. Pointers
 
 ### [Exercise 2.18:](Exercise_18/Ex18.cpp)
 
@@ -393,6 +412,8 @@ long *lp = &i;
 - The initialization of `p` is legal because the type `void*` is a type Unknown and so it can hold any other type.
 - The initialization of `lp` is illegal because a pointer can only hold an object of the same type.
 
+## 2.3.3. Understanding Compound Type Declarations
+
 ### Exercise 2.25:
 
 *Determine the types and values of each of the following variables.*
@@ -406,6 +427,8 @@ long *lp = &i;
 - **(a)** - Illegal: the pointer `ip` is a `int` non initialized it means its value it's value depends on the scope. `r` is a reference to this pointer address, it's illegal, because `r`is a reference to an `int` type but `ip` without an address modifier `&` is an `address` type, the types does not match.
 - **(b)** - Legal: `i` is an `int` non initialized it means its value depends on the scope. `ip` is pointer to an `int` with value equal zero.
 - **(c)** - Legal: `* ip` is a pointer to an integer. `ip2` is an integer.
+
+## 2.4. const Qualifier
 
 ### Exercise 2.26:
 
@@ -422,6 +445,8 @@ long *lp = &i;
 - **(b)** - Legal:
 - **(c)** - Legal:
 - **(d)** - Illegal: `++sz` is Illegal, the value of a `const` cannot be changed.
+
+## 2.4.2. Pointers and const
 
 ### Exercise 2.27:
 
@@ -485,6 +510,8 @@ long *lp = &i;
 - **(e)** - Illegal: a top-level `const` pointer cannot be assigned.
 - **(f)** - Illegal: a `const int` cannot be assigned.
 
+## 2.4.3. Top-Level const
+
 ### Exercise 2.30:
 
 *For each of the following declarations indicate whether the object being declared has top-level or low-level const.*
@@ -521,6 +548,8 @@ const int *p2 = &v2, *const p3 = &i, &r2 = v2;
 - **(d)** - Legal: `p2` has a low-level `const`, `p1` has not, but it will be converted to an `const int`.
 - **(e)** - Legal: `p2` and `p3` have a low-level `const`.
 
+## 2.4.4. constexpr and Constant Expressions
+
 ### Exercise 2.32:
 
 *Is the following code legal or not? If not, how might you make it legal?*
@@ -546,6 +575,7 @@ int null = 0, *p = null;
         ```cpp
         int null = 0, *p = &null;
         ```
+## 2.5.2. The auto Type Specifier
 
 ### Exercise 2.33:
 
@@ -583,6 +613,8 @@ const auto j2 = i, &k2 = i;
 - **`p`** - is a pointer `const int*`.
 - **`j2`** - is a `const int`.  
 - **`k2`** - is a reference `const int&`.
+
+## 2.5.3. The decltype Type Specifier
 
 ### Exercise 2.36:
 
@@ -640,6 +672,8 @@ both use the returned type of an arithmetics expression to deduce right type to 
     auto c = i;         // int
     decltype(i) c = i;  // int
     ```
+## 2.6.1. Defining the Sales_data Type
+
 ### [Exercise 2.39:](Exercise_39/Ex39.cpp) 
 
 *Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.*
@@ -675,6 +709,7 @@ struct SalesData {
     double revenue = 0.0;
 };
 ```
+## 2.6.2. Using the Sales_data Class
 
 ### [Exercise 2.41:](Exercise_41)
 
@@ -686,6 +721,7 @@ struct SalesData {
 - [Exercise 1.21](Exercise_41/Ex41_23.cpp)
 - [Exercise 1.24](Exercise_41/Ex41_25.cpp) 
 
+## 2.6.3. Writing Our Own Header Files
 
 ### [Exercise 2.42:](Exercise_42)
 

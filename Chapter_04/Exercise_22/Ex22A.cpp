@@ -8,9 +8,9 @@ int main ()
     std::string finalGrade;
     
     for (auto grade : grades) {
-        finalGrade =  ((grade > 90) ? "high pass" : 
-                      (grade > 75) ) ? "pass" : 
-                      (grade < 60) ? "fail" : "low pass";
+        finalGrade =  grade > 90 ? "high pass" : 
+                      grade > 75  ? "pass" : 
+                      grade < 60 ? "fail" : "low pass";
 
         std::cout << grade << ": " << finalGrade << std::endl;
     }

@@ -8,6 +8,8 @@ GCC 6.0+ or clang 3.3+
 
 `clang++ -std=c++11 app_name.cpp -o target`
 
+## 3.1. Namespace using Declarations
+
 ### [Exercise 3.1:](Exercise_01)
 
 *Rewrite the exercises from § 1.4.1 (p. 13) and § 2.6.2 (p. 76) with appropriate using declarations.*
@@ -21,6 +23,8 @@ GCC 6.0+ or clang 3.3+
 - [Exercise 1.22](Exercise_01/Ex01_21.cpp)
 - [Exercise 1.23](Exercise_01/Ex01_23.cpp)
 - [Exercise 1.25](Exercise_01/Ex01_25.cpp)
+
+## 3.2.2. Operations on strings
 
 ### [Exercise 3.2:](Exercise_02) 
 
@@ -57,6 +61,7 @@ GCC 6.0+ or clang 3.3+
 - [Exercise 3.5A](Exercise_05/Ex05A.cpp)
 - [Exercise 3.5B](Exercise_05/Ex05B.cpp)
 
+## 3.2.3. Dealing with the Characters in a string
 
 ### [Exercise 3.6:](Exercise_06/Ex06.cpp)
 
@@ -112,6 +117,8 @@ for (auto &c : s) { /* ... */ }
 
 - It will be **Illegal** if type `c` perform an any kind of assignment, because it's a reference to a `const char`.
 
+## 3.3.1. Defining and Initializing vectors
+
 ### Exercise 3.12: 
 
 *Which, if any, of the following vector definitions are in error? For those that are legal, explain what the definition does. For those that are not legal, explain why they are illegal.*
@@ -125,10 +132,7 @@ for (auto &c : s) { /* ... */ }
 
 - **(a)** - **Legal**: it instantiates an empty `vector` that can hold a `vector` of the type `int`.
 - **(b)** - **Illegal**: it's illegal, `ivec` is a `int` and a `string vector` cannot be initialized with an `int` value.
-- **(c)** - **legal**: it instantiates an `string vector` with 10 `strings` initialized with `"null"` .
-
-
-
+- **(c)** - **legal**: it instantiates an `string vector` with 10 `strings` initialized with `"null"`.
 
 ### Exercise 3.13: 
 
@@ -154,6 +158,8 @@ for (auto &c : s) { /* ... */ }
 - **(f)** - `v6` is a `vector` that holds 10 empty `string` objects.
 - **(g)** - `v7` is a `vector` with 10 strings initialized each with the `string` literal "hi".
 
+## 3.3.2. Adding Elements to a vector
+
 ### [Exercise 3.14:](Exercise_14/Ex14.cpp)
 
 *Write a program to read a sequence of `ints` from `cin` and store those values in a `vector`.*
@@ -163,7 +169,7 @@ for (auto &c : s) { /* ... */ }
 
 *Repeat the previous program but read `strings` this time.*
 
-
+## 3.3.3. Other vector Operations
 
 ### [Exercise 3.16:](Exercise_16/Ex16.cpp)
 
@@ -240,6 +246,7 @@ for (&v : i) {
 - [Exercise 3.20A:](Exercise_20/Ex20A.cpp)
 - [Exercise 3.20B:](Exercise_20/Ex20B.cpp)
 
+## 3.4.1. Using Iterators
 
 ### [Exercise 3.21:](Exercise_21/Ex21.cpp)
 *Redo the first exercise from § 3.3.3 (p. 105) using iterators.*
@@ -264,6 +271,8 @@ vector v7: sizeof= 10 value= hi hi hi hi hi hi hi hi hi hi
 ### [Exercise 3.23:](Exercise_23/Ex23.cpp)
 
 *Write a program to create a vector with ten int elements. Using an iterator, assign each element a value that is twice its current value. Test your program by printing the vector.*
+
+## 3.4.2. Iterator Arithmetic
 
 ### [Exercise 3.24:](Exercise_24) 
 
@@ -293,6 +302,8 @@ cout << endl;
 **Answer**
 
 - The result of `(beg + end)` will be an index value, we need to sum this up with a valid address to find the address of the iterator as we need, furthermore `Mid` is a iterate type, the result of the arithmetic has to be a valid pointer to this data structure.
+
+## 3.5.1. Defining and Initializing Built-in Arrays
 
 ### Exercise 3.27: 
 
@@ -342,6 +353,8 @@ int main()
 - Arrays are built in types, therefore can not perform operations like `push_back()`, `cbegin()`, `size()` and so on.
 - Working with arrays can be risk, it has not the same protection that other containers made of templates in the Standard Library.
 
+## 3.5.2. Accessing the Elements of an Array
+
 ### Exercise 3.30: 
 
 *Identify the indexing errors in the following code:*
@@ -374,6 +387,8 @@ ia[ix] = ix;
 
 - Inside a scope an `int` type is not initialized, that so, its value is unknown, it can show false answers.
 
+## 3.5.3. Pointers and Arrays
+
 ### Exercise 3.34: 
 
 *Given that p1 and p2 point to elements in the same array, what does the following code do? Are there values of p1 or p2 that make this code illegal?*
@@ -393,6 +408,8 @@ p1 += p2 - p1;
 ### [Exercise 3.36:](Exercise_36/Ex36.cpp) 
 
 *Write a program to compare two arrays for equality. Write a similar program to compare two vectors.*
+
+## 3.5.4. C-Style Character Strings
 
 ### Exercise 3.37:
 
@@ -426,12 +443,16 @@ cout << *cp << endl;
 
 *Write a program to define two character arrays initialized from string literals. Now define a third character array to hold the concatenation of the two arrays. Use `strcpy` and `strcat` to copy the two arrays into the third.*
 
+## 3.5.5. Interfacing to Older Code
+
 ### [Exercise 3.41:](Exercise_41/Ex41.cpp)
 *Write a program to initialize a vector from an array of `ints`.*
 
 ### [Exercise 3.42:](Exercise_42/Ex42.cpp)
 
 *Write a program to copy a vector of `ints` into an array of `ints`.*
+
+## 3.6. Multidimensional Arrays
 
 ### [Exercise 3.43:](Exercise_43/Ex43.cpp)
 

@@ -8,6 +8,7 @@ GCC 6.0+ or clang 3.3+
 
 `clang++ -std=c++11 app_name.cpp -o target`
 
+## 1.1.1. Compiling and Executing Our Program
 
 ### [Exercise 1.1:](Exercise_01/Ex01.cpp)
 
@@ -32,6 +33,8 @@ file.C
 ### [Exercise 1.2:](Exercise_02/Ex02.cpp)
 
 *Change the program to return -1. A return value of -1 is often treated as an indicator that the program failed. Recompile and rerun our program to see how your system treats a failure indicator from main.*
+
+## 1.2. A First Look at Input/Output
 
 ### [Exercise 1.3:](Exercise_03/Ex03.cpp)
 
@@ -71,6 +74,8 @@ file.C
     << " and " << v2
     << " is " << v1 + v2 << std::endl;
 ```
+
+## 1.3. A Word about Comments
 
 ### [Exercise 1.7:](Exercise_07/Ex07.cpp)
 
@@ -137,6 +142,8 @@ std::cout << /* "*/" /* "/*" */ << std::endl;
  /* 
 ```
 
+## 1.4.1. The while Statement
+
 ### [Exercise 1.9:](Exercise_09/Ex09.cpp)
 
 *Write a program that uses a while to sum the numbers from 50 to 100.*
@@ -148,6 +155,8 @@ std::cout << /* "*/" /* "/*" */ << std::endl;
 ### [Exercise 1.11:](Exercise_11/Ex11.cpp)
 
 *Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.*
+
+## 1.4.2. The for Statement
 
 ### [Exercise 1.12:](Exercise_12/Ex12.cpp)
 
@@ -178,9 +187,13 @@ sum += i;
 
 *Write programs that contain the common errors discussed in the box on page 16. Familiarize yourself with the messages the compiler generates.*
 
+## 1.4.3. Reading an Unknown Number of Inputs
+
 ### [Exercise 1.16:](Exercise_16/Ex16.cpp)
 
 *Write your own version of a program that prints the sum of a set of integers read from cin.*
+
+## 1.4.4. The if Statement
 
 ### [Exercise 1.17:](Exercise_17/Ex17.cpp)
 
@@ -200,25 +213,31 @@ sum += i;
 
  *Revise the program you wrote for the exercises in § 1.4.1 (p.13) that printed a range of numbers so that it handles input in which the first number is smaller than the second.*
 
+ ## 1.5.1. The Sales_item Class
+
 ### [Exercise 1.20:](Exercise_20/Ex20.cpp)
 
 *http://www.informit.com/title/032174113 contains a copy of Sales_item.h in the Chapter 1 code directory. Copy that file to your working directory. Use it to write a program that reads a set of book sales transactions, writing each transaction to the standard output.*
 
 ### [Exercise 1.21:](Exercise_21/Ex21.cpp)
 
-*Write a program that reads two Sales_item objects that have the same ISBN and produces their sum.*
+*Write a program that reads two Sales_item objects that have the same `ISBN` and produces their sum.*
 
 ### [Exercise 1.22:](Exercise_22/Ex22.cpp)
 
-*Write a program that reads several transactions for the same ISBN. Write the sum of all the transactions that were read.*
+*Write a program that reads several transactions for the same `ISBN`. Write the sum of all the transactions that were read.*
+
+## 1.5.2. A First Look at Member Functions
 
 ### [Exercise 1.23:](Exercise_23/Ex23.cpp)
 
-*Write a program that reads several transactions and counts how many transactions occur for each ISBN.*
+*Write a program that reads several transactions and counts how many transactions occur for each `ISBN`.*
 
 ### [Exercise 1.24:](Exercise_24/Ex24.cpp)
 
-*Test the previous program by giving multiple transactions representing multiple ISBNs. The records for each ISBN should be grouped together.*
+*Test the previous program by giving multiple transactions representing multiple `ISBNs`. The records for each ISBN should be grouped together.*
+
+## 1.6. The Bookstore Program
 
 ### [Exercise 1.25:](Exercise_25/Ex25.cpp)
 
