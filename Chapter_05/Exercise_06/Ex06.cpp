@@ -14,12 +14,5 @@ int main () {
     std::cout << letterGrade << std::endl;
 
 
-    int ival = 6;
-    if (ival)
-        cout << "ival = " << ival << endl;
-    else
-        cout << "ival = 0\n";
-
-
     return 0;
 }

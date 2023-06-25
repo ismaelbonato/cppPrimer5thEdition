@@ -13,11 +13,10 @@ int main()
         sum += val, ++val; // assigns sum + val to sum
 
     std::cout << "Sum of 1 to 10 inclusive is " << sum << std::endl;
-    std::string::iterator iter;
-    string s{1,2,3,45,5,6,7,8};
+    std::string s{1,2,3,45,5,6,7,8};
 
-while (std::string::iterator iter = s.end()) { /* . . . */ }
-
+    std::string::iterator iter = s.begin();
+    while (iter != s.end()) { /* . . . */ }
     return 0;
 }
 
