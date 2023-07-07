@@ -122,9 +122,15 @@ might be useful.*
 
 *Assuming `T` is the name of a type, explain the difference between a function declared as `void f(T)` and `void f(T&)`.*
 
+**Answer**
+
+- In the first function `void f(T)`, a new object of type `T` will be created in the function's scope and initialized by the argument passed to this function. As a copy of another object, all changes to this new object will be restrict to the local scope and this object will be destroyed within the end of the scope.
+- In the second function `void f(&t)`, a new reference will be created in the function's scope, this reference is bound to the object passed as argument. The life time of this reference begins with the beginning of the function and ends within the function ending, but the object that the reference is bound continue to exist.
+
 ### Exercise 6.14: 
 
 *Give an example of when a parameter should be a reference type. Give an example of when a parameter should not be a reference.*
+
 
 ### Exercise 6.15: 
 
