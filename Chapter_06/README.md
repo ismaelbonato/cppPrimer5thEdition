@@ -131,7 +131,254 @@ might be useful.*
 
 *Give an example of when a parameter should be a reference type. Give an example of when a parameter should not be a reference.*
 
+**Answer**
+
+- Should use reference type to avoid copy:
+    ```cpp
+    int handleString(const std::vector<string> &value);
+    
+    int main () {
+        std::vector<string> list = getWholeList();
+
+        handleString(tmp);
+    } 
+    ```
+
+- The use of reference is not needed:
+    ```cpp
+    int handleValue(int value);
+    
+    int main () {
+        int tmp = getValue();
+
+        handleValue(tmp);
+    } 
+    ```
 
 ### Exercise 6.15: 
 
-*Explain the rationale for the type of each of find_char’s parameters In particular, why is `s` a reference to `const` but occurs is a plain reference? Why are these parameters references, but the char parameter `c` is not? What would happen if we made `s` a plain reference? What if we made occurs a reference to `const`?*
+*Explain the rationale for the type of each of `find_char`’s parameters In particular, why is `s` a reference to `const` but `occurs` is a plain reference? Why are these parameters references, but the char parameter `c` is not? What would happen if we made `s` a plain reference? What if we made `occurs` a reference to `const`?*
+
+```cpp
+// returns the index of the first occurrence of c in s
+// the reference parameter occurs counts how often c occurs
+string::size_type find_char(const string &s, 
+                            char c,
+                            string::size_type &occurs)
+{
+    auto ret = s.size(); // position of the first occurrence, if any
+    occurs = 0; // set the occurrence count parameter
+    for (decltype(ret) i = 0; i != s.size(); ++i) {
+        if (s[i] == c) {
+            if (ret == s.size())
+                ret = i; // remember the first occurrence of c
+            ++occurs; // increment the occurrence count
+        }
+    }
+    return ret; // count is returned implicitly in occurs
+}
+
+```
+
+**Answer**
+
+- Why is `s` a reference to `const` but `occurs` is a plain reference?
+    - Because we don't know the size of `s`, it can be bigger and to avoid create a copy it's better to use a reference, even when we don't want to modify the object that `s` is bound, in this case we use the qualifier `const`.
+    - In order to return more than just one value we need to use pointers or references as parameters to change the original object that it was bound or pointed by. that's why in this case `occurs` is not `const`. 
+
+
+- Why are these parameters references, but the char parameter `c` is not?
+    - `s` is a `const` reference just to avoid memory copy.
+    - `occurs` is an `integer` in order to enable the function to return more than one value.
+    - `c` is a `char's` parameter in order to be able to use a literal char as argument.
+
+- What would happen if we made `s` a plain reference?
+    - The function would be free to change the object value that was bound to `s`.
+
+-  What if we made `occurs` a reference to `const`?
+    - It will raise an compiler error due to the fact the function is trying to change the value of a const object.
+
+
+## 6.2.3. const Parameters and Arguments
+
+### Exercise 6.16: 
+
+*The following function, although legal, is less useful than it might be. Identify and correct the limitation on this function:*
+
+```cpp
+bool is_empty(string& s) { return s.empty(); }
+```
+
+**Answer**
+
+- This function does not intend to change the string's value, so it's better to use the qualifier `const` to be able to use `const string` as argument in this function due to the high level `const`.
+
+### [Exercise 6.17:](Exercise_17/Ex17.cpp) 
+
+*Write a function to determine whether a `string` contains any capital letters. Write a function to change a `string` to all lowercase. Do the parameters you used in these functions have the same type? If so, why?
+If not, why not?*
+
+**Answer**
+
+- they are not exactly the same type, the first one is `const string&` to be able to use `string`, `const string` or a literal `string` as argument. The second is a plain reference to `string`, so it can be used just with `string` as argument.
+
+### Exercise 6.18:
+
+*Write declarations for each of the following functions. When you write these declarations, use the name of the function to indicate what the function does.*
+
+- (a) A function named compare that returns a `bool` and has two parameters that are references to a class named `matrix`.
+- (b) A function named `change_val` that returns a `vector<int> iterator` and takes two parameters: One is an `int` and the other is an iterator for a `vector<int>`.
+
+**Answer**
+
+- First:
+    ```cpp
+    bool compare(const matrix &first, const matrix &second);
+    ```
+- Second
+    ```cpp
+    std::vector<int>::iterator change_val(int value, std::vector<int>::iterator it);
+    ```
+### Exercise 6.19: 
+
+*Given the following declarations, determine which calls are legal and which are illegal. For those that are illegal, explain why.*
+
+```cpp
+double calc(double);
+int count(const string &, char);
+int sum(vector<int>::iterator, vector<int>::iterator, int);
+vector<int> vec(10);
+
+(a) calc(23.4, 55.1);
+(b) count("abcda", 'a');
+(c) calc(66);
+(d) sum(vec.begin(), vec.end(), 3.8);
+```
+
+**Answer**
+
+- **(a)** - Illegal: There are two arguments but this function has only one parameter.
+- **(b)** - Legal.
+- **(c)** - Legal: A conversion will be performed from `int` to `double`.
+- **(d)** - Legal:   
+
+### Exercise 6.20: 
+
+*When should reference parameters be references to const? What happens if we make a parameter a plain reference when it could be a reference to const?*
+
+**Answer**
+
+- A parameter should be a reference to `const` when the function does not change the value of the object in which the reference is bound.
+- Being a reference to `const` the function can receive more type of objects as argument to initialize its parameters, like a plain reference, `const` reference or a literal value.
+- Being a plain reference a function can only get as argument to initialize its parameters a plain reference.
+
+## 6.2.4. Array Parameters
+
+### [Exercise 6.21:](Exercise_21/Ex21.cpp)
+
+*Write a function that takes an `int` and a pointer to an `int` and returns the larger of the `int` value or the value to which the pointer points. What type should you use for the pointer?*
+
+### [Exercise 6.22:](Exercise_22/Ex22.cpp)
+
+*Write a function to swap two `int` pointers.*
+
+**Answer**
+
+- Function using Pointer to pointer:
+    ```cpp
+    void swapperByPointerToPointer(const int **x, const int **y)
+    {
+        const int *tmp = *x;
+
+        *x = *y;
+        *y = tmp;
+    }
+    ```
+
+- Function using reference to a pointer:
+    ```cpp
+    void swapperByRef(const int* &x, const int* &y ) 
+    {
+        const int *tmp = x;
+
+        x = y;
+        y = tmp;
+
+    }
+    ```
+
+### [Exercise 6.23:](Exercise_23/Ex23.cpp)
+
+Write your own versions of each of the print functions presented in this section. Call each of these functions to print `i` and `j` defined as follows:
+
+```cpp
+int i = 0, j[2] = {0, 1};
+```
+
+### Exercise 6.24: 
+
+*Explain the behavior of the following function. If there are problems in the code, explain what they are and how you might fix them.*
+
+```cpp
+void print(const int ia[10])
+{
+    for (size_t i = 0; i != 10; ++i)
+    cout << ia[i] << endl;
+}
+```
+
+**Answer**
+
+- The purpose of this function is to iterate through the array and print each value.
+- Arrays cannot be passed by value, it will be converted in a pointer to the first element, in this case `const int ia[10]` will be converted int `const int*` and data type will be lost in the process, the `Subscript` operator will be discarded. This is not an error but can be misleading.
+- The right way to implement this kind of function behavior is using references.
+
+```cpp
+void print(const int (&ia)[10])
+{
+    for (size_t i = 0; i != (sizeof(ia)/sizeof(ia[0])); ++i)
+    std::cout << ia[i] << std::endl;
+}
+```
+
+## 6.2.5. main: Handling Command-Line Options
+
+### [Exercise 6.25:](Exercise_25/Ex25.cpp) 
+
+*Write a main function that takes two arguments. Concatenate the supplied arguments and print the resulting string.*
+
+### [Exercise 6.26:](Exercise_26/Ex26.cpp) 
+
+*Write a program that accepts the options presented in this section. Print the values of the arguments passed to main.*
+
+## 6.2.6. Functions with Varying Parameters
+
+### [Exercise 6.27:](Exercise_27/Ex27.cpp) 
+
+*Write a function that takes an `initializer_list<int>` and produces the sum of the elements in the list.*
+
+### Exercise 6.28: 
+
+*In the second version of error_msg that has an ErrCode parameter, what is the type of elem in the for loop?*
+
+```cpp
+void error_msg(ErrCode e, initializer_list<string> il)
+{
+    cout << e.msg() << ": ";
+    for (const auto &elem : il)
+        cout << elem << " " ;
+    cout << endl;
+}
+```
+
+**Answer**
+
+- `Elem` is a reference to a `const string`: `const string&`.
+
+### Exercise 6.29: 
+
+When you use an initializer_list in a range for would you ever use a reference as the loop control variable? If so, why? If not, why not?*
+
+**Answer**
+
+- It is not an obligation to use a reference as a loop control, but it is a good practice to use references to avoid a memory copying due the fact that we don't know either the size of the `initializer_list` or the size of each object. 
