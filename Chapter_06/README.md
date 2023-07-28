@@ -382,3 +382,83 @@ When you use an initializer_list in a range for would you ever use a reference a
 **Answer**
 
 - It is not an obligation to use a reference as a loop control, but it is a good practice to use references to avoid a memory copying due the fact that we don't know either the size of the `initializer_list` or the size of each object. 
+
+## 6.3.2. Functions That Return a Value
+
+### [Exercise 6.30:](Exercise_30/Ex30.cpp) 
+
+*Compile the version of `str_subrange` as presented on page 223 to see what your compiler does with the indicated errors.*
+
+**Output**
+
+- With error #1.
+    ```cpp
+    Ex30.cpp: In function ‘bool str_subrange(const string&, const string&)’:
+    Ex30.cpp:16:13: error: return-statement with no value, in function returning ‘bool’ [-fpermissive]
+    16 |             return; // error #1: no return value; compiler should detect this error
+       |             ^~~~~~
+    ```
+
+- With error #1 fixed `return false`.
+
+    ```cpp
+    Ex30.cpp: In function ‘bool str_subrange(const string&, const string&)’:
+    Ex30.cpp:21:1: warning: control reaches end of non-void function [-Wreturn-type]
+    21 | }
+       | ^
+    ```
+
+### Exercise 6.31: 
+
+*When is it valid to return a reference? A reference to const?*
+
+**Answer**
+
+- It is valid to return a reference when the object in witch the reference is bound is not a local temporary object, it means the this is a pre-existing object before the function call
+
+
+### [Exercise 6.32:](Exercise_32/Ex32.cpp)
+
+*Indicate whether the following function is legal. If so, explain what it does; if not, correct any errors and then explain it.*
+
+```cpp
+int &get(int *arry, int index) { return arry[index]; }
+
+int main() 
+{
+    int ia[10];
+    for (int i = 0; i != 10; ++i) {
+        get(ia, i) = i;
+    }
+}
+```
+**Answer**
+
+- This function is legal, it returns a reference to an int `int &` and reference to an `int` is a L and R value, then its return can be assigned with another `int` object.
+
+### [Exercise 6.33:](Exercise_33/Ex33.cpp) 
+
+*Write a recursive function to print the contents of a vector.*
+
+### Exercise 6.34: 
+
+*What would happen if the stopping condition in factorial were
+```cpp
+if (val != 0)
+```
+
+**Answer**
+
+- The result will be same although it will call the function one more time so that it will take more time to perform the same result as before.
+- Using `if (val != 0)` it will create a problem when you use a negative number as argument in this function, it will create an infinite loop, until an exception will be raised.
+
+
+### Exercise 6.35: 
+
+*In the call to fact, why did we pass `val - 1` rather than `val--`?*
+
+**Answer**
+
+- It is forbidden to change an object if there is another reference to this object in the same expression.
+- There is no guarantee witch side of the expression will be evaluated first, so if we change one of the `val` the behavior is undefined.
+

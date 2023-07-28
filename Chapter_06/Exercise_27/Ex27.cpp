@@ -1,9 +1,9 @@
 #include <iostream>
 #include <initializer_list>
 
-const long sumOfElements(std::initializer_list<const int> pNumbers)
+const long sumOfElements(const std::initializer_list<const int> &pNumbers)
 {
-    int sum = 0;
+    long sum = 0;
     for (const auto &pNumber: pNumbers) {
         sum += pNumber;
     }
@@ -23,5 +23,3 @@ int main()
 
     return 0;
 }
-
-
