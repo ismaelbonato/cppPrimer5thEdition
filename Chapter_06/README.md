@@ -462,3 +462,39 @@ if (val != 0)
 - It is forbidden to change an object if there is another reference to this object in the same expression.
 - There is no guarantee witch side of the expression will be evaluated first, so if we change one of the `val` the behavior is undefined.
 
+## 6.3.3. Returning a Pointer to an Array
+
+### [Exercise 6.36:](Exercise_36/Ex36.cpp) 
+
+*Write the declaration for a function that returns a reference to an array of ten strings, without using either a trailing return, decltype, or a type alias.*
+
+### [Exercise 6.37:](Exercise_37/Ex37.cpp) 
+
+*Write three additional declarations for the function in the previous exercise. One should use a type alias, one should use a trailing return, and the third should use decltype. Which form do you prefer and why?*
+
+### [Exercise 6.38:](Exercise_38/Ex38.cpp) 
+
+*Revise the arrPtr function on to return a reference to the array.*
+
+## 6.4. Overloaded Functions
+
+### Exercise 6.39: 
+
+*Explain the effect of the second declaration in each one of the following sets of declarations. Indicate which, if any, are illegal.*
+
+```cpp
+(a) int calc(int, int);
+    int calc(const int, const int);
+
+(b) int get();
+    double get();
+
+(c) int *reset(int *);
+    double *reset(double *);
+```
+
+**Answer**
+
+- **(a)** - It is legal: the second function is has `const int` as arguments. 
+- **(b)** - It is illegal: It is an error when both function only differ by the return type.
+- **(c)** - It is legall: Both functions have different types of arguments.
