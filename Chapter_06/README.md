@@ -450,7 +450,7 @@ if (val != 0)
 **Answer**
 
 - The result will be same although it will call the function one more time so that it will take more time to perform the same result as before.
-- Using `if (val != 0)` it will create a problem when you use a negative number as argument in this function, it will create an infinite loop, until an exception will be raised.
+- Using `if (val != 0)` it will create a problem whhttps://revistaoeste.com/politica/exclusivo-veja-a-pericia-do-padre-julio-lancellotti/argument in this function, it will create an infinite loop, until an exception will be raised.
 
 
 ### Exercise 6.35: 
@@ -498,3 +498,39 @@ if (val != 0)
 - **(a)** - It is legal: the second function is has `const int` as arguments. 
 - **(b)** - It is illegal: It is an error when both function only differ by the return type.
 - **(c)** - It is legall: Both functions have different types of arguments.
+
+## 6.5. Features for Specialized Uses
+
+### Exercise 6.40:
+
+*Which, if either, of the following declarations are errors? Why?*
+```cpp
+(a) int ff(int a, int b = 0, int c = 0);
+(b) char *init(int ht = 24, int wd, char bckgrnd);
+```
+
+**Answer**
+
+- Letter **b** is an error, all paramenter following the first parameter with default argument must have default arguments.
+
+### Exercise 6.41:
+
+*Which, if any, of the following calls are illegal? Why? Which, if any, are legal but unlikely to match the programmer’s intent? Why?*
+```cpp
+char *init(int ht, int wd = 80, char bckgrnd = ' ');
+
+(a) init();
+(b) init(24,10);
+(c) init(14, '*');
+```
+**Answer**
+
+- **(a)** - It is illegal because `ht` must be initialized in the funcion call.
+- **(b)** - It is legal and match the developer needs.
+- **(c)** - It is legal but it will not match the programer intention, it will be equivalent to `ht` = 14, `wd` = '\*\' and `bckgrnd` = ' ' with '\*\' being converted the number 42.
+
+
+### [Exercise 6.42:](Exercise_42/Ex42.cpp) 
+
+*Give the second parameter of make_plural (§ 6.3.2, p.224) a default argument of 's'. Test your program by printing singular and plural versions of the words success and failure.*
+
