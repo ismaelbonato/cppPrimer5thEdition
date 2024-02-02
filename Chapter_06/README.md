@@ -414,8 +414,7 @@ When you use an initializer_list in a range for would you ever use a reference a
 
 **Answer**
 
-- It is valid to return a reference when the object in witch the reference is bound is not a local temporary object, it means the this is a pre-existing object before the function call
-
+- It is valid to return a reference when the object in witch the reference is bound is not a local temporary object, it means there is a pre-existing object before the function call
 
 ### [Exercise 6.32:](Exercise_32/Ex32.cpp)
 
@@ -442,7 +441,7 @@ int main()
 
 ### Exercise 6.34: 
 
-*What would happen if the stopping condition in factorial were
+*What would happen if the stopping condition in factorial were*
 ```cpp
 if (val != 0)
 ```
@@ -474,7 +473,7 @@ if (val != 0)
 
 ### [Exercise 6.38:](Exercise_38/Ex38.cpp) 
 
-*Revise the arrPtr function on to return a reference to the array.*
+*Revise the `arrPtr` function on to return a reference to the array.*
 
 ## 6.4. Overloaded Functions
 
@@ -495,7 +494,7 @@ if (val != 0)
 
 **Answer**
 
-- **(a)** - It is legal: the second function is has `const int` as arguments. 
+- **(a)** - It is legal: the second function has `const int` as arguments. 
 - **(b)** - It is illegal: It is an error when both function only differ by the return type.
 - **(c)** - It is legall: Both functions have different types of arguments.
 
