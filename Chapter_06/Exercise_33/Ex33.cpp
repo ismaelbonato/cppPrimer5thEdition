@@ -3,7 +3,7 @@
 
 // in order to pass vec by value you need to pass an index due the fact
 // vec is a copy and vec.end() will return end of the copy address 
-void recVectorPrinter(const std::vector<int> vec, std::vector<int>::size_type idx)
+void recVectorPrinter(const std::vector<int> vec, const std::vector<int>::size_type idx)
 {
     if (idx < vec.size()) {
         std::cout << "value: " << vec[idx] << std::endl;
@@ -11,7 +11,7 @@ void recVectorPrinter(const std::vector<int> vec, std::vector<int>::size_type id
     }
 }
 
-void recVectorPrinter(const std::vector<int> &vec, std::vector<int>::iterator it)
+void recVectorPrinter(const std::vector<int> &vec, const std::vector<int>::iterator it)
 {
     if (it != vec.end()) {
         std::cout << "value: " << *it << std::endl;
@@ -19,7 +19,7 @@ void recVectorPrinter(const std::vector<int> &vec, std::vector<int>::iterator it
     }
 }
 
-void recItVectorPrinter(std::vector<int>::iterator begin, const std::vector<int>::iterator end)
+void recItVectorPrinter(const std::vector<int>::iterator begin, const std::vector<int>::iterator end)
 {
     if (begin != end) {
         std::cout << "value: " << *begin << std::endl;

@@ -13,8 +13,8 @@ int main ()
 {   
     std::cout << "Singular: " << make_plural(1, "success", "es") << std::endl;
     std::cout << "Plural: "  << make_plural(2, "success", "es") << std::endl;
-    std::cout << "Singular: " <<  make_plural(1, "failure", "s") << std::endl;
-    std::cout << "Plural: "  << make_plural(2, "failure", "s") << std::endl;
+    std::cout << "Singular: " <<  make_plural(1, "failure") << std::endl;
+    std::cout << "Plural: "  << make_plural(2, "failure") << std::endl;
 
     return 0;
 }

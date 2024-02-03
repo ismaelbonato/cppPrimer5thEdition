@@ -496,9 +496,9 @@ if (val != 0)
 
 - **(a)** - It is legal: the second function has `const int` as arguments. 
 - **(b)** - It is illegal: It is an error when both function only differ by the return type.
-- **(c)** - It is legall: Both functions have different types of arguments.
+- **(c)** - It is legal: Both functions have different types of arguments.
 
-## 6.5. Features for Specialized Uses
+## 6.5.1. Default Arguments
 
 ### Exercise 6.40:
 
@@ -510,7 +510,7 @@ if (val != 0)
 
 **Answer**
 
-- Letter **b** is an error, all paramenter following the first parameter with default argument must have default arguments.
+- Letter **b** is an error, all parameter following the first parameter with default argument must have default arguments.
 
 ### Exercise 6.41:
 
@@ -533,3 +533,83 @@ char *init(int ht, int wd = 80, char bckgrnd = ' ');
 
 *Give the second parameter of make_plural (§ 6.3.2, p.224) a default argument of 's'. Test your program by printing singular and plural versions of the words success and failure.*
 
+## 6.5.2. Inline and constexpr Functions
+
+### Exercise 6.43:
+
+*Which one of the following declarations and definitions would you put in a header? In a source file? Explain why.*
+
+```cpp
+(a) inline bool eq(const BigInt&, const BigInt&) {...}
+(b) void putValues(int *arr, int size);
+```
+
+**Answer**
+
+- **(a)** - `Inline` functions can be defined multiple times in different source files, but, its declaration and definition must must match exactly. To avoid compilation errors it's advisable to define and declare `inline` functions in header files.
+
+- **(b)** - Normal functions are advisable to define in the source files and declare on header files.
+
+### [Exercise 6.44:](Exercise_44/Ex44.cpp) 
+
+*Rewrite the isShorter function from § 6.2.2 (p. 211) to be inline.*
+
+### Exercise 6.45: 
+
+*Review the programs you’ve written for the earlier exercises and decide whether they should be defined as inline. If so, do so. If not, explain why they should not be inline.*
+
+**Answer**
+
+- The function `isShorter` can be used as an `inline`, but there is no advantage in this case. Usually `inline` functions are used when they are recurrent and the execution of its content take not much more time then the calling process, It is called an function calling overhead.
+
+### [Exercise 6.46:](Exercise_46/Ex46.cpp) 
+
+*Would it be possible to define `isShorter` as a `constexpr`? If so, do so. If not, explain why not.*
+
+**Answer**
+- It is not possible to define `isShorter` as a `constexpr`, `std::string` is not a literal type, only a `char` is an `literal` type and it does not implement de method `size()`.
+
+**Output**
+
+```cpp
+Ex46.cpp: In function ‘constexpr bool isShorter(const string&, const string&)’:
+Ex46.cpp:7:19: error: call to non-‘constexpr’ function ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size() const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+    7 |     return s1.size() < s2.size();
+      |            ~~~~~~~^~
+In file included from /usr/include/c++/11/string:55,
+                 from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/ios:42,
+                 from /usr/include/c++/11/ostream:38,
+                 from /usr/include/c++/11/iostream:39,
+                 from Ex46.cpp:1:
+/usr/include/c++/11/bits/basic_string.h:920:7: note: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size() const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’ declared here
+  920 |       size() const _GLIBCXX_NOEXCEPT
+      |       ^~~~
+```
+
+## 6.5.3. Aids for Debugging
+
+### [Exercise 6.47:](Exercise_47/Ex47.cpp)
+
+*Revise the program you wrote in the exercises in § 6.3.2 (p. 228) that used recursion to print the contents of a vector to conditionally print information about its execution. For example, you might print the size of the `vector` on each call. Compile and run the program with debugging turned on and again with it turned off.*
+
+### Exercise 6.48: 
+
+*Explain what this loop does and whether it is a good use of `assert`:*
+
+```cpp
+string s;
+while (cin >> s && s != sought) { } // empty body
+assert(cin);
+```
+
+**Answer**
+- This loop does look for a word `sought` from `std::cin`, once the word was found, it will terminate the `while` loop and the `std::cin` in the `assert` will return the integer literal 0, therefore the program will be terminated. 
+- It is not a good use of `assert` because it was create only to debug the program and not to be used as internal logic.
+- The best way of doing this logic is:
+    ```cpp
+    string s;
+    while (cin >> s && s != sought) { } // empty body
+    std::exit(EXIT_SUCCESS);
+    ```
