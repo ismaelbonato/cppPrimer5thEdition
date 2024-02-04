@@ -533,7 +533,6 @@ char *init(int ht, int wd = 80, char bckgrnd = ' ');
 
 *Give the second parameter of make_plural (§ 6.3.2, p.224) a default argument of 's'. Test your program by printing singular and plural versions of the words success and failure.*
 
-<<<<<<< Updated upstream
 ## 6.5.2. Inline and constexpr Functions
 
 ### Exercise 6.43:
@@ -614,7 +613,7 @@ assert(cin);
     while (cin >> s && s != sought) { } // empty body
     std::exit(EXIT_SUCCESS);
     ```
-=======
+
 ## 6.6. Function Matching
 
 ### Exercise 6.49: 
@@ -718,4 +717,3 @@ std::vector<decltype(func) *> pVec;
 ### [Exercise 6.56:](Exercise_56/Ex56.cpp)
 
 *Call each element in the vector and print their result.*
->>>>>>> Stashed changes
