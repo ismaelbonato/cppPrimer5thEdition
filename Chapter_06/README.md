@@ -533,6 +533,7 @@ char *init(int ht, int wd = 80, char bckgrnd = ' ');
 
 *Give the second parameter of make_plural (§ 6.3.2, p.224) a default argument of 's'. Test your program by printing singular and plural versions of the words success and failure.*
 
+<<<<<<< Updated upstream
 ## 6.5.2. Inline and constexpr Functions
 
 ### Exercise 6.43:
@@ -613,3 +614,108 @@ assert(cin);
     while (cin >> s && s != sought) { } // empty body
     std::exit(EXIT_SUCCESS);
     ```
+=======
+## 6.6. Function Matching
+
+### Exercise 6.49: 
+
+*What is a candidate function? What is a viable function?*
+
+**Answer**
+
+- A function called candidate is a function that has the same name and its declaration are visible in the scope of the call.
+
+### Exercise 6.50: 
+
+*Given the declarations for `f` from page 242, list the viable functions, if any for each of the following calls. Indicate which function is the best match, or if the call is illegal whether there is no match or why the call is ambiguous.*
+
+```cpp
+(a) f(2.56, 42)
+(b) f(42)
+(c) f(42, 0)
+(d) f(2.56, 3.14)
+```
+**Answer**
+
+- **(a)** - It is illegal, this function call is ambiguous, there are two possible matches `void f(double, double = 3.14)` and `void f(int, int)`.
+- **(b)** - The best match for this function is `void f(int)`.
+- **(c)** - The best match for this function is `void f(int, int)`.
+- **(d)** - The best match for this function is `void f(double, double = 3.14)`.
+
+
+## [Exercise 6.51:](Exercise_51/Ex51.cpp) 
+
+*Write all four versions of f. Each function should print a distinguishing message. Check your answers for the previous exercise. If your answers were incorrect, study this section until you understand why your answers were wrong.*
+
+
+## 6.6.1. Argument Type Conversions
+
+### Exercise 6.52: 
+
+*Given the following declarations,*
+```cpp
+void manip(int, int);
+double dobj;
+```
+w*hat is the rank (§ 6.6.1, p. 245) of each conversion in the following calls?*
+```cpp
+(a) manip('a', 'z');
+(b) manip(55.4, dobj);
+```
+
+**Answer**
+
+- **(a)** - 3: Match through a promotion.
+- **(b)** - 4: Match through an arithmetic.
+
+### Exercise 6.53: 
+
+*Explain the effect of the second declaration in each one of the following sets of declarations. Indicate which, if any, are illegal.*
+
+```cpp
+(a) int calc(int&, int&);
+int calc(const int&, const int&);
+
+(b) int calc(char*, char*);
+int calc(const char*, const char*);
+
+(c) int calc(char*, char*);
+int calc(char* const, char* const);
+```
+
+**Answer**
+
+- **(a)** - It is legal, a reference to `char` is a perfect match with the first declaration, it does not need a const conversion. A reference to a `const char` cannot be converted to char, hence the second declarion will be used by the compiler.
+- **(b)** - It is legal, a pointer to `char` is a perfect match with the first declaration, it does not need a const conversion. A pointer to a `const char` cannot be converted to char, hence the second declarion will be used by the compiler.
+- **(c)** - It is illegal, a pointer to a `char` and const pointer to a `char` are the same thing (high level const). It is not a function overload, it is a redefinition.
+    ```cpp
+    Ex51.cpp:21:5: error: redefinition of ‘int calc(char*, char*)’
+    21 | int calc(char* const, char* const)
+          |     ^~~~
+    Ex51.cpp:17:5: note: ‘int calc(char*, char*)’ previously defined here
+    17 | int calc(char*, char*)
+          |     ^~~~
+    ```
+
+## 6.7. Pointers to Functions
+
+### [Exercise 6.54:](Exercise_54/Ex54.cpp) 
+
+*Write a declaration for a function that takes two int parameters and returns an int, and declare a vector whose elements have this function pointer type.*
+
+**Answer**
+
+```cpp
+typedef int func(int, int);
+std::vector<decltype(func) *> pVec;
+```
+
+### [Exercise 6.55:](Exercise_55/Ex55.cpp)
+
+*Write four functions that add, subtract, multiply, and divide two int values. Store pointers to these functions in your vector from the previous exercise.*
+
+
+### [Exercise 6.56:](Exercise_56/Ex56.cpp)
+
+*Call each element in the vector and print their result.*
+>>>>>>> Stashed changes
