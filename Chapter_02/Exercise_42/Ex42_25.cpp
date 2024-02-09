@@ -1,39 +1,51 @@
 #include "SalesData.h"
 #include <iostream>
 
+//-------------- Exercise 25 -------------------
 int main()
 {
-    SalesData itemDataCur, itemDataNext;
-    int count = 0;
-
-    // Ex41_25.out < input_23_24_25
-    //-------------- Exercise 23 -------------------
     SalesData total; // variable to hold data for the next transaction
     // read the first transaction and ensure that there are data to process
-    if (std::cin >> total.bookNo >> total.unitsSold >> total.revenue) {
+    if (std::cin >> total.bookNo 
+        >> total.units_sold 
+        >> total.price)
+    {
+        total.revenue = total.price * total.units_sold;
         SalesData trans; // variable to hold the running sum
         // read and process the remaining transactions
-        while (std::cin >> trans.bookNo >> trans.unitsSold >> trans.revenue) {
+        while (std::cin >> trans.bookNo 
+            >> trans.units_sold
+            >> trans.price)
+        {
+            trans.revenue = trans.price * trans.units_sold;
             // if we're still processing the same book
-            if (total.bookNo == trans.bookNo) {
+            if (total.bookNo == trans.bookNo)
+            {
                 // update the running total
-                total.bookNo = trans.bookNo;
-                total.unitsSold += trans.unitsSold;
+                total.units_sold += trans.units_sold;
                 total.revenue += trans.revenue;
             } else {
-                // print results for the previous book
-                std::cout << total.bookNo << " " << total.unitsSold << " "
-                          << total.revenue << std::endl;
-
+                // print results for the previous book        
+                std::cout << total.bookNo 
+                    << " " << total.units_sold
+                    << " " << total.revenue
+                    << " " << (total.revenue / total.units_sold)
+                    << std::endl;
+                
                 // total now refers to the next book
                 total.bookNo = trans.bookNo;
-                total.unitsSold = trans.unitsSold;
+                total.units_sold = trans.units_sold;
+                total.price = trans.price;
                 total.revenue = trans.revenue;
+                //total.revenue = trans.revenue;
             }
         }
-        // print the last transaction
-        std::cout << total.bookNo << " " << total.unitsSold << " " << total.revenue
-                  << std::endl;
+            // print the last transaction
+                std::cout << total.bookNo 
+                    << " " << total.units_sold
+                    << " " << total.revenue
+                    << " " << (total.revenue)
+                    << std::endl;
     } else {
         // no input! warn the user
         std::cerr << "No data?!" << std::endl;

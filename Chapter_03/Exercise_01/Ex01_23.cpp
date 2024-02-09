@@ -20,23 +20,24 @@ int main()
     SalesData itemDataCur, itemDataNext;
     int count = 0;
 
+    // Ex41_23.out < input_23_24_25
+    //-------------- Exercise 23 -------------------
     if(cin >> itemDataCur.bookNo 
         >> itemDataCur.units_sold 
-        >> itemDataCur.revenue) 
+        >> itemDataCur.price) 
     {
+        itemDataCur.revenue = itemDataCur.price * itemDataCur.units_sold;
         count = 1;
         
         while (cin >> itemDataNext.bookNo 
             >> itemDataNext.units_sold 
-            >> itemDataNext.revenue)
+            >> itemDataNext.price)
         {
-             if(itemDataCur.bookNo == itemDataNext.bookNo) {
+            if(itemDataCur.bookNo == itemDataNext.bookNo) {
                 count++;
             } else {
                         
                 cout << itemDataCur.bookNo 
-                    << " " << itemDataCur.units_sold 
-                    << " " << itemDataCur.revenue
                     << " " << count  << " times" <<endl;
 
                 itemDataCur.bookNo = itemDataNext.bookNo;
@@ -48,12 +49,10 @@ int main()
         }        
 
         cout << itemDataCur.bookNo 
-            << " " << itemDataCur.units_sold 
-            << " " << itemDataCur.revenue
             << " " << count  << " times" <<endl;
         
     }
-
+    //------------------- End ----------------------
 
     return 0;
 }

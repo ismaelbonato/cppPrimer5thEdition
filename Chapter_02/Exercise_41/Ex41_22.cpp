@@ -7,6 +7,7 @@ struct SalesData {
     double price = 0.0;
     double discount = 0.0; //in %
     double revenue = 0.0;
+    double avgPrice = 0.0;
 };
 
 int main()
@@ -17,8 +18,9 @@ int main()
     //-------------- Exercise 22 -------------------
     while (std::cin >> itemData1.bookNo 
         >> itemData1.units_sold 
-        >> itemData1.revenue)
+        >> itemData1.price)
     {
+        itemData1.revenue = itemData1.price * itemData1.units_sold;
         itemDataSum.units_sold += itemData1.units_sold;
         itemDataSum.revenue += itemData1.revenue;
     }

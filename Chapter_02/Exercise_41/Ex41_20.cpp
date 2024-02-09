@@ -16,11 +16,11 @@ int main()
     //-------------- Exercise 20 -------------------
     while (std::cin >> itemData1.bookNo 
         >> itemData1.units_sold 
-        >> itemData1.revenue)
+        >> itemData1.price)
     {
         std::cout << itemData1.bookNo 
             << " " << itemData1.units_sold 
-            << " " << itemData1.revenue
+            << " " << itemData1.price
             << std::endl;  
     }
     //------------------- End ----------------------

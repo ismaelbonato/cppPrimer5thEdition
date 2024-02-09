@@ -21,8 +21,9 @@ int main()
 
     while (cin >> itemData1.bookNo 
         >> itemData1.units_sold 
-        >> itemData1.revenue)
+        >> itemData1.price)
     {
+        itemData1.revenue = itemData1.price * itemData1.units_sold;
         itemDataSum.units_sold += itemData1.units_sold;
         itemDataSum.revenue += itemData1.revenue;
     }
@@ -33,6 +34,9 @@ int main()
                 << " " << itemDataSum.units_sold 
                 << " " << itemDataSum.revenue
                 << endl;
+    
+    
+    //------------------- End ----------------------
 
     return 0;
 }

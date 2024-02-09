@@ -1,15 +1,15 @@
-#ifndef SalesData_H
-#define SalesData_H
+#ifndef SALESDATA_H
+#define SALESDATA_H
+
 #include <string>
 
 struct SalesData {
     std::string bookNo;
-    std::string name;
+    std::string bookName;
     unsigned units_sold = 0;
     double price = 0.0;
     double discount = 0.0; //in %
     double revenue = 0.0;
-    double avgPrice = 0.0;
 };
 
-#endif
+#endif // SALESDATA_H

@@ -4,15 +4,15 @@
 int main()
 {
     SalesData itemData1;
-    // Ex42_20.out < input_20_21_22
+    // Ex41_20.out < input_20_21_22
     //-------------- Exercise 20 -------------------
     while (std::cin >> itemData1.bookNo 
-        >> itemData1.unitsSold 
-        >> itemData1.revenue)
+        >> itemData1.units_sold 
+        >> itemData1.price)
     {
         std::cout << itemData1.bookNo 
-            << " " << itemData1.unitsSold 
-            << " " << itemData1.revenue
+            << " " << itemData1.units_sold 
+            << " " << itemData1.price
             << std::endl;  
     }
     //------------------- End ----------------------

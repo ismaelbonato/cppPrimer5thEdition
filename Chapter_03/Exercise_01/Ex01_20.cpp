@@ -18,16 +18,18 @@ using std::endl;
 int main()
 {
     SalesData itemData1;
-
+    // Ex41_20.out < input_20_21_22
+    //-------------- Exercise 20 -------------------
     while (cin >> itemData1.bookNo 
         >> itemData1.units_sold 
-        >> itemData1.revenue)
+        >> itemData1.price)
     {
         cout << itemData1.bookNo 
             << " " << itemData1.units_sold 
-            << " " << itemData1.revenue
+            << " " << itemData1.price
             << endl;  
     }
+    //------------------- End ----------------------
 
     return 0;
    

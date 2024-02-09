@@ -18,21 +18,20 @@ int main()
     //-------------- Exercise 23 -------------------
     if(std::cin >> itemDataCur.bookNo 
         >> itemDataCur.units_sold 
-        >> itemDataCur.revenue) 
+        >> itemDataCur.price) 
     {
+        itemDataCur.revenue = itemDataCur.price * itemDataCur.units_sold;
         count = 1;
         
         while (std::cin >> itemDataNext.bookNo 
             >> itemDataNext.units_sold 
-            >> itemDataNext.revenue)
+            >> itemDataNext.price)
         {
-             if(itemDataCur.bookNo == itemDataNext.bookNo) {
+            if(itemDataCur.bookNo == itemDataNext.bookNo) {
                 count++;
             } else {
                         
                 std::cout << itemDataCur.bookNo 
-                    << " " << itemDataCur.units_sold 
-                    << " " << itemDataCur.revenue
                     << " " << count  << " times" <<std::endl;
 
                 itemDataCur.bookNo = itemDataNext.bookNo;
@@ -44,8 +43,6 @@ int main()
         }        
 
         std::cout << itemDataCur.bookNo 
-            << " " << itemDataCur.units_sold 
-            << " " << itemDataCur.revenue
             << " " << count  << " times" <<std::endl;
         
     }
