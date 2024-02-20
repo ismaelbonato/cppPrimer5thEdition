@@ -76,7 +76,7 @@ if (read(read(cin, data1), data2))
 
 ### [Exercise 7.12:](Exercise_12/Ex12.cpp)
 
-Move the definition of the Sales_data constructor that takes an `istream` into the body of the Sales_data class.*
+*Move the definition of the Sales_data constructor that takes an `istream` into the body of the Sales_data class.*
 
 ### [Exercise 7.13:](Exercise_13/Ex13.cpp)
 
@@ -89,3 +89,53 @@ Move the definition of the Sales_data constructor that takes an `istream` into t
 ### [Exercise 7.15:](Exercise_15/Ex015.cpp) 
 
 *Add appropriate constructors to your Person class.*
+
+## 7.2. Access Control and Encapsulation
+
+### Exercise 7.16: 
+
+*What, if any, are the constraints on where and how often an access specifier may appear inside a class definition? What kinds of members should be defined after a public specifier? What kinds should be private?*
+
+**Answer**
+
+- There is no constraints of where and how much an access specifier can appear.
+- Usually public members of a class are get's and set's or any other function that not change the behavior of the object.
+- In general private members of a class are objects and functions that can change the internal behavior of the object.
+
+### Exercise 7.17: 
+
+*What, if any, are the differences between using class or struct?*
+
+**Answer**
+
+- Both keywords are almost the same, the only difference being in access level, all members of a struct are public by default and in a class all members are private by default.
+
+### Exercise 7.18: 
+
+*What is encapsulation? Why is it useful?*
+
+**Answer**
+
+- Encapsulation is when we hide infomation about the behavior of the class from outside of the class, we can hide members and methods using the Access Control keyword private. 
+- It is used to protect members of the class from changes outside of the scope of the class, changing the objects can lead to errors in the internal behavior of the object.
+
+### Exercise 7.19: 
+
+*Indicate which members of your Person class you would declare as public and which you would declare as private. explain your choice.*
+
+**Answer**
+
+```cpp
+struct Person {
+    std::string name;
+    std::string address;
+
+    Person(std::istream &in) { read(in, *this); };
+
+    const std::string getName() const { return name; };
+    const std::string getAddress() const { return address; };
+};
+```
+
+- `Private:` - the objects `name` and `address` will be private in order to protect the data, data cannot be exposed outside of the scope of the function.
+- `Public:` - the methods `getName()` and `getAddress()` will be public, as they are get and set, they are part of the interface.
