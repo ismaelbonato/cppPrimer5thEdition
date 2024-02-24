@@ -86,7 +86,7 @@ if (read(read(cin, data1), data2))
 
 *Write a version of the default constructor that explicitly initializes the members to the values we have provided as `in-class initializers`.*
 
-### [Exercise 7.15:](Exercise_15/Ex015.cpp) 
+### [Exercise 7.15:](Exercise_15/Ex15.cpp) 
 
 *Add appropriate constructors to your Person class.*
 
@@ -116,7 +116,7 @@ if (read(read(cin, data1), data2))
 
 **Answer**
 
-- Encapsulation is when we hide infomation about the behavior of the class from outside of the class, we can hide members and methods using the Access Control keyword private. 
+- Encapsulation is when we hide information about the behavior of the class from outside of the class, we can hide members and methods using the Access Control keyword private. 
 - It is used to protect members of the class from changes outside of the scope of the class, changing the objects can lead to errors in the internal behavior of the object.
 
 ### Exercise 7.19: 
@@ -127,11 +127,12 @@ if (read(read(cin, data1), data2))
 
 ```cpp
 struct Person {
+private:
     std::string name;
     std::string address;
 
     Person(std::istream &in) { read(in, *this); };
-
+public:
     const std::string getName() const { return name; };
     const std::string getAddress() const { return address; };
 };
@@ -139,3 +140,71 @@ struct Person {
 
 - `Private:` - the objects `name` and `address` will be private in order to protect the data, data cannot be exposed outside of the scope of the function.
 - `Public:` - the methods `getName()` and `getAddress()` will be public, as they are get and set, they are part of the interface.
+
+
+## 7.2.1. Friends
+
+### Exercise 7.20: 
+
+*When are friends useful? Discuss the pros and cons of using friends.*
+
+**Answer**
+- Friend specifier is useful when you need to share private members of a class with another class or function without turn this private members in to public members.
+- The pros: it can share private members with a select number of classes or functions, it is more secure than just turn private in public.
+- The cons: it can change the internals of the object, it can be prone to errors.
+
+### [Exercise 7.21:](Exercise_21/Ex21.cpp)
+
+*Update your Sales_data class to hide its implementation. The programs you’ve written to use Sales_data operations should still continue to work. Recompile those programs with your new class definition to verify that they still work.*
+
+### [Exercise 7.22:](Exercise_22/Ex22.cpp)
+
+*Update your Person class to hide its implementation.*
+
+## 7.3.1. Class Members Revisited
+
+### [Exercise 7.23:](Exercise_23/Ex23.cpp)
+
+*Write your own version of the Screen class.*
+
+### [Exercise 7.24:](Exercise_24/Ex24.cpp)
+
+*Give your Screen class three constructors: a default constructor; a constructor that takes values for height and width and initializes the contents to hold the given number of blanks; and a constructor that takes values for height, width, and a character to use as the contents of the screen.*
+
+### [Exercise 7.25:](Exercise_25/Ex25.cpp)
+
+*Can Screen safely rely on the default versions of copy and assignment? If so, why? If not, why not?*
+
+**Answer**
+- It is not entire safe to rely on default versions of copy and assignment operators, specially in cases when the object members of the class have no operation defined and its resources are created outside of the scope of the class, using allocated memory or something else.
+- Is safe rely on the default operators with `std::vector`, `std::string`, `std::list` etc..., even though those objects allocate memory dynamically those objects implement those operations.
+
+### [Exercise 7.26:](Exercise_26/Ex26.cpp)
+
+Define `Sales_data::avg_price` as an inline function.
+
+## 7.3.2. Functions That Return *this
+
+### Exercise 7.27: 
+
+*Add the move, set, and display operations to your version of Screen. Test your class by executing the following code:*
+
+```cpp
+Screen myScreen(5, 5, 'X');
+myScreen.move(4,0).set('#').display(cout);
+cout << "\n";
+myScreen.display(cout);
+cout << "\n";
+```
+
+### Exercise 7.28: 
+
+*What would happen in the previous exercise if the return type of move, set, and display was Screen rather than `Screen&?`*
+
+### Exercise 7.29: 
+
+*Revise your Screen class so that move, set, and display functions return Screen and check your prediction from the previous exercise.*
+
+### Exercise 7.30: 
+
+*It is legal but redundant to refer to members through the this pointer. Discuss the pros and cons of explicitly using the this pointer to access members.*

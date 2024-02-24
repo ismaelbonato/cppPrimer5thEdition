@@ -9,15 +9,21 @@ struct Person;
 std::istream &read(std::istream &in, Person &person);
 
 struct Person {
+
+friend std::istream &read(std::istream &in, Person &person);
+
+private:
     std::string name;
     std::string address;
 
+public:
     Person(std::istream &in) { read(in, *this); };
     Person(const std::string &name, const std::string &address): 
         name(name), address(address) {};
 
-    const std::string getName() const { return name; };
-    const std::string getAddress() const { return address; };
+    const std::string &getName() const { return name; };
+    const std::string &getAddress() const { return address; };
+
 };
 
 std::istream &read(std::istream &in, Person &person)
