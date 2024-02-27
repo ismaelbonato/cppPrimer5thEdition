@@ -1,3 +1,5 @@
+### [Back to Chapter 5](../Chapter_05/README.md)
+
 # Chapter 6. Functions
 
 ### How to compile:
@@ -717,3 +719,6 @@ std::vector<decltype(func) *> pVec;
 ### [Exercise 6.56:](Exercise_56/Ex56.cpp)
 
 *Call each element in the vector and print their result.*
+
+----------------------------
+### [Back to Chapter 5](../Chapter_05/README.md) - [Next to Chapter 7](../Chapter_07/README.md)

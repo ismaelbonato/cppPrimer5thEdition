@@ -1,3 +1,5 @@
+### [Back to Chapter 6](../Chapter_06/README.md)
+
 # Chapter 7. Classes
 
 ### How to compile:
@@ -185,7 +187,7 @@ Define `Sales_data::avg_price` as an inline function.
 
 ## 7.3.2. Functions That Return *this
 
-### Exercise 7.27: 
+###  [Exercise 7.27:](Exercise_27/Ex27.cpp)
 
 *Add the move, set, and display operations to your version of Screen. Test your class by executing the following code:*
 
@@ -199,12 +201,57 @@ cout << "\n";
 
 ### Exercise 7.28: 
 
-*What would happen in the previous exercise if the return type of move, set, and display was Screen rather than `Screen&?`*
+*What would happen in the previous exercise if the return type of move, set, and display was `Screen` rather than `Screen&?`*
 
-### Exercise 7.29: 
+**Answer**
+```cpp
+myScreen.move(4,0).set('#').display(cout);
+```
+- Move will execute and will return a temporary copy of `myScreen`, set will execute and will return a temporary copy of a copy of `myScreen`, display will execute and will return temporary a copy of copy of copy of `myScreen`.
+
+```cpp
+myScreen.display(cout);
+```
+- Display will print 25 'X' characters, only the the temporary copies of `myScreen` will be modified.
+
+**Improvement**
+```cpp
+myScreen = myScreen.move(4,0).set('#').display(cout);
+```
+- In order to apply those modifications, we need to assign the the last copy to `myScreen` as we can se above.
+
+### [Exercise 7.29:](Exercise_29/Ex29.cpp) 
 
 *Revise your Screen class so that move, set, and display functions return Screen and check your prediction from the previous exercise.*
 
+**Output**
+```cpp
+Exercise_29$ ./a.out 
+XXXXXXXXXXXXXXXXXXXX#XXXX
+
+XXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
 ### Exercise 7.30: 
 
-*It is legal but redundant to refer to members through the this pointer. Discuss the pros and cons of explicitly using the this pointer to access members.*
+*It is legal but redundant to refer to members through the `this` pointer. Discuss the pros and cons of explicitly using the this pointer to access members.*
+
+**Answer**
+- The pros: A function can return a pointer or a reference to itself, other benefit when the local objects in a function have the same name of those defined on the class.
+- The cons: In general using this is useless, so it make the code less readable.
+
+## 7.3.3. Class Types
+
+## [Exercise 7.31:](Exercise_31/Ex31.cpp) 
+
+*Define a pair of classes X and Y, in which X has a pointer to Y, and Y has an object of type X.*
+
+
+
+
+
+
+
+
+----------------------------
+### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)

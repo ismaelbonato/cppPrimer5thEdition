@@ -1,3 +1,5 @@
+### [Back to Chapter 2](../Chapter_02/README.md)
+
 # Chapter 3. Strings, Vectors, and Arrays
 
 ### How to compile:
@@ -465,3 +467,6 @@ cout << *cp << endl;
 ### [Exercise 3.45:](Exercise_45/Ex45.cpp)
 
 *Rewrite the programs again, this time using auto.*
+
+----------------------------
+### [Back to Chapter 2](../Chapter_02/README.md) - [Next to Chapter 4](../Chapter_04/README.md)

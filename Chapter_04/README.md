@@ -1,3 +1,5 @@
+### [Back to Chapter 3](../Chapter_03/README.md)
+
 # Chapter 4. Expressions
 
 ### How to compile:
@@ -611,3 +613,6 @@ double slope = static_cast<double>(j/i);
     // or
     double slope = static_cast<double>(j)/static_cast<double>(i)
     ```
+
+----------------------------
+### [Back to Chapter 3](../Chapter_03/README.md) - [Next to Chapter 5](../Chapter_05/README.md)

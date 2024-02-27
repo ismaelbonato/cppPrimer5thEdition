@@ -1,6 +1,15 @@
 # **C++ Primer** 5th Edition
 
-This repo is the solutions of the exercises [_C++ Primer_ (5th Edition)]
+This repo is the solutions of the exercises _C++ Primer_ (5th Edition)
+
+### How to compile:
+
+GCC 6.0+ or clang 3.3+
+
+`g++ -std=c++11 app_name.cpp -o target`
+
+`clang++ -std=c++11 app_name.cpp -o target`
+
 ### Contents
 
 - [Chapter 1. Getting Started](Chapter_01/README.md)

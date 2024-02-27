@@ -1,3 +1,5 @@
+### [Back to Chapter 1](../Chapter_01/README.md)
+
 # Chapter 2. Variables and Basic Types
 
 ### How to compile:
@@ -732,3 +734,6 @@ struct SalesData {
 - [Exercise 1.22](Exercise_42/Ex42_22.cpp) 
 - [Exercise 1.21](Exercise_42/Ex42_23.cpp)
 - [Exercise 1.24](Exercise_42/Ex42_25.cpp) 
+
+----------------------------
+### [Back to Chapter 1](../Chapter_01/README.md) - [Next to Chapter 3](../Chapter_03/README.md)
