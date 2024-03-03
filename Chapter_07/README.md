@@ -242,16 +242,110 @@ XXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## 7.3.3. Class Types
 
-## [Exercise 7.31:](Exercise_31/Ex31.cpp) 
+### [Exercise 7.31:](Exercise_31/Ex31.cpp) 
 
 *Define a pair of classes X and Y, in which X has a pointer to Y, and Y has an object of type X.*
 
+## 7.3.4. Friendship Revisited
 
+### [Exercise 7.32:](Exercise_32/Ex32.cpp) 
 
+Define your own versions of Screen and Window_mgr in which clear is a member of Window_mgr and a friend of Screen. 
 
+## 7.4. Class Scope
 
+### [Exercise 7.33:](Exercise_33/Ex33.cpp) 
 
+*What would happen if we gave Screen a size member defined as follows? Fix any problems you identify.*
 
+```cpp
+pos Screen::size() const
+{
+    return height * width;
+}
+```
+
+## 7.4.1. Name Lookup and Class Scope
+
+### Exercise 7.34: 
+
+*What would happen if we put the `typedef` of pos in the `Screen` class on page 285 as the last line in the class?*
+**Answer**
+- Because `pos does not name a type` in the time when those all definitions appear, the compiler will raise errors on: 
+    - void dummy_fcn(`pos height`)
+    - `pos`s cursor = 0;
+    - `pos` height = 0, width = 0;
+
+### Exercise 7.35:
+
+*Explain the following code, indicating which definition of `Type` or `initVal` is used for each use of those names. Say how you would fix any errors.*
+
+```cpp
+typedef string Type;
+
+Type initVal();
+
+class Exercise {
+public:
+    typedef double Type;
+    Type setVal(Type);
+    Type initVal();
+private:
+    int val;
+};
+
+Type Exercise::setVal(Type parm) {
+    val = parm + initVal();
+    return val;
+}
+```
+
+**Answer**
+- 
+
+## 7.5.1. Constructor Initializer List
+
+### Exercise 7.36: 
+
+*The following initializer is in error. Identify and fix the problem.*
+```cpp
+struct X {
+    X (int i, int j): base(i), rem(base % j) { }
+    int rem, base;
+};
+```
+### Exercise 7.37: 
+
+*Using the version of Sales_data from this section, determine which constructor is used to initialize each of the following variables and list the values of the data members in each object:*
+
+```cpp
+Sales_data first_item(cin);
+int main() {
+    Sales_data next;
+    Sales_data last("9-999-99999-9");
+}
+```
+
+### Exercise 7.38: 
+
+*We might want to supply cin as a default argument to the constructor that takes an `istream&`. Write the constructor declaration that uses cin as a default argument.*
+
+### Exercise 7.39: 
+
+*Would it be legal for both the constructor that takes a string and the one that takes an `istream&` to have default arguments? If not, why not?*
+
+### Exercise 7.40: 
+
+*Choose one of the following abstractions (or an abstraction of your own choosing). Determine what data are needed in the class. Provide an appropriate set of constructors. Explain your decisions.*
+
+```
+(a) Book
+(b) Date
+(c) Employee
+(d) Vehicle
+(e) Object
+(f) Tree
+```
 
 ----------------------------
 ### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)

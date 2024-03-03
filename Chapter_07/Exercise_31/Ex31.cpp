@@ -1,14 +1,14 @@
 #include <iostream>
 
-class x;
-class y;
+class X;
+class Y;
 
-class x {
-    y *pY;
+class X {
+    Y *py;
 };
 
-class y {
-    x X;
+class Y {
+    X x;
 };
 
 int main(void)
