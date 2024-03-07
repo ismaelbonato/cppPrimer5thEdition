@@ -265,6 +265,28 @@ pos Screen::size() const
 }
 ```
 
+**Output**
+
+```cpp
+$ g++ Ex33.cpp 
+In file included from Ex33.cpp:2:
+Screen.h:52:1: error: ‘position’ does not name a type
+   52 | position Screen::size() const
+      | ^~~~~~~~
+Screen.h:38:21: warning: inline function ‘Screen::position Screen::size() const’ used but never defined
+   38 |     inline position size() const;
+      |                     ^~~~
+```
+
+**Answer**
+```cpp
+Screen::position Screen::size() const
+{
+    return height * width;
+}
+```
+
+
 ## 7.4.1. Name Lookup and Class Scope
 
 ### Exercise 7.34: 
@@ -301,8 +323,15 @@ Type Exercise::setVal(Type parm) {
 ```
 
 **Answer**
-- 
+- There is a class scope operator in the function `setval()`, in this case the compiler looks first for the naming definition in the class scope, the internal definitions of the objects are used.
+- The only problem in this function is the return type is outside of the class scope, so you have to define the true scope of the name used.
 
+```cpp
+Exercise::Type Exercise::setVal(Type parm) {
+    val = parm + initVal();
+    return val;
+}
+```
 ## 7.5.1. Constructor Initializer List
 
 ### Exercise 7.36: 
@@ -314,38 +343,122 @@ struct X {
     int rem, base;
 };
 ```
+**Answer**
+- The first member to initialize is `rem`, but depends of `base` that was not initialize yet.
+```cpp
+struct X {
+    X (int i, int j): rem(i % j), base(i) { }
+    int rem, base;
+};
+```
+
 ### Exercise 7.37: 
 
 *Using the version of Sales_data from this section, determine which constructor is used to initialize each of the following variables and list the values of the data members in each object:*
 
 ```cpp
 Sales_data first_item(cin);
+
 int main() {
     Sales_data next;
     Sales_data last("9-999-99999-9");
 }
 ```
+**Answer**
 
-### Exercise 7.38: 
+- `Sales_data first_item(cin);` uses `Sales_data(std::istream &is)` constructor:
+    - b`ookNo`, `cnt` and `rev` are defined by user input.
+- `Sales_data next` uses the default constructor `Sales_data(std::string s = "")` constructor:
+    - `bookNo` = "", `cnt` = 0 and `rev` = 0.0.
+- `Sales_data last("9-999-99999-9")` uses `Sales_data(std::string s = "")` constructor:
+    - `bookNo` = "9-999-99999-9", `cnt` = 0 and `rev` = 0.0.
+
+### Exercise 7.38:
 
 *We might want to supply cin as a default argument to the constructor that takes an `istream&`. Write the constructor declaration that uses cin as a default argument.*
+
+**Answer**
+```cpp
+class SalesData {
+public:
+    SalesData(std::istream &in = std::cin) {read(is, *this);}
+};
+```
 
 ### Exercise 7.39: 
 
 *Would it be legal for both the constructor that takes a string and the one that takes an `istream&` to have default arguments? If not, why not?*
 
-### Exercise 7.40: 
+**Answer**
+- No it is not possible, it is a ambiguous situation, the compiler does not know witch function to call.
+
+**Output**
+```cpp
+teste.cpp: In function ‘int main()’:
+teste.cpp:19:16: error: call of overloaded ‘Sales_data()’ is ambiguous
+   19 |     Sales_data sl;
+      |                ^~
+teste.cpp:10:5: note: candidate: ‘Sales_data::Sales_data(std::istream&)’
+   10 |     Sales_data(std::istream &in = std::cin);
+      |     ^~~~~~~~~~
+teste.cpp:9:5: note: candidate: ‘Sales_data::Sales_data(std::string)’
+    9 |     Sales_data(std::string s = "");
+      |     ^~~~~~~~~~
+```
+
+### [Exercise 7.40:](Exercise_40/Ex_40.cpp)
 
 *Choose one of the following abstractions (or an abstraction of your own choosing). Determine what data are needed in the class. Provide an appropriate set of constructors. Explain your decisions.*
 
-```
+```cpp
 (a) Book
 (b) Date
 (c) Employee
-(d) Vehicle
+(d) Vehicle  <<---- myChoice
 (e) Object
 (f) Tree
 ```
+
+## 7.5.2. Delegating Constructors
+
+### [Exercise 7.41:](Exercise_41/Ex_41.cpp)
+
+*Rewrite your own version of the Sales_data class to use delegating constructors. Add a statement to the body of each of the constructors that prints a message whenever it is executed. Write declarations to construct a Sales_data object in every way possible. Study the output until you are certain you understand the order of execution among delegating constructors.*
+
+
+### [Exercise 7.42:](Exercise_42/Ex_42.cpp)
+
+*For the class you wrote for exercise 7.40 in § 7.5.1 (p. 291), decide whether any of the constructors might use delegation. If so, write the delegating constructor(s) for your class. If not, look at the list of abstractions and choose one that you think would use a delegating constructor. Write the class definition for that abstraction.*
+
+## 7.5.3. The Role of the Default Constructor
+
+### Exercise 7.43: 
+
+*Assume we have a class named NoDefault that has a constructor that takes an int, but has no default constructor. Define a class C that has a member of type NoDefault. Define the default constructor for C.*
+
+### Exercise 7.44: 
+
+*Is the following declaration legal? If not, why not?
+```cpp
+vector<NoDefault> vec(10);
+```
+
+### Exercise 7.45: 
+
+*What if we defined the vector in the previous exercise to hold objects of type C?*
+
+### Exercise 7.46: 
+
+*Which, if any, of the following statements are untrue? Why?*
+
+- (a) A class must provide at least one constructor.
+- (b) A default constructor is a constructor with an empty parameter list.
+- (c) If there are no meaningful default values for a class, the class should not
+provide a default constructor.
+- (d) If a class does not define a default constructor, the compiler generates
+one that initializes each data member to the default value of its associated
+type.
+
 
 ----------------------------
 ### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)
