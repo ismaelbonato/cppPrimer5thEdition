@@ -57,5 +57,48 @@ while (cin >> i) /* ... */
 
 *Revise the program from the previous exercise to append its output to its given file. Run the program on the same output file at least twice to ensure that the data are preserved.*
 
+## 8.3.1. Using an `istringstream`
+
+### [Exercise 8.9:](Exercise_09/Ex09.cpp)
+
+*Use the function you wrote for the first exercise in § 8.1.2 (p.314) to print the contents of an `istringstream` object.*
+
+### [Exercise 8.10:](Exercise_10/Ex10.cpp)
+
+*Write a program to store each line from a file in a `vector<string>`. Now use an `istringstream` to read each element from the vector a word at a time.*
+
+### [Exercise 8.11:](Exercise_11/Ex11.cpp)
+
+*The program in this section defined its `istringstream` object inside the outer while loop. What changes would you need to make if record were defined outside that loop? Rewrite the program, moving the definition of record outside the while, and see whether you thought of all the changes that are needed.*
+
+**Answer**
+- It does need to clear the internal state of the stream each time the `istringstream` perform a copy of the line. 
+
+    ```cpp         
+    record.clear();
+    record.str(line);
+    ```
+    
+### [Exercise 8.12:] 
+
+*Why didn’t we use in-class Initializers in `PersonInfo`?*
+
+**Answer**
+- `PersonInfo` is a aggregate class or structure, all members are public there are no need to initialize aggregate class members because there is no internal logic.
+
+## 8.3.2. Using `ostringstreams`
+
+### [Exercise 8.13:](Exercise_13/Ex13.cpp)
+
+*Rewrite the phone number program from this section to read from a named file rather than from cin.*
+
+### Exercise 8.14: 
+
+*Why did we declare entry and nums as const auto &?*
+
+**Answer**
+- When handling objects that have unknown size, it is better to pass as a reference than a copy. A reference perform a lot better than copying the whole object.
+- As we are using reference as a parameter, we need to protect the data from corruption.
+
 ----------------------------
 ### [Back to Chapter 7](../Chapter_07/README.md) - [Next to Chapter 9](../Chapter_09/README.md)
