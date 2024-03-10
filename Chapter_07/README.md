@@ -432,33 +432,105 @@ teste.cpp:9:5: note: candidate: ‘Sales_data::Sales_data(std::string)’
 
 ## 7.5.3. The Role of the Default Constructor
 
-### Exercise 7.43: 
+### [Exercise 7.43:](Exercise_43/Ex_43.cpp)
 
 *Assume we have a class named NoDefault that has a constructor that takes an int, but has no default constructor. Define a class C that has a member of type NoDefault. Define the default constructor for C.*
 
 ### Exercise 7.44: 
 
-*Is the following declaration legal? If not, why not?
+*Is the following declaration legal? If not, why not?*
 ```cpp
 vector<NoDefault> vec(10);
 ```
+**Answer**
+- `vec(10)` means it will create 10 NoDefault objects with the default value initialized, in this case it becomes illegal due to the fact that there is no default constructor that match the initialization type of `vec(10)`.
+- In order to work properly it is necessary to define a default constructor or change `vec` to initialize the object with the constructor that takes an int.
+    ```cpp
+    std::vector<NoDefault> vec(1,10);
+    ``` 
+**Output**
+```cpp
+$ g++ Ex_43.cpp 
+In file included from /usr/include/c++/11/vector:65,
+                 from Ex_43.cpp:1:
+/usr/include/c++/11/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = NoDefault; _Args = {}]’:
+/usr/include/c++/11/bits/stl_uninitialized.h:579:18:   required from ‘static _ForwardIterator std::__uninitialized_default_n_1<_TrivialValueType>::__uninit_default_n(_ForwardIterator, _Size) [with _ForwardIterator = NoDefault*; _Size = long unsigned int; bool _TrivialValueType = false]’
+/usr/include/c++/11/bits/stl_uninitialized.h:640:20:   required from ‘_ForwardIterator std::__uninitialized_default_n(_ForwardIterator, _Size) [with _ForwardIterator = NoDefault*; _Size = long unsigned int]’
+/usr/include/c++/11/bits/stl_uninitialized.h:704:44:   required from ‘_ForwardIterator std::__uninitialized_default_n_a(_ForwardIterator, _Size, std::allocator<_Tp>&) [with _ForwardIterator = NoDefault*; _Size = long unsigned int; _Tp = NoDefault]’
+/usr/include/c++/11/bits/stl_vector.h:1606:36:   required from ‘void std::vector<_Tp, _Alloc>::_M_default_initialize(std::vector<_Tp, _Alloc>::size_type) [with _Tp = NoDefault; _Alloc = std::allocator<NoDefault>; std::vector<_Tp, _Alloc>::size_type = long unsigned int]’
+/usr/include/c++/11/bits/stl_vector.h:512:9:   required from ‘std::vector<_Tp, _Alloc>::vector(std::vector<_Tp, _Alloc>::size_type, const allocator_type&) [with _Tp = NoDefault; _Alloc = std::allocator<NoDefault>; std::vector<_Tp, _Alloc>::size_type = long unsigned int; std::vector<_Tp, _Alloc>::allocator_type = std::allocator<NoDefault>]’
+Ex_43.cpp:16:34:   required from here
+/usr/include/c++/11/bits/stl_construct.h:119:7: error: no matching function for call to ‘NoDefault::NoDefault()’
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ex_43.cpp:5:5: note: candidate: ‘NoDefault::NoDefault(int)’
+    5 |     NoDefault(int x): i(x) {};
+      |     ^~~~~~~~~
+Ex_43.cpp:5:5: note:   candidate expects 1 argument, 0 provided
+Ex_43.cpp:4:8: note: candidate: ‘constexpr NoDefault::NoDefault(const NoDefault&)’
+    4 | struct NoDefault {
+      |        ^~~~~~~~~
+Ex_43.cpp:4:8: note:   candidate expects 1 argument, 0 provided
+Ex_43.cpp:4:8: note: candidate: ‘constexpr NoDefault::NoDefault(NoDefault&&)’
+Ex_43.cpp:4:8: note:   candidate expects 1 argument, 0 provided
+```
 
-### Exercise 7.45: 
+### [Exercise 7.45:](Exercise_45/Ex_45.cpp)
 
 *What if we defined the vector in the previous exercise to hold objects of type C?*
 
-### Exercise 7.46: 
+**Answer**
+- It will happen the same problem in the `Exercise 7.44`.
+- There is no default constructor for `NoDefault` in the class `C` to call.;
+
+### Exercise 7.46:
 
 *Which, if any, of the following statements are untrue? Why?*
 
 - (a) A class must provide at least one constructor.
 - (b) A default constructor is a constructor with an empty parameter list.
-- (c) If there are no meaningful default values for a class, the class should not
-provide a default constructor.
-- (d) If a class does not define a default constructor, the compiler generates
-one that initializes each data member to the default value of its associated
-type.
+- (c) If there are no meaningful default values for a class, the class should not provide a default constructor.
+- (d) If a class does not define a default constructor, the compiler generates one that initializes each data member to the default value of its associated type.
 
+**Answer**
+- (a) - `Untrue:` If a constructor is not defined the compiler will create a default constructor.
+- (b) - `Untrue:` A default constructor is a constructor that does not require a single argument to be used, in this case when a default argument is used in all parameters.
+- (c) - `Untrue:` The compiler will create a default constructor if any is present.
+- (d) - `Untrue:` If any constructor is defined the compiler will not create a default constructor.
+
+## 7.5.4. Implicit Class-Type Conversions
+
+### Exercise 7.47: 
+
+*Explain whether the Sales_data constructor that takes a string should be explicit. What are the benefits of making the constructor explicit? What are the drawbacks?*
+
+### Exercise 7.48: 
+
+*Assuming the Sales_data constructors are not explicit, what operations happen during the following definitions*
+```cpp
+string null_isbn("9-999-99999-9");
+Sales_data item1(null_isbn);
+Sales_data item2("9-999-99999-9");
+```
+
+*What happens if the Sales_data constructors are explicit?*
+
+### Exercise 7.49: 
+
+*For each of the three following declarations of combine, explain what happens if we call i.combine(s), where i is a Sales_data and s is a string:*
+```cpp
+(a) Sales_data &combine(Sales_data);
+(b) Sales_data &combine(Sales_data&);
+(c) Sales_data &combine(const Sales_data&) const;
+```
+
+### Exercise 7.50: 
+
+*Determine whether any of your Person class constructors should be explicit.*
+
+### Exercise 7.51: 
+
+*Why do you think vector defines its single-argument constructor as explicit, but string does not?*
 
 ----------------------------
 ### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)
