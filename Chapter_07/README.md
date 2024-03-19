@@ -620,11 +620,80 @@ Sales_data item = {"978-0590353403", 25, 15.99};
 **Answer**
 - `constexpr` functions in C++11 are `const member function`, so that is not possible to change the members value of the object, the `*this` is converted in a `const pointer`. In C++14 this behavior was changed, in C++14 a `constexpr` function is no more a `const member function`
 
+> **constexpr specifier (since C++11)**
+>> A constexpr specifier used in an object declaration or non-static member function(until C++14) implies const. A constexpr specifier used in a function or static data member(since C++17) declaration implies inline. If any declaration of a function or function template has a constexpr specifier, then every declaration must contain that specifier.
+
+https://en.cppreference.com/w/cpp/language/constexpr
+
 
 ### Exercise 7.55: 
 
 *Is the Data class from § 7.5.5 (p. 298) a literal class? If not, why not? If so, explain why it is literal.*
+```cpp
+struct Data {
+    int ival;
+    std::string s;
+};
+```
+**Answer**
+- If all members of an aggregate class are literal types, it is called a literal class.
+- This class is not a literal type, a `std::string` is not a literal type, in order to fix that we need to use the C-style string.  
+    ```cpp
+    struct Data {
+        int ival;
+        char s[size];
+    };
+    ```
+## 7.6. static Class Members
 
+### Exercise 7.56: 
+
+*What is a `static` class member? What are the advantages of `static` members? How do they differ from ordinary members?*
+
+**Answer**
+- A `static` class member is an object that belongs to the class not the object and its life time begin and end with the program. 
+- As its scope lives outside of the object it can be used to shared data between all objects of this class, it can be used to synchronize data in all instancies of this class.
+- It cannot be class initialized or in the constructor, it require to be initialized outside of the scope of the class. It can contain an instance of the same class of itself. It also can be used as default argument. a static data member can have incomplete type.
+
+### [Exercise 7.57:](Exercise_57/Ex_57.cpp)
+
+*Write your own version of the Account class.*
+
+### Exercise 7.58: 
+
+*Which, if any, of the following static data member declarations and definitions are errors? Explain why.
+```cpp
+// example.h
+class Example {
+public:
+    static double rate = 6.5;
+    static const int vecSize = 20; 
+    static vector<double> vec(vecSize);
+};
+
+// example.C
+#include "example.h"
+double Example::rate;
+vector<double> Example::vec;
+```
+**Answer**
+- Only `static` members `const` or `constexpr` can be class initialized.
+- A static data member can have incomplete type.
+
+```cpp
+#include <vector>
+
+class Example {
+public:
+    static constexpr double rate = 6.5;
+    static const int vecSize = 20; 
+    static std::vector<double> vec;
+};
+
+constexpr double Example::rate;
+std::vector<double> Example::vec(Example::vecSize);
+
+```
 
 ----------------------------
 ### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)
