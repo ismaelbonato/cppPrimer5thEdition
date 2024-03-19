@@ -504,6 +504,12 @@ Ex_43.cpp:4:8: note:   candidate expects 1 argument, 0 provided
 
 *Explain whether the Sales_data constructor that takes a string should be explicit. What are the benefits of making the constructor explicit? What are the drawbacks?*
 
+**Answer**
+- There is no need to use the modifier in this constructor, the conversion can be used to add a null book or whatever, it means it is not meaningless.
+    - Benefits: The developer of this class has more control in its use, the developer can denied other forms of initialization other than the direct initialization, it means, the user can only use the conversions explicitly using type cast. 
+    - Drawbacks: After using the `Explicit` modifier it is not possible to initialize an object by copy, only direct initialization is possible.
+
+
 ### Exercise 7.48: 
 
 *Assuming the Sales_data constructors are not explicit, what operations happen during the following definitions*
@@ -512,8 +518,23 @@ string null_isbn("9-999-99999-9");
 Sales_data item1(null_isbn);
 Sales_data item2("9-999-99999-9");
 ```
+**Answer**
+
+```cpp
+string null_isbn("9-999-99999-9");
+Sales_data item1(null_isbn); // ok: it works(only one conversion)
+Sales_data item2("9-999-99999-9"); // error: it require two convertion.
+```
 
 *What happens if the Sales_data constructors are explicit?*
+
+**Answer**
+
+```cpp
+string null_isbn("9-999-99999-9");
+Sales_data item1(null_isbn); // error: explicit constructor
+Sales_data item2("9-999-99999-9"); // error: explicit constructor
+```
 
 ### Exercise 7.49: 
 
@@ -523,14 +544,87 @@ Sales_data item2("9-999-99999-9");
 (b) Sales_data &combine(Sales_data&);
 (c) Sales_data &combine(const Sales_data&) const;
 ```
+**Answer**
+- (a) `Sales_data &combine(Sales_data)`;
+    - Ok: It works as expected, the string `s` is converted in an Sales_Data;
+- (b) `Sales_data &combine(Sales_data&)`;
+    - Error: it does not work, thins function requires a reference;
+- (c) `Sales_data &combine(const Sales_data&) const`;
+    - Error: in this function `*this` is a `const` object, os it can not return a `non const` object. The function combine must have access to eh internal members in order to combine both objects.
 
 ### Exercise 7.50: 
 
 *Determine whether any of your Person class constructors should be explicit.*
 
-### Exercise 7.51: 
+**Answer**
+- The constructor that receives a `istream` should be `Explicit` because once it reads from `std::cin` and do the proper operation this object is discarded, and the reference to the standard input points to the next object on the list.
+
+### Exercise 7.51:
 
 *Why do you think vector defines its single-argument constructor as explicit, but string does not?*
 
+**Answer**
+- `Vector` is a container, it does not know what kind of object it will contain, so it can not do the convertion to all possible objects.
+- A `String` contain itself, it is simple to the compiler to make the implicit conversion.
+- In another words a `Vector` is not what it contains.
+
+## 7.5.5. Aggregate Classes
+
+### Exercise 7.52: 
+
+*Using our first version of Sales_data from § 2.6.1 (p. 72), explain the following initialization. Identify and fix any problems.*
+```cpp
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+```
+```cpp
+Sales_data item = {"978-0590353403", 25, 15.99};
+```
+
+**Answer**
+- In order to create an aggregate class it is required to remove the in class initialization.
+    ```cpp
+    struct Sales_data {
+        std::string bookNo;
+        unsigned units_sold;
+        double revenue;
+    };
+    ```
+- In this copy initialized aggregate class the initialization process will be performed like this:
+
+    ```cpp
+    item {
+        .bookNo = "978-0590353403", 
+        .units_sold = 25,
+        .revenue = 15.99,
+    }
+    ```
+- There is an error in the revenue initialization, price is different of revenue:
+    ```cpp
+    Sales_data item = {"978-0590353403", 25, 25 * 15.99};
+    ```
+
+## 7.5.6. Literal Classes
+
+### [Exercise 7.53:](Exercise_53/Ex_ 53.cpp)
+
+*Define your own version of Debug.*
+
+### Exercise 7.54: 
+
+*Should the members of Debug that begin with set_ be declared as `constexpr`? If not, why not?*
+
+**Answer**
+- A set may not be declared as a constexpr
+
+### Exercise 7.55: 
+
+*Is the Data class from § 7.5.5 (p. 298) a literal class? If not, why not? If so, explain why it is literal.*
+
+
 ----------------------------
 ### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)
+
