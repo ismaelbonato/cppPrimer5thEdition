@@ -609,7 +609,7 @@ Sales_data item = {"978-0590353403", 25, 15.99};
 
 ## 7.5.6. Literal Classes
 
-### [Exercise 7.53:](Exercise_53/Ex_ 53.cpp)
+### [Exercise 7.53:](Exercise_53/Ex_53.cpp)
 
 *Define your own version of Debug.*
 
@@ -618,7 +618,8 @@ Sales_data item = {"978-0590353403", 25, 15.99};
 *Should the members of Debug that begin with set_ be declared as `constexpr`? If not, why not?*
 
 **Answer**
-- A set may not be declared as a constexpr
+- `constexpr` functions in C++11 are `const member function`, so that is not possible to change the members value of the object, the `*this` is converted in a `const pointer`. In C++14 this behavior was changed, in C++14 a `constexpr` function is no more a `const member function`
+
 
 ### Exercise 7.55: 
 

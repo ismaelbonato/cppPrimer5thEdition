@@ -8,8 +8,8 @@ public:
     constexpr Debug(bool v, bool a, bool i, bool e):
         video(v), audio(a), input(i), etc(e) {}
 
-    constexpr bool any() { return video || audio || input || etc; }
-    void set_video(constexpr bool b) { video = b; }
+    bool any() { return video || audio || input || etc; }
+    constexpr int set_video(bool b) { video = b; return b;}
     void set_audio(bool b) { audio = b; }
     void set_input(bool b) { input = b; }
     void set_etc(bool b) { etc = b; }
