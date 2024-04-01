@@ -696,5 +696,5 @@ std::vector<double> Example::vec(Example::vecSize);
 ```
 
 ----------------------------
-### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 8](../Chapter_08/README.md)
+### [Back to Chapter 6](../Chapter_06/README.md) - [Next to Chapter 9](../Chapter_09/README.md)
 
