@@ -114,9 +114,125 @@ while (iter1 < iter2) /* ... */
 ```
 
 **Answer**
-
+- A list is a container that is implemented as a linked list, it is not contiguous, so there is no meaning in using relational operators.
 ```cpp
-list<int> lst1;
-list<int>::iterator iter1 = lst1.begin(), iter2 = lst1.end();
 while (iter1 != iter2) /* ... */
 ```
+
+## 9.2.2. Container Type Members
+
+### Exercise 9.7: 
+
+*What type should be used as the index into a vector of `ints`?*
+**Answer**
+```cpp
+sd::vector<int>::size_type idx;
+```
+
+### Exercise 9.8: 
+
+*What type should be used to read elements in a list of strings? To write them?*
+
+**Answer**
+- To read elements from a list of string: 
+    ```cpp
+    std::list<std::string>::const_reference; 
+    std::list<std::string>::const_iterator; 
+    ``` 
+- To read elements from a list of string:
+    ```cpp
+    std::list<std::string>::reference;
+    std::list<std::string>::value_type;
+    std::list<std::string>::iterator;
+    ```
+
+## 9.2.3. begin and end Members
+
+### Exercise 9.9: 
+
+*What is the difference between the `begin` and `cbegin` functions?*
+
+**Answer**
+- **begin**: There are two begin functions, It is an overload function, if the object is a const it returns the `const_iterator` type, if not, it returns the `iterator` type.
+- **begin**: It always returns a `const_iterator` object.
+
+### Exercise 9.10: 
+
+*What are the types of the following four objects?*
+```cpp
+vector<int> v1;
+const vector<int> v2;
+auto it1 = v1.begin(), it2 = v2.begin();
+auto it3 = v1.cbegin(), it4 = v2.cbegin();
+```
+**Answer**
+- **it1**: `iterator`.
+- **it2**: `const_iterator`.
+- **it3**: `const_iterator`.
+- **it4**: `const_iterator`.
+
+- Note: There is an error in this exercise, as `it1` and `it2` differs in type they cannot be aggregated int the same auto.
+
+```cpp
+auto it1 = v1.begin();
+auto it2 = v2.begin(), it3 = v1.cbegin(), it4 = v2.cbegin();
+```
+
+## 9.2.4. Defining and Initializing a Container
+
+### Exercise 9.11: 
+
+*Show an example of each of the six ways to create and initialize a vector. Explain what values each vector contains.*
+
+**Answer**
+- Create a empty vector.
+    ```cpp
+    std::vector<int> iVec;
+    ```
+- Create a vector with ten `int`s default value initialized.
+    ```cpp
+    std::vector<int> iVec(10);
+    ```
+- Create a vector with ten `int`s initialized to 0.   
+    ```cpp
+    std::vector<int> iVec(10, 0);
+    ```
+- Create a vector with six `int`s list initialized.
+    ```cpp
+    std::vector<int> iVec{0, 1, 2, 3, 4, 5};
+    ```
+- Create a vector that is a copy of tVec.
+    ```cpp
+    std::vector<int> tVec{0, 1, 2, 3, 4, 5};
+    std::vector<int> iVec(tVec);
+    ```
+- Create a vector within the range is defined by the iterators.
+    ```cpp
+    std::vector<int> tVec{0, 1, 2, 3, 4, 5};
+    std::vector<int> iVec(tVec.begin, tVec.end);
+    ```
+
+### Exercise 9.12: 
+
+*Explain the differences between the constructor that takes a container to copy and the constructor that takes two iterators.*
+
+**Answer**
+- A container initialized by another container makes a exact copy of the object as long as the types of both containers are the same.
+- A container initialized by range iterators, can be a copy o all objects in this range, it is not required the objects in the range to be the exactly same type of the container as long as the objects can be directly converted to this type.
+
+### [Exercise 9.13:](Exercise_13/Ex_13.cpp)
+
+*How would you initialize a `vector<double>` from a `list<int>`? From a `vector<int>`? Write code to check your answers.*
+
+**Answer**
+
+```cpp
+std::list<int> iList;
+std::vector<int> iVec
+
+std::vector<double> dVec1(iVec.begin(), iVec.end());
+std::vector<double> dVec2(iList.begin(), iList.end());
+```
+
+----------------------------
+### [Back to Chapter 7](../Chapter_07/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
