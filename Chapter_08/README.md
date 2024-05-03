@@ -94,7 +94,7 @@ while (cin >> i) /* ... */
 
 ### Exercise 8.14: 
 
-*Why did we declare entry and nums as const auto &?*
+*Why did we declare entry and `nums` as `const auto &`?*
 
 **Answer**
 - When handling objects that have unknown size, it is better to pass as a reference than a copy. A reference perform a lot better than copying the whole object.

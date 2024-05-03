@@ -217,8 +217,8 @@ auto it2 = v2.begin(), it3 = v1.cbegin(), it4 = v2.cbegin();
 *Explain the differences between the constructor that takes a container to copy and the constructor that takes two iterators.*
 
 **Answer**
-- A container initialized by another container makes a exact copy of the object as long as the types of both containers are the same.
-- A container initialized by range iterators, can be a copy o all objects in this range, it is not required the objects in the range to be the exactly same type of the container as long as the objects can be directly converted to this type.
+- A container initialized by another container makes use of the default copy constructor, it will be the  exact copy of the object as long as the types of both containers are the same.
+- A container initialized by range iterators(explicit constructor) can be a copy o all objects in this range, it is not required the objects in the range to be the exactly same type of the container as long as the objects can be directly converted to this type.
 
 ### [Exercise 9.13:](Exercise_13/Ex_13.cpp)
 
@@ -234,5 +234,12 @@ std::vector<double> dVec1(iVec.begin(), iVec.end());
 std::vector<double> dVec2(iList.begin(), iList.end());
 ```
 
+## 9.2.5. Assignment and swap
+
+### [Exercise 9.14:](Exercise_14/Ex_14.cpp)
+
+*Write a program to assign the elements from a list of `char*` pointers to `C-style` character strings to a vector of `strings`.*
+
+
 ----------------------------
-### [Back to Chapter 7](../Chapter_07/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
+### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)

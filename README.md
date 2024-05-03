@@ -22,5 +22,6 @@ GCC 6.0+ or clang 3.3+
   - [Chapter 7. Classes](Chapter_07/README.md)
 - Part II: The C++ Library
   - [Chapter 8. The IO Library](Chapter_08/README.md)
+  - [Chapter 9. Sequential Containers](Chapter_09/README.md)
 - Part III: Tools for Class Authors
 - Part IV:  Advanced Topics
