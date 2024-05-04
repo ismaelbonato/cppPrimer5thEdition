@@ -1,6 +1,6 @@
 # **C++ Primer** 5th Edition
 
-This repo contains the solutions of the exercises _C++ Primer_ (5th Edition)
+This repo contains the solutions of the exercises from the book: _C++ Primer_ 5th Edition
 
 ### Requirements:
 

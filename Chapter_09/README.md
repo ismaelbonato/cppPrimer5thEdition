@@ -240,6 +240,24 @@ std::vector<double> dVec2(iList.begin(), iList.end());
 
 *Write a program to assign the elements from a list of `char*` pointers to `C-style` character strings to a vector of `strings`.*
 
+## 9.2.7. Relational Operators
+
+### [Exercise 9.15:](Exercise_15/Ex_15.cpp) 
+
+*Write a program to determine whether two `vector<int>`s are equal.*
+
+### [Exercise 9.16:](Exercise_16/Ex_16.cpp) 
+
+*Repeat the previous program, but compare elements in a `list<int>` to a `vector<int>`.*
+
+### Exercise 9.17: 
+
+*Assuming c1 and c2 are containers, what (if any) constraints does the following usage place on the types of c1 and c2? if (c1 < c2)*
+
+**Answer**
+- The relational operators require both c1 and c2 to be the same type of container.
+- The type within the container holds must have support to relational operators.
+- All the containers except the unordered associative containers also support the relational operators.
 
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
