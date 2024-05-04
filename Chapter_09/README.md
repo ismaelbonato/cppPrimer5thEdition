@@ -242,11 +242,11 @@ std::vector<double> dVec2(iList.begin(), iList.end());
 
 ## 9.2.7. Relational Operators
 
-### [Exercise 9.15:](Exercise_15/Ex_15.cpp) 
+### [Exercise 9.15:](Exercise_15/Ex_15.cpp)
 
 *Write a program to determine whether two `vector<int>`s are equal.*
 
-### [Exercise 9.16:](Exercise_16/Ex_16.cpp) 
+### [Exercise 9.16:](Exercise_16/Ex_16.cpp)
 
 *Repeat the previous program, but compare elements in a `list<int>` to a `vector<int>`.*
 
@@ -256,7 +256,7 @@ std::vector<double> dVec2(iList.begin(), iList.end());
 
 **Answer**
 - The relational operators require both c1 and c2 to be the same type of container.
-- The type within the container holds must have support to relational operators.
+- The type within the container holds must have support for relational operators.
 - All the containers except the unordered associative containers also support the relational operators.
 
 ----------------------------
