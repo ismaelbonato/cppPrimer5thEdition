@@ -259,5 +259,63 @@ std::vector<double> dVec2(iList.begin(), iList.end());
 - The type within the container holds must have support for relational operators.
 - All the containers except the unordered associative containers also support the relational operators.
 
+## 9.3.1. Adding Elements to a Sequential Container
+
+### [Exercise 9.18:](Exercise_18/Ex_18.cpp)
+
+*Write a program to read a sequence of strings from the standard input into a `deque`. Use iterators to write a loop to print the elements in the `deque`.*
+
+### [Exercise 9.19:](Exercise_19/Ex_19.cpp) 
+
+*Rewrite the program from the previous exercise to use a `list`. List the changes you needed to make.*
+
+### [Exercise 9.20:](Exercise_20/Ex_20.cpp) 
+
+*Write a program to copy elements from a `list<int>` into two `deque`s. The even-valued elements should go into one deque and the odd ones into the other.*
+
+### Exercise 9.21: 
+
+*Explain how the loop from page 345 that used the return from insert to add elements to a list would work if we inserted into a vector instead.*
+
+### [Exercise 9.22:](Exercise_22/Ex_22.cpp) 
+
+*Assuming iv is a vector of `ints`, what is wrong with the following program? How might you correct the problem(s)?*
+
+```cpp
+vector<int> iv{1,2,3,4,5,6,7,8,9,10};
+vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size()/2;
+
+while (iter != mid) {
+    if (*iter == some_val)
+        iv.insert(iter, 2 * some_val);
+}
+```
+
+**Answer**
+
+- There is no incrent on the `iter`.
+- The size of `iv` changes when a value is inserted, so the `iterator mid & iter`  are not valid anymore.
+- to fix these issues you must recalculate `mid` and read `iter` from `insert` every time a value is inserted in the vector.
+
+```cpp
+    std::vector<int> iv{1,2,3,4,5,6,7,8,9,10};
+    std::vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size()/2;
+
+    while (iter != mid) {
+        if (*iter == some_val) {
+            iter = iv.insert(iter, 2 * some_val);
+            mid = iv.begin() + iv.size()/2;
+            iter++;
+        }
+        ++iter;
+    }
+
+    for (auto number : iv) {
+        std::cout << number << ", "; 
+    }
+
+```
+
+
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
