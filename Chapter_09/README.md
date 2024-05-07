@@ -277,6 +277,16 @@ std::vector<double> dVec2(iList.begin(), iList.end());
 
 *Explain how the loop from page 345 that used the return from insert to add elements to a list would work if we inserted into a vector instead.*
 
+```cpp
+list<string> 1st;
+auto iter = 1st.begin();
+while (cin >> word)
+iter = 1st.insert(iter, word); // same as calling push_front
+```
+**Answer**
+
+- It will work as expected using the `std::vector.insert()` but, as `std::vector` is a contiguous container, it will take time to perform all the required operations to allocate and move all objects that follow the object inserted.
+
 ### [Exercise 9.22:](Exercise_22/Ex_22.cpp) 
 
 *Assuming iv is a vector of `ints`, what is wrong with the following program? How might you correct the problem(s)?*
@@ -290,10 +300,9 @@ while (iter != mid) {
         iv.insert(iter, 2 * some_val);
 }
 ```
-
 **Answer**
 
-- There is no incrent on the `iter`.
+- There is no increment on `iter`.
 - The size of `iv` changes when a value is inserted, so the `iterator mid & iter`  are not valid anymore.
 - to fix these issues you must recalculate `mid` and read `iter` from `insert` every time a value is inserted in the vector.
 
