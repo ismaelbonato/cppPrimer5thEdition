@@ -325,6 +325,153 @@ while (iter != mid) {
 
 ```
 
+## 9.3.2. Accessing Elements
+
+### Exercise 9.23: 
+
+*In the first program in this section on page 346, what would the values of `val`, `val2`, `val3`, and `val4` be if `c.size()` is 1?*
+
+**Answer**
+
+- `val1`": will get the iterator to the first position on `c`.
+- `val2`": will get a copy of the first position on `c`.
+- `val3`": will get the iterator to the first position on `c`.
+- `val4`": will get a copy of the first position on `c`.
+
+
+### [Exercise 9.24:](Exercise_24/Ex_24.cpp) 
+
+*Write a program that fetches the first element in a vector using at, the subscript operator, front, and begin. Test your program on an empty vector.*
+
+**Output**
+
+- **at**
+    ```shell
+    terminate called after throwing an instance of 'std::out_of_range'
+    what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+    Aborted
+    ```
+- **the subscript operator**
+    ```shell
+    Segmentation fault
+    ```
+- **front**
+    ```shell
+    Segmentation fault
+    ```
+- **begin**
+    ```shell
+    Segmentation fault
+    ```
+
+
+## 9.3.3. Erasing Elements
+
+### Exercise 9.25:
+
+*In the program on page 349 that erased a range of elements, what happens if `elem1` and `elem2` are equal? What if `elem2` or both `elem1` and `elem2` are the off-the-end iterator?*
+
+```cpp
+elem1 = slist.erase(elem1, elem2);
+```
+**Answer**
+- If elem1 and elem2 are equal nothing will be erased and the erase method will return the iterator to `elem2`.
+- If `elem2` is an off-the-end iterator it will erase all elements starting from`elem1` to the end of the container, it will return the iterator to the off-the-end `.end()` iterator.
+- If `elem1` and `elem2` are off-the-end iterator, nothing will be erased and the erase method will return the iterator to off-the-end `.end()` iterator.
+
+
+### [Exercise 9.26:](Exercise_26/Ex_26.cpp)
+
+*Using the following definition of `ia`, copy ia into a `vector` and into a `list`. Use the `single-iterator` form of erase to remove the elements with odd values from your `list` and the even values from your `vector`.*
+
+```cpp
+int ia[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 55, 89 };
+```
+
+## 9.3.4. Specialized forward_list Operations
+
+### [Exercise 9.27:](Exercise_27/Ex_27.cpp)
+
+*Write a program to find and remove the odd-valued elements in a `forward_list<int>`.*
+
+### [Exercise 9.28:](Exercise_28/Ex_28.cpp)
+
+*Write a function that takes a `forward_list<string>` and two additional string arguments. The function should find the first string and insert the second immediately following the first. If the first string is not found, then insert the second string at the end of the list.*
+
+## 9.3.5. Resizing a Container
+
+### Exercise 9.29: 
+
+*Given that vec holds 25 elements, what does `vec.resize(100)` do? What if we next wrote `vec.resize(10)`?*
+
+**Answer**
+- The command `vec.resize(100)` creates 75 new elements at the end of the list, all value initialized.
+- The command `vec.resize(10)` will shrink the list to only 10 elements, all other elements will be discarded.
+
+
+### Exercise 9.30: 
+
+*What, if any, restrictions does using the version of resize that takes a single argument place on the element type?*
+
+**Answer**
+- If the list holds class objects types that do not have a default constructor, it will be required to define the default initialization in the resize function.
+
+## 9.3.6. Container Operations May Invalidate Iterators
+
+### [Exercise 9.31:](Exercise_31/Ex_31.cpp)
+
+
+*The program on page 354 to remove even-valued elements and duplicate odd ones will not work on a list or forward_list. Why? Revise the program so that it works on these types as well.*
+
+**Answer**
+- For a `std::list` this example will not work, as it is a linked list the iterator can only perform -- ou ++ operations, each object in a double linked list only know its previous and next object on the list.
+- For a `std::forward_list` this example will not work, a `std::forward_list` has the same problem of the `std::list` but as it is a single linked list the iterator can only perform the ++ operation. For this component there is not exist such member as `insert()` or `erease()`, the only way to insert or remove an object is using the members `insert_after()` and `erase_after()`. 
+
+### Exercise 9.32:
+
+*In the program onpage 354 would it be legal to write the call to insert as follows? If not, why not?*
+```cpp
+iter = vi.insert(iter, *iter++);
+```
+**Answer**
+- It is legal, but unsafe, iter is used twice in the function and there is no guarantee witch of them will be processed first, especially because postfix has priority over deference.
+
+### [Exercise 9.33:](Exercise_33/Ex_33.cpp)
+
+*In the final example in this section what would happen if we did not assign the result of insert to begin? Write a program that omits this assignment to see if your expectation was correct.*
+
+```cpp
+// safer: recalculate end on each trip whenever the loop adds/erases elements
+while (begin != v.end()) {
+// do some processing
+    ++begin; // advance begin because we want to insert after this element
+    begin = v.insert(begin, 42); // insert the new value
+    ++begin; // advance begin past the element we just added
+}
+```
+**Answer**
+- It can lead to an invalid iterator, the iterator will lead to the position in the memory where the container was located before the insertion.
+
+**Output**
+```cpp
+~/repo/cppPrimer5th/Chapter_09/Exercise_33$ ./a.out 
+munmap_chunk(): invalid pointer
+Aborted
+```
+
+### [Exercise 9.34:](Exercise_34/Ex_34.cpp)
+
+*Assuming `vi` is a container of `ints` that includes even and odd values, predict the behavior of the following loop. After you’ve analyzed this loop, write a program to test whether your expectations were correct.*
+```cpp
+iter = vi.begin();
+while (iter != vi.end())
+    if (*iter % 2)
+        iter = vi.insert(iter, *iter);
+    ++iter;
+```
+
+**Answer**
+- When an Odd value is found the code will duplicate the odd value and it will stuck in this process forever, this loop will never end.
 
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
