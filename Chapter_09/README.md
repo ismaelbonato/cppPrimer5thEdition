@@ -450,7 +450,7 @@ while (begin != v.end()) {
 }
 ```
 **Answer**
-- It can lead to an invalid iterator, the iterator will lead to the position in the memory where the container was located before the insertion.
+- It leads to an invalid iterator, the iterator will lead to the position in the memory where the container was located before the insertion.
 
 **Output**
 ```cpp
@@ -472,6 +472,63 @@ while (iter != vi.end())
 
 **Answer**
 - When an Odd value is found the code will duplicate the odd value and it will stuck in this process forever, this loop will never end.
+
+## 9.4. How a vector Grows
+
+### Exercise 9.35: 
+
+*Explain the difference between a vector’s capacity and
+its size.*
+
+**Answer**
+- Size: is the amount of elements in the Vector.
+- Capacity: is the amount of space allocated in the memory for this vector, it can be equal or larger than Size.
+
+### Exercise 9.36: 
+
+*Can a container have a capacity less than its size?*
+
+**Answer**
+- The capacity of the container can be equal or larger than the size. Assuming that a due container has its capacity less than the size it is a buffer overflow.
+
+Exercise 9.37: Why don’t list or array have a capacity member?
+
+**Answer**
+- The Array container has its size fixed in its creation, so capacity is meaningless in this case.
+- The List container is a double linked list, so memory allocation and deallocation are fast than the contiguous containers.
+
+### [Exercise 9.38:](Exercise_38/Ex_38.cpp)
+
+*Write a program to explore how vectors grow in the library you use.*
+
+### Exercise 9.39: 
+
+*Explain what the following program fragment does:
+```cpp
+std::vector<string> svec;
+svec.reserve(1024);
+std::string word;
+while (cin >> word) {
+    svec.push_back(word);
+}
+svec.resize(svec.size()+svec.size()/2);
+
+```
+**Answer**
+- An Vector of strings is created and 1024 spaces are allocated in memory for this Vector. 
+- After that there is a loop for pushing to the back of the container the standard input. 
+- In the end the Vector is resized to accommodate another  "vector.size()/2" in default initialized elements.
+
+### Exercise 9.40: 
+
+*If the program in the previous exercise reads 256 words, what is its likely capacity after it is resized? What if it reads 512? 1,000? 1,048?*
+
+**Answer**
+- 256: The capacity will be 1024 before and after the resize. 
+- 512: The capacity will be 1024 before and after the resize.
+- 1000: The capacity will be 1024 before and 2048 after the resize.
+- 1048: The capacity will be 2048 before and 2048 after the resize.
+
 
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
