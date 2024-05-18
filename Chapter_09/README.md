@@ -530,5 +530,36 @@ svec.resize(svec.size()+svec.size()/2);
 - 1048: The capacity will be 2048 before and 2048 after the resize.
 
 
+## 9.5.1. Other Ways to Construct strings
+
+### [Exercise 9.41:](Exercise_41/Ex_41.cpp)
+
+*Write a program that initializes a string from a `vector<char>`.*
+
+### Exercise 9.42: 
+
+*Given that you want to read a character at a time into a string, and you know that you need to read at least 100 characters, how might you improve the performance of your program?*
+
+**Answer**
+- A would create and reserve memory for at least for 128 elements in that string. 
+
+## 9.5.2. Other Ways to Change a string
+
+### [Exercise 9.43:](Exercise_43/Ex_43.cpp)
+
+*Write a function that takes three strings, s, oldVal, and newVal. Using iterators, and the insert and erase functions replace all instances of oldVal that appear in s by newVal. Test your function by using it to replace common abbreviations, such as “tho” by “though” and “thru” by “through”.*
+
+### [Exercise 9.44:](Exercise_44/Ex_44.cpp)
+
+*Rewrite the previous function using an index and replace.*
+
+### [Exercise 9.45:](Exercise_45/Ex_45.cpp)
+
+*Write a function that takes a string representing a name and two other strings representing a prefix, such as “Mr.” or “Ms.” and a suffix, such as “Jr.” or “III”. Using iterators and the insert and append functions, generate and return a new string with the suffix and prefix added to the given name.*
+
+### Exercise 9.46:]
+
+*Rewrite the previous exercise using a position and length to manage the strings. This time use only the insert function.*
+
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
