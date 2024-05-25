@@ -1,6 +1,6 @@
 ### [Back to Chapter 8](../Chapter_08/README.md)
 
-# 9.1. Overview of the Sequential Containers
+# Chapter 9. Sequential Containers
 
 ### How to compile:
 
@@ -557,9 +557,42 @@ svec.resize(svec.size()+svec.size()/2);
 
 *Write a function that takes a string representing a name and two other strings representing a prefix, such as “Mr.” or “Ms.” and a suffix, such as “Jr.” or “III”. Using iterators and the insert and append functions, generate and return a new string with the suffix and prefix added to the given name.*
 
-### Exercise 9.46:]
+### [Exercise 9.46:](Exercise_46/Ex_46.cpp)
 
 *Rewrite the previous exercise using a position and length to manage the strings. This time use only the insert function.*
+
+## 9.5.3. string Search Operations
+
+### [Exercise 9.47:](Exercise_47/Ex_47.cpp)
+
+*Write a program that finds each numeric character and then each alphabetic character in the string `"ab2c3d7R4E6"`. Write two versions of the program. The first should use `find_first_of`, and the second `find_first_not_of`.*
+
+### Exercise 9.48:
+
+*Given the definitions of name and numbers on page 365, what does numbers.find(name) return?*
+
+**Answer**
+- It will return `std::string::npos`.
+
+### [Exercise 9.49:](Exercise_49/Ex_49.cpp)
+
+*A letter has an ascender if, as with d or f, part of the letter extends above the middle of the line. A letter has a descender if, as with p or g, part of the letter extends below the line. Write a program that reads a file containing words and reports the longest word that contains neither ascenders nor descenders.*
+
+## 9.5.5. Numeric Conversions
+
+### [Exercise 9.50:](Exercise_50/Ex_50.cpp)
+
+*Write a program to process a `vector<string>s` whose elements represent integral values. Produce the sum of all the elements in that vector. Change the program so that it sums of strings that represent floating-point values.*
+
+### [Exercise 9.51:](Exercise_51/Ex_51.cpp)
+
+*Write a class that has three unsigned members representing year, month, and day. Write a constructor that takes a string representing a date. Your constructor should handle a variety of date formats, such as January 1, 1900, 1/1/1900, Jan 1, 1900, and so on.*
+
+## 9.6. Container Adaptors
+
+### [Exercise 9.52:](Exercise_52/Ex_52.cpp)
+
+*Use a stack to process parenthesized expressions. When you see an open parenthesis, note that it was seen. When you see a close parenthesis after an open parenthesis, pop elements down to and including the open parenthesis off the stack. push a value onto the stack to indicate that a parenthesized expression was replaced.*
 
 ----------------------------
 ### [Back to Chapter 8](../Chapter_08/README.md) - [Next to Chapter 10](../Chapter_10/README.md)
