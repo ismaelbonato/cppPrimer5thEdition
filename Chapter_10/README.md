@@ -35,9 +35,13 @@ strings.*
 **Answer**
 - The function's return type is deduced by the type of the third argument.
 
-### Exercise 10.5: 
+### [Exercise 10.5:](Exercise_05/Ex_05.cpp)
 
 *In the call to equal on rosters, what would happen if both rosters held `C-style` strings, rather than library strings?*
+
+**Answer**
+- Both will work in the same way because iterator are a type of pointer.
+
 
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
