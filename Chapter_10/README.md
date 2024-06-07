@@ -95,9 +95,47 @@ and, if so, correct the error(s):*
 
 *Implement your own version of `elimDups`. Test your program by printing the vector after you read the input, after the call to unique, and after the call to erase.*
 
+
 ### Exercise 10.10: 
 
 *Why do you think the algorithms don’t change the size of containers?*
+
+**Answer**
+- When a element is inserted or removed the iterators used as parameters are invalidated.
+- The algorithms work with iterators in a generic way, algorithms have not containers operations. 
+
+## 10.3.1. Passing a Function to an Algorithm
+
+### [Exercise 10.11:](Exercise_11/Ex_11.cpp)
+
+*Write a program that uses `stable_sort` and `isShorter` to sort a vector passed to your version of `elimDups`. Print the vector to verify that your program is correct.*
+
+### [Exercise 10.12:](Exercise_12/Ex_12.cpp)
+
+*Write a function named `compareIsbn` that compares the `isbn()` members of two `Sales_data` objects. Use that function to sort a vector that holds `Sales_data` objects.*
+
+**Output**
+
+```cpp
+Exercise_12$ ./a.out  < input 
+0-201-78340-X 2  40 20
+0-201-78342-X 3  30 10
+0-201-78343-X 3  30 10
+0-201-78344-X 3  30 10
+0-201-78345-X 3  30 10
+0-201-78346-X 3  30 10
+0-201-78346-X 3  60 20
+0-201-78347-X 3  60 20
+0-201-78347-X 3  30 10
+0-201-78347-X 3  30 10
+0-201-78347-X 3  30 10
+0-201-78348-X 3  30 10
+0-201-78349-X 3  60 20
+```
+
+### [Exercise 10.13:](Exercise_13/Ex_13.cpp)
+
+*The library defines an algorithm named `partition` that takes a predicate and partitions the container so that values for which the predicate is true appear in the first part and those for which the predicate is false appear in the second part. The algorithm returns an iterator just past the last element for which the predicate returned true. Write a function that takes a string and returns a bool indicating whether the string has five characters or more. Use that function to partition words. Print the elements that have five or more characters.*
 
 
 ----------------------------
