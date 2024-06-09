@@ -87,7 +87,7 @@ and, if so, correct the error(s):*
 *We said that algorithms do not change the size of the containers over which they operate. Why doesn’t the use of back_inserter invalidate this claim?*
 
 **Answer**
-- back_inserter does not invalidade the algorithm functions, the back_inserter is a special iterator used to insert new elements in the back of a container.
+- back_inserter does not override the algorithm functions, the back_inserter is a special iterator used to insert new elements into the back of a container.
 
 ## 10.2.3. Algorithms That Reorder Container Elements
 
@@ -101,8 +101,8 @@ and, if so, correct the error(s):*
 *Why do you think the algorithms don’t change the size of containers?*
 
 **Answer**
-- When a element is inserted or removed the iterators used as parameters are invalidated.
-- The algorithms work with iterators in a generic way, algorithms have not containers operations. 
+- When an element is inserted or removed the iterators used as parameters are invalidated.
+- The algorithms work with iterators in a generic way, the algorithms do not have any containers operations.
 
 ## 10.3.1. Passing a Function to an Algorithm
 
@@ -137,6 +137,31 @@ Exercise_12$ ./a.out  < input
 
 *The library defines an algorithm named `partition` that takes a predicate and partitions the container so that values for which the predicate is true appear in the first part and those for which the predicate is false appear in the second part. The algorithm returns an iterator just past the last element for which the predicate returned true. Write a function that takes a string and returns a bool indicating whether the string has five characters or more. Use that function to partition words. Print the elements that have five or more characters.*
 
+### 10.3.2. Lambda Expressions
+
+### [Exercise 10.14:](Exercise_14/Ex_14.cpp)
+
+*Write a lambda that takes two `ints` and returns their sum.*
+
+### [Exercise 10.15:](Exercise_15/Ex_15.cpp)
+
+*Write a lambda that captures an `int` from its enclosing function and takes an `int` parameter. The lambda should return the sum of the captured `int` and the `int` parameter.*
+
+### [Exercise 10.16:](Exercise_16/Ex_16.cpp)
+
+*Write your own version of the biggies function using lambdas.*
+
+### Exercise 10.17: 
+
+*Rewrite exercise 10.12 from § 10.3.1 (p. 387) to use a lambda in the call to sort instead of the `compareIsbn` function.*
+
+### Exercise 10.18: 
+
+*Rewrite biggies to use partition instead of `find_if`. We described the partition algorithm in exercise 10.13 in § 10.3.1 (p. 387).*
+
+### Exercise 10.19: 
+
+*Rewrite the previous exercise to use `stable_partition`, which like `stable_sort` maintains the original element order in the `partitioned` sequence.*
 
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
