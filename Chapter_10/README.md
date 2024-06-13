@@ -151,11 +151,11 @@ Exercise_12$ ./a.out  < input
 
 *Write your own version of the biggies function using lambdas.*
 
-### Exercise 10.17: 
+### [Exercise 10.17:](Exercise_17/Ex_17.cpp)
 
 *Rewrite exercise 10.12 from § 10.3.1 (p. 387) to use a lambda in the call to sort instead of the `compareIsbn` function.*
 
-### Exercise 10.18: 
+### [Exercise 10.18:](Exercise_18/Ex_18.cpp)
 
 *Rewrite biggies to use partition instead of `find_if`. We described the partition algorithm in exercise 10.13 in § 10.3.1 (p. 387).*
 
