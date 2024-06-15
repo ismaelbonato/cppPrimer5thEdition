@@ -157,9 +157,9 @@ Exercise_12$ ./a.out  < input
 
 ### [Exercise 10.18:](Exercise_18/Ex_18.cpp)
 
-*Rewrite biggies to use partition instead of `find_if`. We described the partition algorithm in exercise 10.13 in § 10.3.1 (p. 387).*
+*Rewrite biggies to use `partition` instead of `find_if`. We described the partition algorithm in exercise 10.13 in § 10.3.1 (p. 387).*
 
-### Exercise 10.19: 
+### [Exercise 10.19:](Exercise_19/Ex_19.cpp)
 
 *Rewrite the previous exercise to use `stable_partition`, which like `stable_sort` maintains the original element order in the `partitioned` sequence.*
 
