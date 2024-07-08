@@ -137,7 +137,7 @@ Exercise_12$ ./a.out  < input
 
 *The library defines an algorithm named `partition` that takes a predicate and partitions the container so that values for which the predicate is true appear in the first part and those for which the predicate is false appear in the second part. The algorithm returns an iterator just past the last element for which the predicate returned true. Write a function that takes a string and returns a bool indicating whether the string has five characters or more. Use that function to partition words. Print the elements that have five or more characters.*
 
-### 10.3.2. Lambda Expressions
+## 10.3.2. Lambda Expressions
 
 ### [Exercise 10.14:](Exercise_14/Ex_14.cpp)
 
@@ -162,6 +162,18 @@ Exercise_12$ ./a.out  < input
 ### [Exercise 10.19:](Exercise_19/Ex_19.cpp)
 
 *Rewrite the previous exercise to use `stable_partition`, which like `stable_sort` maintains the original element order in the `partitioned` sequence.*
+
+## 10.3.3. Lambda Captures and Returns
+
+### [Exercise 10.20:](Exercise_20/Ex_20.cpp)
+
+*The library defines an algorithm named `count_if`. Like `find_if`, this function takes a pair of iterators denoting an input range and a predicate that it applies to each element in the given range. `count_if` returns a count of how often the predicate is true. Use `count_if` to rewrite the portion of our program that counted how many words are greater than length 6.*
+
+
+
+### [Exercise 10.21:](Exercise_21/Ex_21.cpp)
+
+*Write a lambda that captures a local int variable and decrements that variable until it reaches 0. Once the variable is 0 additional calls should no longer decrement the variable. The lambda should return a bool that indicates whether the captured variable is 0.
 
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
