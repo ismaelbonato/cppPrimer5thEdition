@@ -170,10 +170,50 @@ Exercise_12$ ./a.out  < input
 *The library defines an algorithm named `count_if`. Like `find_if`, this function takes a pair of iterators denoting an input range and a predicate that it applies to each element in the given range. `count_if` returns a count of how often the predicate is true. Use `count_if` to rewrite the portion of our program that counted how many words are greater than length 6.*
 
 
-
 ### [Exercise 10.21:](Exercise_21/Ex_21.cpp)
 
 *Write a lambda that captures a local int variable and decrements that variable until it reaches 0. Once the variable is 0 additional calls should no longer decrement the variable. The lambda should return a bool that indicates whether the captured variable is 0.
+
+## 10.3.4. Binding Arguments
+
+### [Exercise 10.22:](Exercise_22/Ex_22.cpp)
+
+*Rewrite the program to count words of size 6 or less using functions in place of the lambdas.*
+
+### Exercise 10.23: 
+
+*How many arguments does bind take?*
+
+**Answer**
+- The bind function accepts two arguments: a callable object and a list of arguments separated by a comma. In other words, the number of arguments is equal to the number of items in the list plus the callable object.
+
+### [Exercise 10.24:](Exercise_23/Ex_23.cpp)
+
+*Use `bind` and `check_size` to find the first element in a vector of `ints` that has a value greater than the length of a specified string value.*
+
+### [Exercise 10.25:](Exercise_25/Ex_25.cpp)
+
+*In the exercises for § 10.3.2 (p. 392) you wrote a version of biggies that uses partition. Rewrite that function to use `check_size` and bind.*
+
+## 10.4.1. Insert Iterators
+
+### Exercise 10.26: 
+
+*Explain the differences among the three kinds of insert iterators.*
+
+**Answer**
+- **Front_inserter** : 
+- **Inserter** : 
+- **Back_inserter** :
+
+
+### [Exercise 10.27:](Exercise_26/Ex_21.cpp)
+
+*In addition to `unique` (§ 10.2.3, p. 384), the library defines function named `unique_copy` that takes a third iterator denoting a destination into which to copy the unique elements. Write a program that uses `unique_copy` to copy the unique elements from a vector into an initially empty list.*
+
+### Exercise 10.28: 
+
+*Copy a vector that holds the values from 1 to 9 inclusive, into three other containers. Use an inserter, a back_inserter, and a front_inserter, respectivly to add elements to these containers. Predict how the output sequence varies by the kind of inserter and verify your predictions by running your programs.*
 
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
