@@ -202,18 +202,18 @@ Exercise_12$ ./a.out  < input
 *Explain the differences among the three kinds of insert iterators.*
 
 **Answer**
-- **Front_inserter** : 
-- **Inserter** : 
-- **Back_inserter** :
+- **Front_inserter** : Creates an iterator adaptor that employs the `push_front` function. However, this results in the reversal of the sequence's order.
+- **Inserter** : The Inserter function generates an iterator that employs the `insert` function, ensuring that an object is consistently inserted ahead of the given iterator.
+- **Back_inserter** : Creates an iterator adaptor that uses the `push_back` function, it inserts the object ahead of the last position of the sequence.         
 
 
-### [Exercise 10.27:](Exercise_26/Ex_21.cpp)
+### [Exercise 10.27:](Exercise_26/Ex_26.cpp)
 
 *In addition to `unique` (§ 10.2.3, p. 384), the library defines function named `unique_copy` that takes a third iterator denoting a destination into which to copy the unique elements. Write a program that uses `unique_copy` to copy the unique elements from a vector into an initially empty list.*
 
-### Exercise 10.28: 
+### [Exercise 10.28:](Exercise_27/Ex_27.cpp)
 
-*Copy a vector that holds the values from 1 to 9 inclusive, into three other containers. Use an inserter, a back_inserter, and a front_inserter, respectivly to add elements to these containers. Predict how the output sequence varies by the kind of inserter and verify your predictions by running your programs.*
+*Copy a vector that holds the values from 1 to 9 inclusive, into three other containers. Use an inserter, a back_inserter, and a front_inserter, respectively to add elements to these containers. Predict how the output sequence varies by the kind of inserter and verify your predictions by running your programs.*
 
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
