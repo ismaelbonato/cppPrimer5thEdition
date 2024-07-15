@@ -229,11 +229,11 @@ Exercise_12$ ./a.out  < input
 
 *Update the program from the previous exercise so that it prints only the unique elements. Your program should use `unqiue_copy` (§ 10.4.1, p. 403).*
 
-### Exercise 10.32: 
+### [Exercise 10.32:](Exercise_32/Ex_32.cpp)
 
 *Rewrite the bookstore problem from § 1.6 (p. 24) using a vector to hold the transactions and various algorithms to do the processing. Use sort with your `compareIsbn` function from § 10.3.1 (p. 387) to arrange the transactions in order, and then use find and `accumulate` to do the `sum`.*
 
-### Exercise 10.33: 
+### [Exercise 10.33:](Exercise_33/Ex_33.cpp)
 
 *Write a program that takes the names of an input file and two output files. The input file should hold integers. Using an `istream_iterator` read the input file. Using `ostream_iterators`, write the odd numbers into the first output file. Each value should be followed by a space. Write the even numbers into the second file. Each of these values should be placed on a separate line.*
 
