@@ -237,5 +237,23 @@ Exercise_12$ ./a.out  < input
 
 *Write a program that takes the names of an input file and two output files. The input file should hold integers. Using an `istream_iterator` read the input file. Using `ostream_iterators`, write the odd numbers into the first output file. Each value should be followed by a space. Write the even numbers into the second file. Each of these values should be placed on a separate line.*
 
+## 10.4.3. Reverse Iterators
+
+### [Exercise 10.34:](Exercise_34/Ex_34.cpp)
+
+*Use reverse_iterators to print a vector in reverse order.*
+
+### [Exercise 10.35:](Exercise_35/Ex_35.cpp)
+
+*Now print the elements in reverse order using ordinary iterators.*
+
+### [Exercise 10.36:](Exercise_36/Ex_36.cpp)
+
+*Use `find` to find the last element in a list of `ints` with value 0.*
+
+### [Exercise 10.37:](Exercise_37/Ex_37.cpp)
+
+*Given a vector that has ten elements, copy the elements from positions 3 through 7 in reverse order to a `list`.*
+
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
