@@ -255,5 +255,58 @@ Exercise_12$ ./a.out  < input
 
 *Given a vector that has ten elements, copy the elements from positions 3 through 7 in reverse order to a `list`.*
 
+## 10.5.1. The Five Iterator Categories
+
+### Exercise 10.38:
+
+*List the five iterator categories and the operations that each supports.*
+
+**Answer**
+
+- **Input iterators**
+    - Equality and inequality: `==`, `!=`.
+    - Prefix and Postfix Increment: `++a`, `a++`.
+    - Dereferencing: `*a`, `a->`.
+- **Output iterators**
+    - Prefix and Postfix Increment: `++a`, `a++`. 
+    - Dereferencing: `*a`.
+- **Forward iterators**
+    - Equality and inequality: `==`, `!=`.
+    - Prefix and Postfix Increment: `++a`, `a++`.
+    - Dereferencing: `*a`, `a->`.
+- **Bidirectional iterators**
+    - Equality and inequality: `==`, `!=`.
+    - Prefix and Postfix Increment: `++a`, `a++`.
+    - Prefix and Postfix decrement: `--a`, `a--`.
+    - Dereferencing: `*a`, `a->`.
+- **Random Access iterators**
+    - Equality and inequality: `==`, `!=`.
+    - Prefix and Postfix Increment: `++a`, `a++`.
+    - Prefix and Postfix decrement: `--a`, `a--`.
+    - Dereferencing: `*a`, `a->`.
+    - Relational Operators: `>`, `>=`, `<`, `<=`.
+    - Addition and Subtraction: `+`, `+=`, `-`, `-=` Obs: on an iterator and on integral values.
+    - Subscript: `a[]`.
+
+
+### Exercise 10.39: 
+
+*What kind of iterator does a list have? What about a vector?*
+
+**Answer**
+- A list is a doubly linked list, which means that it has bidirectional iterators.
+- A vector, on the other hand, is a contiguous space in memory, which means that it has random-access iterators. 
+
+### Exercise 10.40: 
+
+*What kinds of iterators do you think copy requires? What about reverse or unique?*
+
+**Answer**
+
+- **Copy**: Input iterator, Input iterator, Output iterator.
+- **Reverse**: Bidirectional iterators.
+- **Unique**: Forward iterators.
+
+
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
