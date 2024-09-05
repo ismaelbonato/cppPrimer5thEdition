@@ -21,5 +21,6 @@ This repo contains the solutions of the exercises from the book: _C++ Primer_ 5t
   - [Chapter 8. The IO Library](Chapter_08/README.md)
   - [Chapter 9. Sequential Containers](Chapter_09/README.md)
   - [Chapter 10. Generic Algorithms](Chapter_10/README.md)
+  - [Chapter 11. Associative Containers](Chapter_11/README.md)
 - Part III: Tools for Class Authors
 - Part IV:  Advanced Topics

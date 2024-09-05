@@ -308,5 +308,31 @@ Exercise_12$ ./a.out  < input
 - **Unique**: Forward iterators.
 
 
+## 10.5.3. Algorithm Naming Conventions
+
+### Exercise 10.41: 
+
+*Based only on the algorithm and argument names, describe the operation that the each of the following library algorithms performs:*
+
+```cpp
+(a) replace(beg, end, old_val, new_val);
+(b) replace_if(beg, end, pred, new_val);
+(c) replace_copy(beg, end, dest, old_val, new_val);
+(d) replace_copy_if(beg, end, dest, pred, new_val);
+```
+
+**Answer**
+
+- **(a)**: Replace the `old_val` found within the range defined by `beg` and `end` with the `new_val` in the same range.
+- **(b)**: This function iterates through a range between `beg` and `end`, replacing the element with `new_val` if the predicate returns `true`.
+- **(c)**: Copy all values between the range `beg` and `end` to `dest` while replacing all `old_val` elements with `new_val`.
+- **(d)**: Copy all values between the range `beg` and `end` to the target `dest` replacing any elements with `new_val` where the predicate returns true.
+
+## 10.6. Container-Specific Algorithms
+
+### [Exercise 10.42:](Exercise_42/Ex_42.cpp)
+
+*Reimplement the program that eliminated duplicate words that we wrote in § 10.2.3 (p. 383) to use a list instead of a vector.*
+
 ----------------------------
 ### [Back to Chapter 9](../Chapter_09/README.md) - [Next to Chapter 11](../Chapter_11/README.md)
