@@ -6,6 +6,11 @@
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# dynamic analysis tools
+callgrind*
+massif*
+cachegrind*
+heaptrack*
 # Local History for Visual Studio Code
 .history/
 
