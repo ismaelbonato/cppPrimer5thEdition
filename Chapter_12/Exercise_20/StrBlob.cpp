@@ -1,4 +1,5 @@
 #include "StrBlob.h"
+#include "StrBlobPtr.h"
 
 StrBlob::StrBlob(): data(std::make_shared<std::vector<std::string>>()) 
 {
@@ -32,7 +33,17 @@ void StrBlob::push_back(const std::string &t) const
     data->push_back(t);
 }
 
-void StrBlob::check(size_type i, const std::string &msg) const
+void StrBlob::check(std::size_t i, const std::string &msg) const
 {
     if (i >= data->size()) throw std::out_of_range(msg);
+}
+
+StrBlobPtr StrBlob::begin()
+{ 
+    return StrBlobPtr(*this); 
+}
+
+StrBlobPtr StrBlob::end()
+{ 
+    return StrBlobPtr(*this, data->size()); 
 }
