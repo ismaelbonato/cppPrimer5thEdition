@@ -369,9 +369,120 @@ std::string& deref() const
 
 *Which version do you think is better and why?*
 
-### Exercise 12.22: 
+**Answer**
+- The original version is much better, it is easier to read and debug.
+
+### [Exercise 12.22:](Exercise_22/Ex_22.cpp)
 
 *What changes would need to be made to `StrBlobPtr` to create a class that can be used with a `const StrBlob`? Define a class named `ConstStrBlobPtr` that can point to a `const StrBlob`.*
+
+**Answer**
+- To return *const StrBlob* the modifier `const` has to be included in the function to make `*this` returns a `const StrBlob *`. 
+
+```cpp
+// Declaration
+ConstStrBlobPtr cbegin() const;
+ConstStrBlobPtr cend() const;
+
+//Definition
+ConstStrBlobPtr StrBlob::cbegin() const
+ConstStrBlobPtr StrBlob::cend() const;
+```
+
+## 12.2.1. new and Arrays
+
+### [Exercise 12.23:](Exercise_23/Ex_23.cpp)
+
+*Write a program to concatenate two `c-style string` literals, putting the result in a dynamically allocated `array of char`. Write a program to concatenate two library `std::strings` that have the same value as the literals used in the first program.*
+
+### [Exercise 12.24:](Exercise_24/Ex_24.cpp)
+
+*Write a program that reads a string from the standard input into a dynamically allocated character array. Describe how your program handles varying size inputs. Test your program by giving it a string of data that is longer than the array size you’ve allocated.*
+
+**Answer**
+- The program will ignore any `char` after reach the value `MAXLENGH`.
+
+### Exercise 12.25: 
+
+*Given the following new expression, how would you delete pa?*
+
+```cpp
+int *pa = new int[10]; 
+```
+
+**Answer**
+
+```cpp
+delete [] pa;
+```
+
+## 12.2.2. The allocator Class
+
+### [Exercise 12.26:](Exercise_26/Ex_26.cpp)
+
+*Rewrite the program on page 481 using an allocator.*
+
+
+## 12.3.1. Design of the Query Program
+
+## [Exercise 12.27:](Exercise_27/Ex_27.cpp)
+
+*The `TextQuery` and `QueryResult` classes use only capabilities that we have already covered. Without looking ahead, write your own versions of these classes.*
+
+### [Exercise 12.28:](Exercise_28/Ex_28.cpp)
+
+*Write a program to implement text queries without defining classes to manage the data. Your program should take a file and interact with a user to query for words in that file. Use `vector`, `map`, and `set` containers to hold the data for the file and to generate the results for the queries.*
+
+### [Exercise 12.29:](Exercise_29/Ex_29.cpp)
+
+*We could have written the loop to manage the interaction with the user as a do while (§ 5.4.4, p. 189) loop. Rewrite the loop to use a do while. Explain which version you prefer and why.*
+
+**Answer**
+```cpp
+do {
+    std::cout << "enter word to look for, or q to quit: ";
+    std::string s;
+    if (!(std::cin >> s) || s == "q") break;
+    print(std::cout, s, query(s, data)) << std::endl;
+} while(true);
+```
+
+- I prefer `while` loop, in this context there is no advantage in using `do while`.
+- The only way I can see is using `do while` to break the loop as we can see below.
+
+```cpp
+do {
+    std::cout << "enter word to look for, or q to quit: ";
+    std::string s;
+    std::cin >> s;
+    do_something_with_s(s);
+} while(s != "q");
+```
+
+## 12.3.2. Defining the Query Program Classes
+
+### [Exercise 12.30:](Exercise_30/Ex_30.cpp)
+
+*Define your own versions of the `TextQuery` and `QueryResult` classes and execute the `runQueries` function from § 12.3.1 (p. 486).*
+
+### Exercise 12.31:
+
+*What difference(s) would it make if we used a `vector` instead of a `set` to hold the line numbers? Which approach is better? Why?*
+
+**Answer**
+- `std::Vector` is a sequence container, it can store many keys with the same value.
+- `std::set` is an associative container, key uniqueness is a requirement, it is better suited to this case due to that.
+
+### [Exercise 12.32:](Exercise_32/Ex_32.cpp)
+
+*Rewrite the `TextQuery` and `QueryResult` classes to use a `StrBlob` instead of a `vector<string>` to hold the input file.*
+
+### [Exercise 12.33:](Exercise_33/Ex_33.cpp)
+
+*In Chapter 15 we’ll extend our query system and will need some additional members in the QueryResult class. Add members named `begin` and `end` that return `iterators` into the `set` of line numbers returned by a given query, and a member named `get_file` that returns a `shared_ptr` to the file in the `QueryResult` object.*
+
+
+
 
 ----------------------------
 ### [Back to Chapter 11](../Chapter_11/README.md) - [Next to Chapter 13](../Chapter_13/README.md)

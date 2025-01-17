@@ -5,19 +5,20 @@
 #include <fstream>
 #include <string>
 #include "StrBlobPtr.h"
+#include "ConstStrBlobPtr.h"
+
 
 int main ()
 {
-    StrBlob b1;
+    const StrBlob b1;
     std::ifstream file("input");
     std::string line;
 
     while (std::getline(file,line)) {
         b1.push_back(line);
     }
-
-    auto b = b1.begin();
-    auto e = b1.end();
+    
+    auto b = b1.cbegin();
 
     for (std::size_t idx = 0; idx < (b1.size() -1 ); ++idx) {
         b.incr();

@@ -5,7 +5,7 @@
 
 // in order to pass vec by value you need to pass an index due the fact
 // vec is a copy and vec.end() will return end of the copy address 
-void recVectorPrinter(const std::vector<int> vec, const std::vector<int>::size_type idx)
+void recVectorPrinter(const std::vector<int> &vec, const std::vector<int>::size_type idx)
 {
 #ifndef NDEBUG
     std::cerr << " : in function " << __func__

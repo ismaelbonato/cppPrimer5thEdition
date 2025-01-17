@@ -17,7 +17,6 @@ std::string &StrBlobPtr::deref() const
 {
     auto p = check(curr, "De-reference object");
     return (*p)[curr];
-
 }
 
 StrBlobPtr &StrBlobPtr::incr()

@@ -24,4 +24,5 @@ This repo contains the solutions of the exercises from the book: _C++ Primer_ 5t
   - [Chapter 11. Associative Containers](Chapter_11/README.md)
   - [Chapter 12. Dynamic Memory](Chapter_12/README.md)
 - Part III: Tools for Class Authors
+  - [Chapter 13. Copy Control](Chapter_13/README.md)
 - Part IV:  Advanced Topics

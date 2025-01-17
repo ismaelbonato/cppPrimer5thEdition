@@ -1,7 +1,7 @@
-#include "StrBlobPtr.h"
+#include "ConstStrBlobPtr.h"
 #include <stdexcept>
 
-StrBlobPtr::spVecOfStr StrBlobPtr::check(std::size_t sz, const std::string &msg) const
+ConstStrBlobPtr::spVecOfStr ConstStrBlobPtr::check(std::size_t sz, const std::string &msg) const
 {
     auto ret = wptr.lock();
     if (!ret) {
@@ -13,14 +13,13 @@ StrBlobPtr::spVecOfStr StrBlobPtr::check(std::size_t sz, const std::string &msg)
     return ret;
 }
 
-std::string &StrBlobPtr::deref() const
+std::string &ConstStrBlobPtr::deref() const
 {
     auto p = check(curr, "De-reference object");
     return (*p)[curr];
-
 }
 
-StrBlobPtr &StrBlobPtr::incr()
+ConstStrBlobPtr &ConstStrBlobPtr::incr()
 {
     check(curr, "Increment out of bound");
     ++curr;
