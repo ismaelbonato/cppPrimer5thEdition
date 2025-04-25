@@ -6,9 +6,9 @@
 
 GCC 6.0+ or clang 3.3+
 
-`g++ -std=c++11 app_name.cpp -o target`
+`g++ -Wall -Wextra -pedantic -std=c++11 target`
 
-`clang++ -std=c++11 app_name.cpp -o target`
+`clang++ -Wall -Wextra -pedantic -std=c++11 target`
 
 ## 4.1.2. Precedence and Associativity
 

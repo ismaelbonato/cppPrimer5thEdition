@@ -6,6 +6,10 @@
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# Obsidian
+# Obsidian config
+.obsidian/
+
 # dynamic analysis tools
 callgrind*
 massif*
