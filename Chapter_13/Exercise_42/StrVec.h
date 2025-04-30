@@ -13,12 +13,15 @@ public:
         , firstFree(nullptr)
         , cap(nullptr)
     {}
+    StrVec(const std::initializer_list<std::string> &);
+
     StrVec(const StrVec &);
     ~StrVec() { free(); }
 
     StrVec &operator=(const StrVec &);
 
     void push_back(const std::string &);
+    std::string at(const std::size_t l) const {return *(elements+l);};
 
     std::string *begin() const { return elements; };
     std::string *end() const { return firstFree; };

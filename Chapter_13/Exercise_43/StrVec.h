@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <utility>
+#include <iterator>
 
 class StrVec
 {
@@ -13,6 +14,8 @@ public:
         , firstFree(nullptr)
         , cap(nullptr)
     {}
+    StrVec(const std::initializer_list<std::string> &);
+
     StrVec(const StrVec &);
     ~StrVec() { free(); }
 
@@ -22,6 +25,15 @@ public:
 
     std::string *begin() const { return elements; };
     std::string *end() const { return firstFree; };
+
+    std::reverse_iterator<std::string *> rbegin() const 
+    {
+         return std::reverse_iterator<std::string *>(firstFree); 
+    };
+    std::reverse_iterator<std::string *> rend() const 
+    {
+         return std::reverse_iterator<std::string *>(elements); 
+    };
 
     std::size_t size() const {return firstFree - elements;};
     std::size_t capacity() const {return cap - elements;};

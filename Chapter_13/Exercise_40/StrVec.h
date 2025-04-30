@@ -13,6 +13,8 @@ public:
         , firstFree(nullptr)
         , cap(nullptr)
     {}
+    StrVec(const std::initializer_list<const std::string> &);
+
     StrVec(const StrVec &);
     ~StrVec() { free(); }
 

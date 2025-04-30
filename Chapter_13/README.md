@@ -494,22 +494,28 @@ The contents of the `folder` are subject to change within the function. It is im
 
 *Write your own version of `StrVec`, including versions of `reserve`, `capacity` (§ 9.4, p. 356), and `resize` (§ 9.3.5, p. 352).*
 
-### Exercise 13.40:
+### [Exercise 13.40:](Exercise_40/Ex40.cpp)
 
 *Add a `constructor` that takes an `initializer_list<string> `to your `StrVec` class.*
 
 ### Exercise 13.41: 
 
-*Why did we use postfix increment in the call to construct inside push_back? What would happen if it used the prefix increment?*
+*Why did we use `postfix` increment in the call to construct inside `push_back`? What would happen if it used the `prefix` increment?*
 
-### Exercise 13.42: 
+**Answer**
+- The `push_bach` function changes the data, the internal pointer pointing to the past of the last added `string` must be updated.
+
+### [Exercise 13.42:](Exercise_42/Ex42.cpp)
 
 *Test your `StrVec` class by using it in place of the `vector<string>` in your `TextQuery` and `QueryResult` classes (§ 12.3,p. 484).*
 
-### Exercise 13.43: 
+### [Exercise 13.43:](Exercise_43/Ex43.cpp)
 
-*Rewrite the free member to use for_each and a lambda (§ 10.3.2, p. 388) in place of the for loop to destroy the elements. Which implementation do you prefer, and why?*
+*Rewrite the `free` member to use `for_each` and a `lambda` (§ 10.3.2, p. 388) in place of the for loop to destroy the elements. Which implementation do you prefer, and why?*
 
-### Exercise 13.44: 
+**Answer**
+- I prefer the `std::for_each` version because it is more modern. Using `reverse_iterator` eliminates the possibility of manually decrementing, which can lead to bugs.
 
-*Write a class named String that is a simplified version of the library string class. Your class should have at least a default constructor and a constructor that takes a pointer to a C-style string. Use an allocator to allocate memory that your String class uses.*
+### [Exercise 13.44:](Exercise_44/Ex44.cpp)
+
+*Write a class named `String` that is a simplified version of the library `string` class. Your class should have at least a default `constructor` and a `constructor` that takes a pointer to a `C-style string`. Use an `allocator` to allocate memory that your `String class` uses.*
