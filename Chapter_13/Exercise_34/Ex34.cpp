@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <string>
+#include "Message.h"
 
 class Message;
 
@@ -79,7 +80,7 @@ Message &Message::operator=(const Message &rhs)
     return *this;
 }
 
-void Message::swap(Message &lhs, Message &rhs)
+void Message::swap(Message &lhs, Message &rhs) 
 {
     using std::swap;
 

@@ -519,3 +519,242 @@ The contents of the `folder` are subject to change within the function. It is im
 ### [Exercise 13.44:](Exercise_44/Ex44.cpp)
 
 *Write a class named `String` that is a simplified version of the library `string` class. Your class should have at least a default `constructor` and a `constructor` that takes a pointer to a `C-style string`. Use an `allocator` to allocate memory that your `String class` uses.*
+
+## 13.6.1. Rvalue References
+
+### Exercise 13.45: 
+
+*Distinguish between an `rvalue` reference and an `lvalue` reference.*
+
+**Answer**
+- `lvalues` are names with some kind of link to a defined and persistent memory position.
+- `rvalues` are the result of expression, a temporary memory position not persistent used by the compiler with no link to a name.
+
+### Exercise 13.46: 
+
+*Which kind of reference can be bound to the following `initializers`?*
+
+```cpp
+int f();
+vector<int> vi(100);
+int? r1 = f();
+int? r2 = vi[0];
+int? r3 = r1;
+int? r4 = vi[0] * f();
+```
+
+**Answer**
+
+```cpp
+int &&r1 = f();
+int &r2 = vi[0];
+int &r3 = r1;
+int &&r4 = vi[0] * f();
+```
+
+### [Exercise 13.47:](Exercise_47/Ex47.cpp)
+
+*Give the `copy constructor` and `copy-assignment operator` in your `String class` from exercise 13.44 in § 13.5 (p. 531) a statement that prints a message each time the function is executed.*
+
+### [Exercise 13.48:](Exercise_48/Ex48.cpp) 
+
+*Define a `vector<String>` and call `push_back` several times on that `vector`. Run your program and see how often `Strings` are copied.*
+
+
+## 13.6.2. Move Constructor and Move Assignment
+
+### [Exercise 13.49:](Exercise_49/Ex49.cpp)
+
+*Add a `move constructor` and `move-assignment operator` to your `StrVec`, `String`, and `Message classes`.*
+
+### [Exercise 13.50:](Exercise_50/Ex50.cpp)
+
+*Put print statements in the `move` operations in your `String class` and rerun the program from exercise 13.48 in § 13.6.1 (p.534) that used a `vector<String>` to see when the copies are avoided.*
+
+### Exercise 13.51: 
+
+*Although `unique_ptrs` cannot be copied, in § 12.1.5 (p.471) we wrote a clone function that returned a `unique_ptr` by `value`. Explain why that function is legal and how it works.*
+
+**Answer**
+- The only way to copy a `unique_ptr` is when it is about to be destroyed, unlike `share_ptr` the `unique_ptr` has exclusive ownership of an object, when it is returned from a function, it behaves like any other rvalue, in this case, the `move` constructor is used.
+
+### Exercise 13.52: 
+
+*Explain in detail what happens in the assignments of the `HasPtr` objects on page 541. In particular, describe step by step what happens to values of `hp`, `hp2`, and of the `rhs` parameter in the `HasPtr` `assignment operator`.*
+
+```cpp
+class HasPtr {
+public:
+    HasPtr(HasPtr &&p) noexcept : ps(p.ps), i(p.i) {p.ps = 0;}
+    
+    HasPtr& operator=(HasPtr rhs)
+                   { swap(*this, rhs); return *this; }
+};
+```
+
+```cpp
+int main() 
+{
+    HasPtr hp1, hp2;
+
+    hp = hp2; 
+    hp = std::move(hp2);
+}
+```
+
+**Answer**
+- The function `std::move` will cast the `lvalue` to an `rvalue`.
+- As the move operator is implemented it will be called because the match the type.
+- The `move` operator will create a temporary copy `rhs`.
+- The function `swap` will use the `std::swap` in order to `swap` the objects using the `move operator` of the objects.
+- After the `swap`, `this` will become `rhs` and vice and versa.
+- When the new `rhs` goes out of the scope, it will be deleted.
+- `hp` is the new owner of the data in the memory that was in possession of `hp2`.
+- `hp2` can be destroyed because it is in a valid state.
+
+### [Exercise 13.53:](Exercise_53/Ex53.cpp)
+
+*As a matter of `low-level efficiency`, the `HasPtr assignment operator` is not ideal. Explain why. Implement a `copy-assignment` and `move-assignment operator` for `HasPtr` and compare the operations executed in your new `move-assignment` operator versus the `copy-and-swap` version.*
+
+**Answer**
+- Because it the `HasPtr assignment operator` makes a copy of the of the right operand, so it takes time, it was made like that in order to works as a `copy` and `move` operator.
+- Using the `std::swap` function with the `assignment operator` only works because it makes a copy of the right operand, so the copy will be destroyed at the end.
+- To create a `move operator`, the `assign operator` has to be changed, it is ambiguous, there is 2 possible functions to the same override.
+
+```cpp
+    HasPtr &operator=(HasPtr &rhs)
+    {
+       //std::cout << "HasPtr &operator=(HasPtr &rhs)" << std::endl;
+        if (this == &rhs) {
+            return *this; 
+        }
+        delete(ps);
+        
+        i = rhs.i;
+        ps = rhs.ps;
+
+        rhs.ps = nullptr;
+        
+        return *this;
+    }
+```
+- The version above, avoid the copy constructor, even with the delete call is required, it performs much faster.
+- The `move` operator bellow perform really fast due to the fact that the right hand operator will be destroyed, it can be performed with std::swap without the requirement of `delete(ps);`.
+```cpp
+
+    HasPtr &operator=(HasPtr &&rhs) noexcept
+    {
+        if (this == &rhs) {
+            return *this;
+        }
+
+        //std::cout << "HasPtr &operator=(HasPtr &&origin)" << std::endl;
+        using std::swap;
+        swap(ps, rhs.ps);
+        i = rhs.i;
+
+        return *this;
+    }
+```
+
+
+- Bellow the timings using `<chrono>` library.
+
+```shell
+hp = hp2; takes 1093 nanoseconds to run
+hp = std::move(hp2); takes 110 nanoseconds to run
+```
+
+### [Exercise 13.54:](Exercise_53/Ex53.cpp)
+
+*What would happen if we defined a `HasPtr` `move-assignment operator` but did not change the `copy-and-swap operator`? Write code to test your answer.*
+
+**Answer**
+- To create a `move operator`, the `assign operator` has to be changed, it is ambiguous, there is 2 possible functions to the same override.
+
+```shell
+error: ambiguous overload for 'operator=' (operand types are 'HasPtr' and 'std::remove_reference<HasPtr&>::type {aka HasPtr}')
+hp1 = std::move(*pH);
+^
+```
+
+## 13.6.3. Rvalue References and Member Functions
+
+### [Exercise 13.55:](Exercise_55/Ex55.cpp)
+
+*Add an `rvalue` reference version of `push_back` to your `StrBlob`.*
+
+**Answer**
+```cpp
+void StrBlob::push_back(const std::string &t)  &&
+{
+    data->push_back(t);
+    std::cout << "StrBlob::push_back(const std::string &t) && called" << std::endl;
+}
+```
+
+- Function to test:
+```cpp
+int main()
+{
+    StrBlob sb1{"a", "an", "the"};
+    StrBlob(sb1).push_back("about");
+}
+```
+
+**Output**
+
+```shell
+StrBlob(const StrBlob &origin) called
+StrBlob::push_back(const std::string &t) && called
+```
+
+### Exercise 13.56: 
+
+*What would happen if we defined sorted as:*
+
+```cpp
+Foo Foo::sorted() const & {
+    Foo ret(*this);
+    return ret.sorted();
+}
+```
+
+**Answer**
+- the function will become recursive and will overflow the call stack.
+
+
+### Exercise 13.57: 
+
+*What if we defined `sorted` as:*
+
+```cpp
+Foo Foo::sorted() const & 
+{ 
+    return Foo(*this).sorted(); 
+}
+```
+
+**Answer**
+- It will call the `rvalue` reference version of the sorted function.
+
+### [Exercise 13.58:](Exercise_58/Ex58.cpp)
+
+*Write versions of class `Foo` with `print` statements in their sorted functions to test your answers to the previous two exercises.*
+
+**Answer**
+- Exercise 13.56
+```shell
+Ex58.cpp: In member function ‘Foo Foo::sorted() const &’:
+Ex58.cpp:32:5: warning: infinite recursion detected [-Winfinite-recursion]
+   32 | Foo Foo::sorted() const & {
+      |     ^~~
+Ex58.cpp:35:23: note: recursive call
+   35 |     return ret.sorted();
+      |                       ^
+```
+- Exercise 13.57
+```shell
+Foo::sorted() const &
+Foo::sorted() &&
+```
