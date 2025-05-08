@@ -111,8 +111,7 @@ operator+(const Sales_item& lhs, const Sales_item& rhs)
     return ret;           // return (|ret|) by value
 }
 
-std::istream& 
-operator>>(std::istream& in, Sales_item& s)
+std::istream& operator>>(std::istream& in, Sales_item& s)
 {
     double price;
     in >> s.bookNo >> s.units_sold >> price;

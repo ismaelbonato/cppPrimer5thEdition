@@ -1,5 +1,4 @@
 #include "StrVec.h"
-#include <algorithm>
 
 StrVec::StrVec(const StrVec &origin) 
 {
@@ -79,4 +78,26 @@ std::pair<std::string *, std::string *> StrVec::allocAndCopy(std::string *begin,
 {
     auto data = alloc.allocate(end - begin);
     return {data, std::uninitialized_copy(begin, end, data)};
+}
+
+StrVec::StrVec(const std::initializer_list<std::string> &list) 
+{
+    auto data = alloc.allocate(list.size());
+    elements = data;
+    firstFree = std::uninitialized_copy(list.begin(), list.end(), data);
+    cap = firstFree;
+}
+
+bool operator==(const StrVec &lhs, const StrVec &rhs)
+{   
+    if (lhs.size() != rhs.size()) {
+        return false;
+    }
+
+    return std::equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+
+bool operator!=(const StrVec &lhs, const StrVec &rhs)
+{
+    return !(lhs == rhs);
 }
