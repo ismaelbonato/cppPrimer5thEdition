@@ -255,3 +255,44 @@ istream& operator>>(istream& in, Sales_data& s)
 
 **Answer**
 - The Vehicle class does not need any `custom assignment operator`, all data members are standard types, the synthesized operators can handle.
+
+
+## 14.5. Subscript Operator
+
+### [Exercise 14.26:](Exercise_26/Ex26.cpp)
+
+*Define subscript operators for your StrVec, String, StrBlob, and StrBlobPtr classes.*
+
+## 14.6. Increment and Decrement Operators
+
+### [Exercise 14.27:](Exercise_27/Ex27.cpp)
+*Add `increment` and `decrement` operators to your `StrBlobPtr` class.*
+
+### [Exercise 14.28:](Exercise_28/Ex28.cpp)
+
+*Define `addition` and `subtraction` for `StrBlobPtr` so that these operators implement `pointer arithmetic` (§ 3.5.3, p. 119).*
+
+
+### Exercise 14.29: 
+
+*We did not define a `const` version of the `increment` and `decrement` operators. Why not?*
+
+**Answer**
+- it change the internal state of the object, that is why it is a `member operator`. 
+
+## 14.7. Member Access Operators
+
+### [Exercise 14.30:](Exercise_30/Ex30.cpp)
+
+*Add `dereference` and `arrow operators` to your `StrBlobPtr` class and to the `ConstStrBlobPtr` class that you defined in  exercise 12.22 from § 12.1.6 (p. 476). Note that the operators in `constStrBlobPtr` must return `const references` because the data member in `constStrBlobPtr` points to a `const vector`.*
+
+### Exercise 14.31: 
+
+*Our `StrBlobPtr` class does not define the `copy constructor`, `assignment operator`, or a `destructor`. Why is that okay?*
+
+**Answer**
+- the class `StrBlobPtr` does not directly manage any resources allocated, the synthesized versions can handle all internal data made of standard types.
+
+### [Exercise 14.32:](Exercise_32/Ex32.cpp)
+
+*Define a class that holds a pointer to a StrBlobPtr. Define the overloaded arrow operator for that class.*
