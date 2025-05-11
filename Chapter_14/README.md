@@ -295,4 +295,118 @@ istream& operator>>(istream& in, Sales_data& s)
 
 ### [Exercise 14.32:](Exercise_32/Ex32.cpp)
 
-*Define a class that holds a pointer to a StrBlobPtr. Define the overloaded arrow operator for that class.*
+*Define a class that holds a pointer to a `StrBlobPtr`. Define the overloaded `arrow operator` for that class.*
+
+## 14.8. Function-Call Operator
+
+### Exercise 14.33: 
+
+*How many operands may an overloaded `function-call` operator take?*
+
+**Answer**
+- A function-call operator can take any number of operands and types.
+
+### [Exercise 14.34:](Exercise_34/Ex34.cpp)
+
+*Define a `function-object` class to perform an `if-then-else operation`: The call operator for this class should take three parameters. It should test its first parameter and if that test succeeds, it should return its second parameter; otherwise, it should return its third parameter.*
+
+### [Exercise 14.35:](Exercise_35/Ex35.cpp)
+
+*Write a class like `PrintString` that reads a line of input from an `istream` and returns a `string` representing what was read. If the read fails, return the empty `string`.*
+
+### [Exercise 14.36:](Exercise_36/Ex36.cpp)
+
+*Use the class from the previous exercise to read the `standard input`, storing each line as an element in a `vector`.*
+
+### [Exercise 14.37:](Exercise_37/Ex37.cpp)
+
+*Write a class that tests whether two values are equal. Use that object and the library `algorithms` to write a program to replace all instances of a given value in a sequence.*
+
+## 14.8.1. Lambdas Are Function Objects
+
+### [Exercise 14.38:](Exercise_38/Ex38.cpp)
+
+*Write a class that tests whether the length of a given `string` matches a given bound. Use that object to write a program to report how many words in an input file are of sizes 1 through 10 inclusive.*
+
+### [Exercise 14.39:](Exercise_39/Ex39.cpp)
+
+*Revise the previous program to report the count of words that are sizes 1 through 9 and 10 or more.*
+
+### [Exercise 14.40:](Exercise_40/Ex40.cpp)
+
+*Rewrite the `biggies` function from § 10.3.2 (p. 391) to use `function-object classes` in place of `lambdas`.*
+
+### Exercise 14.41: 
+
+*Why do you suppose the new `standard` added `lambdas`? Explain when you would use a `lambda` and when you would write a class instead.*
+
+**Answer**
+- The new standard introduced the `lambda` function to facilitate the use of algorithms.
+- Declaring a `function object` is advantageous when it can be reused in multiple places or it is a complex object.
+
+
+## 14.8.2. Library-Defined Function Objects
+
+### [Exercise 14.42:](Exercise_42/Ex42.cpp)
+
+*Using library function objects and adaptors, define an expression to*
+
+```cpp
+(a) Count the number of values that are greater than 1024
+(b) Find the first string that is not equal to pooh
+(c) Multiply all values by 2
+```
+
+### [Exercise 14.43:](Exercise_43/Ex43.cpp) 
+
+*Using library function objects, determine whether a given `int` value is divisible by any element in a container of `ints`.*
+
+## 14.8.3. Callable Objects and function
+
+### [Exercise 14.44:](Exercise_44/Ex44.cpp) 
+
+*Write your own version of a simple desk calculator that can handle binary operations.*
+
+## 14.9.1. Conversion Operators
+
+### [Exercise 14.45:](Exercise_45/Ex45.cpp) 
+
+*Write `conversion operators` to convert a `Sales_data` to `string` and to `double`. What values do you think these operators should return?*
+
+**Answer**
+- For `std::string` it returns `bookNo`, as for `double` the `revenue`.
+
+### [Exercise 14.46:](Exercise_46/Ex46.cpp) 
+
+*Explain whether defining these `Sales_data` conversion operators is a good idea and whether they should be `explicit`.*
+
+**Answer**
+- It is not advisable to use this method, as it has the potential to cause more harm than good. Using it without `explicitly casting` the type can lead to confusion.
+
+### Exercise 14.47: 
+
+*Explain the difference between these two `conversion operators`:*
+
+```cpp
+struct Integral {
+    operator const int();
+    operator int() const;
+};
+```
+
+**Answer**
+```cpp
+operator const int(); // it is a conversion operator for a `int` the const qualifier will be ignored..
+operator int() const; // it is a conversion operator for a `int` but as it is a class member the const protect *this for any modifications, it is called `const member function qualifier`.
+```
+
+### Exercise 14.48:
+
+*Determine whether the class you used in exercise 7.40 from § 7.5.1 (p. 291) should have a conversion to `bool`. If so, explain why, and explain whether the operator should be `explicit`. If not, explain why not.*
+
+**Answer**
+- It is not good idea to implement  `non-explicit bool operator` version. `Implicit` conversions to `bool` can lead to ambiguity and unexpected behavior, especially in expressions where automatic type conversions occur. Making the conversion operator `explicit` ensures that the user is aware of the conversion and must intentionally use it, such as in an `if statement`. This helps prevent misuse and makes the code more readable and safe.
+
+### [Exercise 14.49:](Exercise_49/Ex49.cpp)
+
+*Regardless of whether it is a good idea to do so, define a conversion to `bool` for the class from the previous exercise.*

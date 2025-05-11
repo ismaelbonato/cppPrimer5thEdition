@@ -54,7 +54,7 @@ std::ostream &operator<<(std::ostream &os, const Vehicle &v)
 std::istream &operator>>(std::istream &is, Vehicle &v)
 {
     is >> v.model >> v.type >> v.brand >> v.year;
-    if (is) {
+    if (!is) {
         v = Vehicle();
     }
 
