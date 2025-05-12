@@ -410,3 +410,125 @@ operator int() const; // it is a conversion operator for a `int` but as it is a 
 ### [Exercise 14.49:](Exercise_49/Ex49.cpp)
 
 *Regardless of whether it is a good idea to do so, define a conversion to `bool` for the class from the previous exercise.*
+
+## 14.9.2. Avoiding Ambiguous Conversions
+
+### Exercise 14.50:
+
+*Show the possible `class-type` conversion sequences for the initializations of `ex1` and `ex2`. Explain whether the initializations are legal or not.*
+
+```cpp
+struct LongDouble {
+    LongDouble(double = 0.0);
+    operator double();
+    operator float();
+};
+
+LongDouble ldObj;
+int ex1 = ldObj;
+float ex2 = ldObj;
+```
+
+**Answer**
+
+```cpp
+int ex1 = ldObj; // Error, Ambiguous conversion.
+float ex2 = ldObj; // It works, float is a perfect match.
+```
+
+
+### [Exercise 14.51:](Exercise_51/Ex51.cpp)
+
+*Show the conversion sequences (if any) needed to call each version of `calc` and explain why the best viable function is selected.*
+
+```cpp
+void calc(int);
+void calc(LongDouble);
+double dval;
+calc(dval); // which calc?
+```
+
+**Answer**
+- `calc(dval)` calls `void calc(int)`.
+- Standard conversions are preferred over `class-type` conversions.
+
+## 14.9.3. Function Matching and Overloaded Operators
+
+### Exercise 14.52: 
+
+*Which `operator+`, if any, is selected for each of the addition expressions? List the candidate functions, the viable functions, and the `type` conversions on the arguments for each viable function:*
+
+```cpp
+class SmallInt {
+    friend SmallInt operator+(const SmallInt&, const SmallInt&);
+public:
+    SmallInt(int = 0);                   // conversion from int
+    operator int() const { return val; } // conversion to int
+private:
+    std::size_t val;
+};
+
+struct LongDouble {
+    LongDouble(double = 0.0);
+    // member operator+ for illustration purposes; + is usually a nonmember
+    LongDouble operator+(const SmallInt&);
+    operator double();
+    operator float();
+};
+
+LongDouble operator+(LongDouble&, double);
+
+SmallInt si;
+LongDouble ld;
+
+ld = si + ld; 
+ld = ld + si;
+```
+
+**Answer**
+- `ld = si + ld;`
+    - si + (ld converted to float or double and to int)
+        - SmallInt operator+(const SmallInt&, const SmallInt&);
+        - result cannot be converted to LongDouble; 
+    - si + (ld converted to float or double and converted in int through the smallInt constructor)
+        - SmallInt(int = 0)
+        - result cannot be converted to LongDouble;
+    -  (si converted to built-in type) + (ld converted to built-in type)
+        - result cannot be converted to LongDouble;
+    
+- `ld = ld + si;`
+    - ld + si
+        - LongDouble operator+(const SmallInt&)
+        - Result can be converted in LongDouble to make the assignment. ***
+    - (ld can be converted in double or float) + (si converted in int)
+        - use built-in arithmetics.
+        - result cannot be converted to LongDouble; 
+
+**Conclusion**
+- `ld = si + ld;` is illegal, There is no way to convert `smallInt` to `LongDouble`.
+- `ld = ld + si;` will it use the `LongDouble operator+(const SmallInt&)`. It is legal.
+
+###Exercise 14.53: 
+
+*Given the definition of SmallInt on page 588, determine whether the following addition expression is legal. If so, what addition operator is used? If not, how might you change the code to make it legal?*
+
+```cpp
+class SmallInt {
+    friend SmallInt operator+(const SmallInt&, const SmallInt&);
+public:
+    SmallInt(int = 0);                   // conversion from int
+    operator int() const { return val; } // conversion to int
+private:
+    std::size_t val;
+};
+
+SmallInt s1;
+double d = s1 + 3.14;
+```
+
+**Answer**
+- It is Legal.
+- the 3.14 will be converted to `smallInt` thought the `smallInt` constructor.
+- The operator+ will be used.
+- The result (3) will be converted in an double and assigned to d.
+- d = 3.0;
