@@ -640,8 +640,8 @@ int main()
 ```
 - The version above, avoid the copy constructor, even with the delete call is required, it performs much faster.
 - The `move` operator bellow perform really fast due to the fact that the right hand operator will be destroyed, it can be performed with std::swap without the requirement of `delete(ps);`.
-```cpp
 
+```cpp
     HasPtr &operator=(HasPtr &&rhs) noexcept
     {
         if (this == &rhs) {
@@ -656,7 +656,6 @@ int main()
         return *this;
     }
 ```
-
 
 - Bellow the timings using `<chrono>` library.
 
@@ -758,3 +757,6 @@ Ex58.cpp:35:23: note: recursive call
 Foo::sorted() const &
 Foo::sorted() &&
 ```
+
+----------------------------
+### [Back to Chapter 12](../Chapter_12/README.md) - [Next to Chapter 14](../Chapter_14/README.md)
