@@ -38,7 +38,7 @@ double printTotal(std::ostream &os, const Quote &qItem, std::size_t copies)
 int main()
 {
 
-    Quote harryPotter{"Harry Poter", 24.99};
+    Quote harryPotter{"Harry Potter", 24.99};
     
     printTotal(std::cout, harryPotter, 10);
 

@@ -38,7 +38,7 @@ public:
     double netPrice(const std::size_t copies) const override;
 
 private:
-    std::size_t minAmount;
+    std::size_t minAmount = 0;
     double discount = 0.0;
 
 protected:
@@ -60,7 +60,7 @@ public:
     double netPrice(const std::size_t copies) const override;
 
 private:
-    std::size_t maxAmount;
+    std::size_t maxAmount = 0;
 protected:
 };
 
@@ -99,7 +99,7 @@ int main()
 
     printTotal(std::cout, dune, 4);
 
-    BulkQuote harryPotter{"Harry Poter", 15,  0.20, 3};
+    BulkQuote harryPotter{"Harry Potter", 15,  0.20, 3};
 
     printTotal(std::cout, harryPotter, 1);
     printTotal(std::cout, harryPotter, 2);

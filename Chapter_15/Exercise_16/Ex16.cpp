@@ -12,7 +12,7 @@ public:
     {}
 
     virtual ~Quote() = default;
-
+  
     const std::string isbn() const { return bookNo; }
     virtual double netPrice(const std::size_t copies) const;
     virtual std::ostream &debug(std::ostream &os) const;
@@ -42,7 +42,7 @@ public:
 
 protected:
     double discount = 0.0;
-    std::size_t minAmount;
+    std::size_t minAmount = 0;
 
 };
 
@@ -80,7 +80,7 @@ public:
     std::ostream &debug(std::ostream &os) const override;
 
 private:
-    std::size_t maxAmount;
+    std::size_t maxAmount = 0;
 
 protected:
 };
@@ -94,7 +94,7 @@ std::ostream &LimitedBulkQuote::debug(std::ostream &os) const
 
 double LimitedBulkQuote::netPrice(const std::size_t copies) const
 {
-    const auto remaining = (copies > maxAmount) ? (copies - maxAmount) : 0;
+    const auto remaining = (copies > maxAmount) ? (copies - maxAmount + (minAmount-1)) : 0;
     return ((copies - remaining) * ((1 - discount) * price)) + Quote::netPrice(remaining);
 }
 
@@ -140,7 +140,7 @@ int main()
 
     printTotal(std::cout, dune, 4);
 
-    BulkQuote harryPotter{"Harry Poter", 15, 0.20, 3};
+    BulkQuote harryPotter{"Harry Potter", 15, 0.20, 3};
 
     printTotal(std::cout, harryPotter, 1);
     printTotal(std::cout, harryPotter, 2);

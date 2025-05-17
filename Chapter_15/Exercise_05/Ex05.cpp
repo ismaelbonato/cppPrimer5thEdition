@@ -38,7 +38,7 @@ public:
     double netPrice(const std::size_t copies) const override;
 
 private:
-    std::size_t minAmount;
+    std::size_t minAmount = 0;
     double discount = 0.0;
 
 protected:
