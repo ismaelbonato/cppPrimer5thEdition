@@ -41,9 +41,9 @@ public:
     std::ostream &debug(std::ostream &os) const override;
 
 private:
-    std::size_t minAmount = 0;
 
 protected:
+    std::size_t minAmount = 0;
     double discount = 0.0;
 
 };

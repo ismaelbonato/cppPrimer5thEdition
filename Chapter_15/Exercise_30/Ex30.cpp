@@ -1,5 +1,10 @@
+#include <algorithm>
+#include <functional>
 #include <iostream>
+#include <map>
+#include <memory>
 #include <ostream>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -10,45 +15,38 @@ public:
     Quote(const std::string &book, const double salesPrice)
         : bookNo(book)
         , price(salesPrice)
-    {
-        //std::cout << "Constructor: Base " << bookNo << std::endl;
-    }
+    {}
 
     Quote(const Quote &origin)
         : bookNo(origin.bookNo)
         , price(origin.price)
-    {
-        //std::cout << "Copy Constructor Quote(const Quote &origin) " << std::endl;
-    }
+    {}
 
     Quote(Quote &&origin)
         : bookNo(std::move(origin.bookNo))
         , price(origin.price)
     {
         origin.bookNo = "valid state.";
-        //std::cout << "Move Constructor Quote(const Quote &&origin) " << std::endl;
     }
 
     Quote &operator=(const Quote &rhs)
     {
-        //std::cout << "Copy Operator &operator=(const Quote &rhs) " << std::endl;
         bookNo = rhs.bookNo;
         price = rhs.price;
         return *this;
     }
     Quote &operator=(Quote &&rhs)
     {
-        //std::cout << "Move Operator &operator=(const Quote &rhs) " << std::endl;
         bookNo = std::move(rhs.bookNo);
         rhs.bookNo = "valid state.";
         price = rhs.price;
         return *this;
     }
 
-    virtual ~Quote() 
-    {
-        //std::cout << "Destructor virtual ~Quote(): " << bookNo  << std::endl;
-    };
+    virtual Quote *clone() const & { return new Quote(*this); }
+    virtual Quote *clone() && { return new Quote(std::move(*this)); }
+
+    virtual ~Quote() = default;
 
     const std::string isbn() const { return bookNo; }
     virtual double netPrice(const std::size_t copies) const;
@@ -72,29 +70,22 @@ public:
         : Quote(book, sp)
         , discount(d)
         , minAmount(n)
-    {
-        //std::cout << "Constructor: DiscQuote" << std::endl;
-    }
+    {}
 
     DiscQuote(const DiscQuote &origin)
         : Quote(origin)
         , discount(origin.discount)
         , minAmount(origin.minAmount)
-    {
-        //std::cout << "Copy Constructor DiscQuote(const DiscQuote &origin) " << std::endl;
-    }
+    {}
 
     DiscQuote(DiscQuote &&origin)
         : Quote(std::move(origin))
         , discount(origin.discount)
         , minAmount(origin.minAmount)
-    {
-        //std::cout << "Move Constructor DiscQuote(const DiscQuote &&origin) " << std::endl;
-    }
+    {}
 
     DiscQuote &operator=(const DiscQuote &rhs)
     {
-        //std::cout << "Copy Operator &operator=(const DiscQuote &rhs) " << std::endl;
         Quote::operator=(rhs);
         discount = rhs.discount;
         minAmount = rhs.minAmount;
@@ -102,7 +93,6 @@ public:
     }
     DiscQuote &operator=(DiscQuote &&rhs)
     {
-        //std::cout << "Move Operator &operator=(const DiscQuote &rhs) " << std::endl;
         Quote::operator=(std::move(rhs));
         discount = rhs.discount;
         minAmount = rhs.minAmount;
@@ -110,9 +100,7 @@ public:
     }
 
     double netPrice(const std::size_t copies) const = 0;
-    ~DiscQuote() {
-        //std::cout << "Destructor ~DiscQuote()" << std::endl;
-    };
+    ~DiscQuote() = default;
 
 protected:
     double discount = 0.0;
@@ -126,72 +114,30 @@ public:
 
     BulkQuote(const BulkQuote &origin)
         : DiscQuote(origin)
-    {
-        //std::cout << "Copy Constructor BulkQuote(const BulkQuote &origin) " << std::endl;
-    }
+    {}
 
     BulkQuote(BulkQuote &&origin)
         : DiscQuote(std::move(origin))
-    {
-        //std::cout << "Move Constructor BulkQuote(const BulkQuote &&origin) " << std::endl;
-    }
+    {}
 
     BulkQuote &operator=(const BulkQuote &rhs)
     {
-        ////std::cout << "Copy Operator &operator=(const BulkQuote &rhs) " << std::endl;
         DiscQuote::operator=(rhs);
         return *this;
     }
     BulkQuote &operator=(BulkQuote &&rhs)
     {
-        ////std::cout << "Move Operator &operator=(const BulkQuote &rhs) " << std::endl;
         DiscQuote::operator=(std::move(rhs));
         return *this;
     }
 
-    ~BulkQuote() 
-    {
-        //std::cout << "Destructor ~BulkQuote() " << std::endl;
-    };
+    BulkQuote *clone() const & override { return new BulkQuote(*this); }
+    BulkQuote *clone() && override { return new BulkQuote(std::move(*this)); }
+
+    ~BulkQuote() = default;
     double netPrice(const std::size_t copies) const override;
     std::ostream &debug(std::ostream &os) const override;
 };
-
-class LimitedBulkQuote : public DiscQuote
-{
-public:
-    LimitedBulkQuote() = default;
-    LimitedBulkQuote(const std::string &book,
-                     const double sp,
-                     const double d,
-                     const std::size_t nMin,
-                     const std::size_t nMax)
-        : DiscQuote(book, sp, d, nMin)
-        , maxAmount(nMax)
-    {}
-
-    ~LimitedBulkQuote() = default;
-    double netPrice(const std::size_t copies) const override;
-    std::ostream &debug(std::ostream &os) const override;
-
-private:
-    std::size_t maxAmount = 0;
-
-protected:
-};
-
-std::ostream &LimitedBulkQuote::debug(std::ostream &os) const
-{
-    os << " LimitedBulkQuote" << " minAmount: " << maxAmount;
-    Quote::debug(os);
-    return os;
-}
-
-double LimitedBulkQuote::netPrice(const std::size_t copies) const
-{
-    const auto remaining = (copies > maxAmount) ? (copies - maxAmount + (minAmount-1)) : 0;
-    return ((copies - remaining) * ((1 - discount) * price)) + Quote::netPrice(remaining);
-}
 
 double BulkQuote::netPrice(const std::size_t copies) const
 {
@@ -229,24 +175,58 @@ double printTotal(std::ostream &os, const Quote &qItem, std::size_t copies)
     return ret;
 }
 
-int main()
+class Basket
 {
-    std::vector<Quote> Quotes;
+    using ConstSharedQuote = const std::shared_ptr<Quote>;
+    using SharedQuote = std::shared_ptr<Quote>;
 
-    Quote dune{"Dune", 25};
-    BulkQuote harryPotter{"Harry Potter", 10, 0.20, 3};
-    LimitedBulkQuote hobbit{"The Hobbit", 15, 0.20, 3, 4};
+public:
+    Basket(/* args */) = default;
+    ~Basket() = default;
 
-    Quotes.push_back(dune);
-    Quotes.push_back(harryPotter);
-    Quotes.push_back(hobbit);
+    void addItem(ConstSharedQuote &sale) { items.insert(sale); }
+    void addItem(const Quote &sale) { items.insert(SharedQuote(sale.clone())); }
+    void addItem(Quote &&sale) { items.insert(SharedQuote(std::move(sale).clone())); }
+    double totalRecept(std::ostream &os);
 
-    double acc = 0.0;
-    for (auto quote : Quotes)
+private:
+    static bool compare(ConstSharedQuote &l, ConstSharedQuote &r)
     {
-        acc += quote.netPrice(5);
+        return l->isbn() < r->isbn();
     }
 
+    std::multiset<std::shared_ptr<Quote>, decltype(compare) *> items{compare};
+};
+
+double Basket::totalRecept(std::ostream &os)
+{
+    double sum = 0.0;
+    for (auto it = items.cbegin(); it != items.cend(); it = items.upper_bound(*it)) {
+        std::cout << "item: " << (**it).isbn() << " copies: " << items.count(*it)
+                  << std::endl;
+        sum += printTotal(os, **it, items.count(*it));
+    }
+    os << "Total: " << sum << std::endl;
+
+    return sum;
+}
+
+int main()
+
+{
+    Basket basket;
+
+    Quote dune("Dune", 25);
+    basket.addItem(dune);
+    basket.addItem(Quote("Dune", 25));
+
+    BulkQuote harryPotter("Harry Potter", 10, 0.20, 3);
+    basket.addItem(harryPotter);
+    basket.addItem(BulkQuote("Harry Potter", 10, 0.20, 3));
+
+    auto acc = basket.totalRecept(std::cout);
+
     std::cout << "The total accumulated: " << acc << std::endl;
+
     return 0;
 }

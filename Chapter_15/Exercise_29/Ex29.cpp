@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <map>
+#include <set>
+#include <algorithm>
 
 class Quote
 {
@@ -191,7 +194,6 @@ std::ostream &LimitedBulkQuote::debug(std::ostream &os) const
 double LimitedBulkQuote::netPrice(const std::size_t copies) const
 {
     const auto remaining = (copies > maxAmount) ? (copies - maxAmount + (minAmount-1)) : 0;
-    std::cout << remaining << std::endl;
     return ((copies - remaining) * ((1 - discount) * price)) + Quote::netPrice(remaining);
 }
 
@@ -231,18 +233,41 @@ double printTotal(std::ostream &os, const Quote &qItem, std::size_t copies)
     return ret;
 }
 
+
+std::string findFirst(const std::string &s)
+{
+    for (auto it = s.begin(); it != s.end(); it = std::upper_bound(s.begin(), s.end(), *it) ) 
+    {   
+        if (std::count(it, s.end(), *it) == 1) 
+            return std::string(1, *it);
+    }
+
+    return std::string();
+}
+
 int main()
 {
+//    auto ret  = findFirst("aaabbbcccdddeeefg");
+//    std::cout << "char found: " << ret << std::endl;
+
+//    ret = findFirst("aabb");
+//    std::cout << "char found: " << ret << std::endl;
+
     std::vector<std::shared_ptr<Quote>> Quotes;
 
     Quotes.emplace_back(new Quote("Dune", 25));
     Quotes.push_back(std::make_shared<BulkQuote>("Harry Potter", 10, 0.20, 3));
     Quotes.push_back(std::make_shared<LimitedBulkQuote>("The Hobbit", 15, 0.20, 3, 4));
 
+    double acc = 0.0;
     for (auto quote : Quotes)
     {
-        printTotal(std::cout, *quote, 5);
+        acc += quote->netPrice(5);
     }
-    
+
+    std::cout << "The total accumulated: " << acc << std::endl;
+
     return 0;
+
+
 }

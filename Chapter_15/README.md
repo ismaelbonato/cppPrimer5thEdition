@@ -507,3 +507,11 @@ p3->fcn(42);  // statically bound, calls D2::fcn(int)
 
 **Answer**
 - The discrepancy is due to how `std::vector<Quote>` works, it makes a copy of the object, it does not create a reference or a pointer, this way, the call to `net_price` is defined at Compile time. In order to use `subtype polymorphism` the `vector` must be a `vector` of references or pointers, in this case using `shared_ptr` is safer.   
+
+
+## 15.8.1. Writing a Basket Class
+
+### [Exercise 15.30:](Exercise_30/Ex30.cpp) 
+
+*Write your own version of the `Basket` class and use it to compute prices for the same transactions as you used in the previous
+exercises.*
