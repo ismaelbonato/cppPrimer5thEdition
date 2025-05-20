@@ -494,7 +494,6 @@ p3->fcn(42);  // statically bound, calls D2::fcn(int)
 
 *Redefine your `Bulk_quote` class to inherit its `constructors`.*
 
-
 ## 15.8. Containers and Inheritance
 
 ### [Exercise 15.28:](Exercise_28/Ex28.cpp)
@@ -508,10 +507,76 @@ p3->fcn(42);  // statically bound, calls D2::fcn(int)
 **Answer**
 - The discrepancy is due to how `std::vector<Quote>` works, it makes a copy of the object, it does not create a reference or a pointer, this way, the call to `net_price` is defined at Compile time. In order to use `subtype polymorphism` the `vector` must be a `vector` of references or pointers, in this case using `shared_ptr` is safer.   
 
-
 ## 15.8.1. Writing a Basket Class
 
 ### [Exercise 15.30:](Exercise_30/Ex30.cpp) 
 
-*Write your own version of the `Basket` class and use it to compute prices for the same transactions as you used in the previous
-exercises.*
+*Write your own version of the `Basket` class and use it to compute prices for the same transactions as you used in the previous exercises.*
+
+## 15.9.1. An Object-Oriented Solution
+
+### Exercise 15.31:
+
+*Given that `s1`, `s2`, `s3`, and `s4` are all strings, determine what objects are created in the following expressions:*
+
+```cpp
+(a) Query(s1) | Query(s2) & ~Query(s3);
+(b) Query(s1) | (Query(s2) & ~Query(s3));
+(c) (Query(s1) & (Query(s2)) | (Query(s3) & Query(s4)));
+```
+
+**Answer**
+
+```cpp
+(a) OrQuery(
+        WordQuery(s1), 
+        WordQuery(
+            AndQuery(
+                WordQuery(s2), 
+                NotQuery(WordQuery(s3))
+            )
+        )
+    )
+
+(b) OrQuery(
+        WordQuery(s1), 
+        WordQuery(
+            AndQuery(
+                WordQuery(s2), 
+                NotQuery(WordQuery(s3))
+            )
+        )
+    )
+
+(c) OrQuery(
+        AndQuery(
+            WordQuery(s1), 
+            WordQuery(s2)), 
+        WordQuery(
+            AndQuery(
+                WordQuery(s3), 
+                WordQuery(s4))
+        )
+    )
+
+```
+
+## 15.9.2. The Query_base and Query Classes
+
+### Exercise 15.32:
+
+*What happens when an object of type `Query` is copied, moved, assigned, and destroyed?*
+
+**Answer**
+- `Copy`: All the member objects are copied. The `shared_ptr` share the ownership between the the original and copied version as `shared_ptr` has the pointer like behavior.
+- `Move`:  All the member objects will be moved. The ownership of the `shared_ptr` will be moved to the new owner and the old object will be kept in an valid state waiting to be destroyed.
+- `Assign`: All the member objects will be assigned. The left hand `shared_ptr` will release the ownership of the actual value to receive the ownership of the right hand operator, as `shared_ptr` has the pointer like behavior.
+- `Destruction`: It will destruct all objects `bult-in` and all destructor of the class type will be called. The `shared_ptr` will be decremented by 1 once it will have the ownership removed. 
+
+### Exercise 15.33:
+
+*What about objects of type `Query_base`?*
+
+**Answer**
+- The `Query_base` class cannot be constructed directly. It is an abstract class that can only be constructed through derived classes. In this case, only derived classes can be `destructed`, `copied`, `moved`, and `assigned`, especially when it is through an `Query_base` reference or pointer. This is known as `subtype polymorphism`.
+
