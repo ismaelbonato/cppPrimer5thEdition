@@ -580,3 +580,164 @@ p3->fcn(42);  // statically bound, calls D2::fcn(int)
 **Answer**
 - The `Query_base` class cannot be constructed directly. It is an abstract class that can only be constructed through derived classes. In this case, only derived classes can be `destructed`, `copied`, `moved`, and `assigned`, especially when it is through an `Query_base` reference or pointer. This is known as `subtype polymorphism`.
 
+## 15.9.3. The Derived Classes
+
+### Exercise 15.34:
+
+*For the expression built in Figure 15.3 (p. 638):*  
+
+```cpp
+Query q = Query("fiery") & Query("bird") | Query("wind");
+```
+
+- (a) *List the constructors executed in processing that expression.*
+- (b) *List the calls to `rep` that are made from `cout << q`.*  
+- (c) *List the calls to `eval` made from `q.eval()`.*
+
+**Answer**
+
+- (a) *List the constructors executed in processing that expression.*
+```cpp
+OrQuery(                         // Query(), OrQuery(), BinaryQuery().
+    WordQuery(
+        AndQuery(                   // Query(), AndQuery(), BinaryQuery().
+            WordQuery("fiery"),     // Query(), WordQuery().
+            WordQuery("bird")       // Query(), WordQuery().
+        ) 
+        WordQuery("wind")           // Query(), WordQuery(). 
+    )
+)
+```
+- (b) *List the calls to `rep` that are made from `cout << q`.* 
+ 
+ ```cpp
+                Query::rep()
+                    |
+            BinaryQuery::rep()
+                    |
+            |---------------|
+        Query::rep()      Query::rep()
+            |               |
+    WordQuery::rep()    BinaryQuery::rep()    
+                            |
+                    |---------------|
+                Query::rep()    Query::rep()
+                    |               |
+             WordQuery::rep()   WordQuery::rep()
+
+
+```
+- (c) *List the calls to `eval` made from `q.eval()`.*
+ ```cpp
+                Query::eval()
+                    |
+                OrQuery::eval()
+                    |
+            |---------------|
+        Query::eval()      Query::eval()
+            |               |
+    WordQuery::eval()    AndQuery::eval()
+                            |
+                    |---------------|
+                Query::eval()    Query::eval()
+                    |               |
+             WordQuery::eval()   WordQuery::eval()
+```
+
+### [Exercise 15.35:](Exercise_35/Ex35.cpp)
+
+*Implement the `Query` and `Query_base` classes, including a definition of `rep` but omitting the definition of `eval`.*
+
+### Exercise 15.36:
+
+*Put print statements in the constructors and `rep` members and run your code to check your answers to (a) and (b) from the first exercise.*
+
+**Output**
+- (a)
+```cpp
+WordQuery::WordQuery(wind)
+Query::Query()
+WordQuery::WordQuery(bird)
+Query::Query()
+WordQuery::WordQuery(fiery)
+Query::Query()
+BinaryQuery::BinaryQuery(&)
+AndQuery::AndQuery()
+BinaryQuery::BinaryQuery(|)
+OrQuery::OrQuery()
+```
+
+- (b)
+```cpp
+Query::rep()
+BinaryQuery::rep(|)
+Query::rep()
+WordQuery::rep(wind)
+Query::rep()
+BinaryQuery::rep(&)
+Query::rep()
+WordQuery::rep(bird)
+Query::rep()
+WordQuery::rep(fiery)
+```
+
+### [Exercise 15.37:](Exercise_37/Ex37.cpp)
+
+*What changes would your classes need if the derived classes had members of type `shared_ptr<Query_base>` rather than of type `Query`?*
+
+**Answer**
+#### 1. Removal of the `Query` Handle Class
+- The `Query` handle class is removed.
+Instead, using Query = `std::shared_ptr<QueryBase>;` is used, so all queries are managed directly as smart pointers.
+#### 2. Direct Use of shared_ptr
+- All query composition and storage use `std::shared_ptr<QueryBase>` directly.
+Operators (`operator&`, `operator|`, `operator~`) now return `Query` (i.e., `std::shared_ptr<QueryBase>`) instead of a handle class.
+#### 3. Construction of Queries
+- Query objects are now constructed explicitly with new, e.g.:
+There is no longer a convenient `Query("word")` constructor; you must use new `WordQuery("word")`.
+#### 4. Class Members
+- Derived classes (`NotQuery`, `BinaryQuery`, etc.) now hold members of type `Query` (which is a `shared_ptr<QueryBase>`), not the handle class.
+#### 5. Access to rep()
+- `rep()` is now a public virtual function in `QueryBase`, allowing direct access via the smart pointer.
+#### 6. Operator Overloads
+- Operator overloads are now free functions that return `Query` (i.e., `std::shared_ptr<QueryBase>`).
+
+**Output**
+```cpp
+WordQuery::WordQuery(fiery)
+WordQuery::WordQuery(bird)
+BinaryQuery::BinaryQuery(&)
+AndQuery::AndQuery()
+WordQuery::WordQuery(wind)
+BinaryQuery::BinaryQuery(|)
+OrQuery::OrQuery()
+BinaryQuery::rep(|)
+BinaryQuery::rep(&)
+WordQuery::rep(fiery)
+WordQuery::rep(bird)
+WordQuery::rep(wind)
+```
+
+### Exercise 15.38:
+
+*Are the following declarations legal? If not, why not? If so, explain what the declarations mean.*
+
+```cpp
+BinaryQuery a = Query("fiery") & Query("bird");
+AndQuery b = Query("fiery") & Query("bird");
+OrQuery c = Query("fiery") & Query("bird");
+```
+
+**Answer**
+- All of the declarations are illegal: `BinaryQuery` is an abstract class. `AndQuery` and `OrQuery` have its constructor private, there is no way to construct both classes without using the friend operators `operator|` or `operator&`, but the return is a `Query`.
+
+```cpp
+Query a = operator|(Query("fiery") , Query("fiery"));
+Query b = operator&(Query("fiery") , Query("fiery"));
+
+a.eval();
+b.eval();
+```
+
+- The `OrQuery` or `AndQuery` objects are managed internally via pointers inside the `Query` object, so their `eval()` implementations are called through subtype polymorphism.
+
