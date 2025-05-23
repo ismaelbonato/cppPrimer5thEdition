@@ -741,3 +741,55 @@ b.eval();
 
 - The `OrQuery` or `AndQuery` objects are managed internally via pointers inside the `Query` object, so their `eval()` implementations are called through subtype polymorphism.
 
+## 15.9.4. The eval Functions
+
+### [Exercise 15.39:](Exercise_39/Ex39.cpp)
+
+*Implement the `Query` and `Query_base` classes. Test your application by evaluating and printing a query such as the one in Figure 15.3 (p. 638).*
+
+**Output**
+```shell
+((fiery & bird) | wind) occurs 3 times.
+Line: 2
+(Line 2) Her Daddy says when the wind blows
+Line: 4
+(Line 4) like a fiery bird in flight.
+Line: 5
+(Line 5) A beautiful fiery bird, he tells her,
+```
+
+### Exercise 15.40:
+
+*In the `OrQuery` eval function, what would happen if its `rhs` member returned an empty set? What if its `lhs` member did so? What if both `rhs` and `lhs` returned empty sets?*
+
+**Output**
+- `QueryResult left;// = lhs.eval(text);`.
+    - if `lhs` member returns an empty set it and will compute only the right side of de expression, but any attempt to access or to print will rise a exception because the return of `left.get_file()` will be empty.
+        ```shell
+        ((fiery & bird) | wind) occurs 1 times.
+        (Line 2) exception
+        ```
+- `QueryResult right;// = rhs.eval(text);`.
+    - If `rhs` member returns empty it will compute only the left side of de expression. 
+        ```shell
+        ((fiery & bird) | wind) occurs 2 times.
+        Line: 4
+        (Line 4) like a fiery bird in flight.
+        Line: 5
+        (Line 5) A beautiful fiery bird, he tells her,
+        ```
+- `lhs` & `rhs` members returns empty sets.
+    ```shell
+    ((fiery & bird) | wind) occurs 0 times.
+    ```
+
+### [Exercise 15.41:](Exercise_41/Ex41.cpp)
+
+*Reimplement your classes to use built-in pointers to `Query_base` rather than `shared_ptr`s. Remember that your classes will no longer be able to use the synthesized copy-control members.*
+
+### [Exercise 15.42:](Exercise_42/Ex42.cpp)
+
+*Design and implement one of the following enhancements:*
+- *(a) Print words only once per sentence rather than once per line.*
+- *(b) Introduce a history system in which the user can refer to a previous query by number, possibly adding to it or combining it with another.*
+- *(c) Allow the user to limit the results so that only matches in a given range of lines are displayed.*

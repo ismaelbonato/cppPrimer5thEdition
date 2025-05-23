@@ -47,8 +47,10 @@ std::ostream &print(std::ostream &o, const QueryResult &res)
 {
     try {
         o << res.word << " occurs " << res.lines->size() << " times." << std::endl;    
-        for(const auto line: *res.lines) {
-            o << "(Line " << line << ") " << res.data.at(line -1) << std::endl;
+        
+        for(const auto line: *(res.lines)) {
+            std::cout << "Line: " << line << std::endl;
+            o << "(Line " << line << ") " << res.data.at(line - 1) << std::endl;
         }
     } catch (...) {
         std::cout << "exception" << std::endl;

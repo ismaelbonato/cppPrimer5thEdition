@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 TextQuery::TextQuery(std::ifstream &infile)
 {
@@ -17,6 +18,11 @@ TextQuery::TextQuery(std::ifstream &infile)
     
         std::stringstream s(line);
         while (s >> word) {
+            auto it = std::remove_if(word.begin(), word.end(), [](unsigned char c) {
+                return std::ispunct(c);
+            });
+
+            word.erase(it, word.end());
             auto &l = wl[word];
             if (l == nullptr) l = std::make_shared<std::set<std::size_t>>();
             l->insert(idx);

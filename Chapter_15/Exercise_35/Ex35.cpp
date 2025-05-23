@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "TextQuery.h"
+//#include "TextQuery.h"
 
 class QueryBase
 {

@@ -1,6 +1,7 @@
 # **C++ Primer** 5th Edition
 
-This repo contains the solutions of the exercises from the book: _C++ Primer_ 5th Edition
+This repository contains solutions and code examples for the exercises from the book _C++ Primer, 5th Edition_.  
+It is intended as a reference for learners and practitioners of modern C++.
 
 ### Requirements:
 
@@ -28,3 +29,15 @@ This repo contains the solutions of the exercises from the book: _C++ Primer_ 5t
   - [Chapter 14. Overloaded Operations and Conversions](Chapter_14/README.md)
   - [Chapter 15. Object-Oriented Programming](Chapter_15/README.md)
 - Part IV:  Advanced Topics
+
+
+## How to Use
+
+- Browse each chapter’s folder for code and solutions.
+- Each subdirectory contains a `README.md` with explanations and code snippets for that chapter’s exercises.
+- Code is written for clarity and learning, following modern C++ standards.
+
+## License
+
+This repository is for educational purposes.  
+All code is based on exercises from _C++ Primer, 5th Edition_ by Lippman, Lajoie, and Moo.

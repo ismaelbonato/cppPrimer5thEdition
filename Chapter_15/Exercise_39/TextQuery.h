@@ -1,6 +1,7 @@
 #ifndef TEXTQUERY_H
 #define TEXTQUERY_H
 
+#include "StrVec.h"
 #include <cstddef>
 #include <fstream>
 #include <map>
@@ -8,35 +9,47 @@
 #include <ostream>
 #include <set>
 #include <string>
-#include "StrBlob.h"
 
 class QueryResult;
 
-class TextQuery {
+class TextQuery
+{
     friend class QueryResult;
+
 public:
     using WordsByLine = std::map<std::string, std::shared_ptr<std::set<std::size_t>>>;
 
     TextQuery(std::ifstream &infile);
     const QueryResult query(const std::string &word) const;
+
 private:
-    StrBlob data;
+    StrVec data;
     WordsByLine wl;
 };
 
-class QueryResult {
+class QueryResult
+{
 public:
-    QueryResult() : lines(std::make_shared<std::set<std::size_t>>()) {};
+    QueryResult()
+        : lines(std::make_shared<std::set<std::size_t>>())
+        , word("") {};
 
     QueryResult(std::shared_ptr<std::set<std::size_t>> l,
-                                const std::string field, 
-                                StrBlob d) 
-                                : lines(l), data(d), word(field)  {};
+                const std::string field,
+                StrVec d)
+        : lines(l)
+        , data(d)
+        , word(field){};
 
     friend std::ostream &print(std::ostream &o, const QueryResult &res);
+
+    std::set<std::size_t>::iterator begin() { return lines->begin(); };
+    std::set<std::size_t>::iterator end() { return lines->end(); };
+    StrVec &get_file() { return data; };
+
 private:
     std::shared_ptr<std::set<std::size_t>> lines;
-    StrBlob data;
+    StrVec data;
     std::string word;
 };
 

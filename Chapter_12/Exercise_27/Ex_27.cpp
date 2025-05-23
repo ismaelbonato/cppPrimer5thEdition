@@ -26,7 +26,7 @@ void runQueries(std::ifstream &infile)
         if (!(std::cin >> s) || s == "q") break;
         // run the query and print the results
         print(std::cout, tq.query(s)) << std::endl;
-    }  
+    }
 }
 
 int main()

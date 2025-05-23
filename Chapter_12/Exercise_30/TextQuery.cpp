@@ -1,4 +1,5 @@
 #include "TextQuery.h"
+#include <algorithm>
 #include <cstddef>
 #include <iostream>
 #include <memory>
@@ -6,20 +7,27 @@
 #include <string>
 #include <vector>
 
-TextQuery::TextQuery(std::ifstream &infile) 
-        : data(std::make_shared<std::vector<std::string>>())
+TextQuery::TextQuery(std::ifstream &infile)
+    : data(std::make_shared<std::vector<std::string>>())
 {
     std::string line;
     std::string word;
     std::size_t idx = 1;
-    
-    while(std::getline(infile,line)) {
+
+    while (std::getline(infile, line)) {
         data->push_back(line);
-    
+
         std::stringstream s(line);
         while (s >> word) {
+            auto it = std::remove_if(word.begin(), word.end(), [](unsigned char c) {
+                return std::ispunct(c);
+            });
+
+            word.erase(it, word.end());
+
             auto &l = wl[word];
-            if (l == nullptr) l = std::make_shared<std::set<std::size_t>>();
+            if (l == nullptr)
+                l = std::make_shared<std::set<std::size_t>>();
             l->insert(idx);
         }
         ++idx;
@@ -42,8 +50,8 @@ std::ostream &print(std::ostream &o, const QueryResult &res)
 {
     try {
         o << res.word << " occurs " << res.lines->size() << " times." << std::endl;
-        for(const auto line: *res.lines) {
-            o << "(Line " << line << ") " << res.data->at(line -1) << std::endl;
+        for (const auto line : *res.lines) {
+            o << "(Line " << line << ") " << res.data->at(line - 1) << std::endl;
         }
     } catch (...) {
         std::cout << "exception" << std::endl;

@@ -43,12 +43,16 @@ const QueryResult TextQuery::query(const std::string &word) const
     return QueryResult(l->second, word, data);
 }
 
-std::ostream &print(std::ostream &o, const QueryResult &res)
+std::ostream &print(std::ostream &o, const QueryResult &res, size_t start_line, size_t end_line)
 {
     try {
         o << res.word << " occurs " << res.lines->size() << " times." << std::endl;    
-        for(const auto line: *res.lines) {
-            o << "(Line " << line << ") " << res.data.at(line -1) << std::endl;
+        
+        for(const auto line: *(res.lines)) {
+            if (line >= start_line && line <= end_line) {
+                o << "(Line " << line << ") " << res.data.at(line - 1) << std::endl;
+            }
+            
         }
     } catch (...) {
         std::cout << "exception" << std::endl;

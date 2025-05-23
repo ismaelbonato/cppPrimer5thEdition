@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <algorithm>
 
 TextQuery::TextQuery(std::ifstream &infile)
 {
@@ -23,6 +25,14 @@ const QueryResult TextQuery::query(const std::string &word) const
         std::stringstream s(data.at(idx));
 
         while (s >> w) {
+            auto it = std::remove_if(
+                w.begin(), 
+                w.end(),
+                [](unsigned char c) { return std::ispunct(c); }
+                );
+
+            w.erase(it, w.end());
+            
             if (w == word) lines.insert(idx);
         }
     }
