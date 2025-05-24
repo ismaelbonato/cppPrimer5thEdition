@@ -28,6 +28,7 @@ It is intended as a reference for learners and practitioners of modern C++.
   - [Chapter 13. Copy Control](Chapter_13/README.md)
   - [Chapter 14. Overloaded Operations and Conversions](Chapter_14/README.md)
   - [Chapter 15. Object-Oriented Programming](Chapter_15/README.md)
+  - [Chapter 16. Templates and Generic Programming](Chapter_16/README.md)
 - Part IV:  Advanced Topics
 
 
