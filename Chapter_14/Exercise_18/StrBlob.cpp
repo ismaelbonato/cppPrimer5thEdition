@@ -51,7 +51,7 @@ StrBlobPtr StrBlob::end()
 
 bool operator==(StrBlob &lhs, StrBlob &rhs)
 {
-    return lhs.begin() == rhs.begin();
+    return *(lhs.data) > *(rhs.data);
 }
 
 bool operator!=(StrBlob &lhs, StrBlob &rhs)
@@ -65,8 +65,15 @@ bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
         return false;
     }
 
-    auto l = lhs.check(lhs.curr, "De-reference object");
-    auto r = rhs.check(rhs.curr, "De-reference object");
+    auto l = lhs.wptr.lock();
+    if (!l) {
+        throw std::runtime_error("lhs unbound");
+    }
+
+    auto r = rhs.wptr.lock();
+    if (!r) {
+        throw std::runtime_error("rhs unbound");
+    }
 
     return std::equal(l->begin(), l->end(), r->begin());
 }
@@ -101,16 +108,16 @@ bool operator<=(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 
 bool operator<(StrBlob &lhs, StrBlob &rhs)
 {
-    return (lhs.begin() < rhs.begin());
+    return (*(lhs.data) > *(rhs.data));
 }
 
 bool operator>(StrBlob &lhs, StrBlob &rhs)
 {
-    return (lhs.begin() > rhs.begin());
+    return (*(lhs.data) > *(rhs.data));
 }
 bool operator>=(StrBlob &lhs, StrBlob &rhs)
 {
-    return !(lhs.begin() < rhs.begin());
+    return !(*(lhs.data) > *(rhs.data));
 }
 
 bool operator<=(StrBlob &lhs, StrBlob &rhs)

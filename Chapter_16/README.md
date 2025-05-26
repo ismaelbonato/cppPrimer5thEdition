@@ -85,10 +85,80 @@ T *end(T (&arr)[N])
 
 *Write a `constexpr` template that returns the size of a given array.*
 
-### [Exercise 16.8]()
+### Exercise 16.8
 
 *In the “Key Concept” box on page 108, we noted that as a matter of habit C++ programmers prefer using `!=` to using `<`. Explain the rationale for this habit.*
 
 **Answer**
 - C++ programmers prefer using `!=` instead of `<` when writing loops with iterators because not all iterator types support the `<` (less than) operator. However, all standard iterators support the `==` (equality) and `!=` (inequality) operators. Using `!=` ensures that the code works with all standard containers, including those whose iterators do not have a natural ordering (like `std::list` or `std::unordered_map`).
 
+## 16.1.2. Class Templates
+
+### Exercise 16.9
+*What is a function template? What is a class template?*
+
+**Answer**
+- Templates are the foundation behind generic programming in c++. It allows to generate code that works with any type, enabling the reuse of code and type safety in compilation time.
+    - Generic Programming (Templates) is a way to reuse code in compilation time.
+    - Object-oriented programming (Subtype polymorphism) is a way to reuse code Runtime.
+
+- Function template is modern way to create generic functions, it is a recipe to generate functions the can work with different types deduced in compilation time.
+- Class template is modern way to create generic objects, it is a recipe to generate classes the can work with different types deduced in compilation time.
+
+### Exercise 16.10
+*What happens when a class template is instantiated?*
+
+**Answer**
+- The compiler deduces the type and the code for that class is generated.
+
+### Exercise 16.11
+*The following definition of `List` is incorrect. How would you fix it?*
+
+```cpp
+template <typename elemType> class ListItem;
+template <typename elemType> class List {
+public:
+    List<elemType>();
+    List<elemType>(const List<elemType> &);
+    List<elemType>& operator=(const List<elemType> &);
+    ~List();
+    void insert(ListItem *ptr, elemType value);
+private:
+    ListItem<int> *front, *end;
+};
+```
+
+**Answer**
+- `ListItem` is a template, it requires the type to instantiate `ListItem` properly: 
+
+```cpp
+template <typename elemType> class ListItem;
+template <typename elemType> class List {
+public:
+    List<elemType>();
+    List<elemType>(const List<elemType> &);
+    List<elemType>& operator=(const List<elemType> &);
+    ~List();
+    void insert(ListItem<elemType> *ptr, elemType value);
+private:
+    ListItem<elemType> *front, *end;
+};
+```
+
+### [Exercise 16.12](Exercise_12/Ex12.cpp)
+*Write your own version of the `Blob` and `BlobPtr` templates, including the various `const` members that were not shown in the text.*
+
+### Exercise 16.13
+*Explain which kind of friendship you chose for the `equality` and `relational` operators for `BlobPtr`.*
+
+**Answer**
+- Because these operators are inherently linked to the type T, specific instantiation was selected to ensure type safety and encapsulation.
+
+### [Exercise 16.14](Exercise_11/Ex11.cpp)
+*Write a `Screen` class template that uses `nontype` parameters to define the height and width of the `Screen`.*
+
+### Exercise 16.15
+*Implement input and output operators for your Screen template. Which, if any, friends are necessary in class Screen to make the input and output operators work? Explain why each friend declaration, if any, was needed.*
+
+### Exercise 16.16
+*Rewrite the `StrVec` class (§ 13.5, p. 526) as a template named `Vec`.*

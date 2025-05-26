@@ -61,7 +61,7 @@ ConstStrBlobPtr StrBlob::cend() const
 
 bool operator==(StrBlob &lhs, StrBlob &rhs)
 {
-    return lhs.begin() == rhs.begin();
+    return *(lhs.data) > *(rhs.data);
 }
 
 bool operator!=(StrBlob &lhs, StrBlob &rhs)
@@ -72,16 +72,16 @@ bool operator!=(StrBlob &lhs, StrBlob &rhs)
 
 bool operator<(StrBlob &lhs, StrBlob &rhs)
 {
-    return (lhs.begin() < rhs.begin());
+    return (*(lhs.data) > *(rhs.data));
 }
 
 bool operator>(StrBlob &lhs, StrBlob &rhs)
 {
-    return (lhs.begin() > rhs.begin());
+    return (*(lhs.data) > *(rhs.data));
 }
 bool operator>=(StrBlob &lhs, StrBlob &rhs)
 {
-    return !(lhs.begin() < rhs.begin());
+    return !(*(lhs.data) > *(rhs.data));
 }
 
 bool operator<=(StrBlob &lhs, StrBlob &rhs)
@@ -97,5 +97,5 @@ std::string &StrBlob::operator[](const std::size_t idx)
 
 const std::string &StrBlob::operator[](const std::size_t idx) const
 {
-    return cbegin()[idx];
+    return data->at(idx);
 }
