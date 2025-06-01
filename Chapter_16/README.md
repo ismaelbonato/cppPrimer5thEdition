@@ -317,7 +317,6 @@ int main() {
 - (e) It instantiates the those `Stack<char>` members that are used.
 - (f) It instantiates the those `Stack<string>` members that are used.
 
-
 ## 16.1.6. Efficiency and Flexibility
 
 ### [Exercise 16.28](Exercise_28/Ex28.cpp)
@@ -338,3 +337,227 @@ int main() {
 
 **Answer**
 - The compiler can `inline` the call to the `deleter` (such as DebugDelete) with `unique_ptr` because the type of the `deleter` is known at compile time. If the `deleter` is a functor or a function defined in a header (including `template` functions), the compiler can see its definition and may replace the call with the actual code (inline it) for optimization. This is possible because `unique_ptr` stores the `deleter` as part of its type, allowing the compiler to optimize away the function call overhead. In contrast, `shared_ptr` uses type erasure for its `deleter`, so the call is resolved at runtime and cannot be inlined as easily.
+
+## 16.2.1. Conversions and Template Type Parameters
+
+### Exercise 16.32: 
+
+*What happens during template argument deduction?*
+
+**Answer**
+- It is the process by witch the compile tries to deduce from the arguments witch types of parameters the template must be instantiated.
+- The number of type conventions are very limited and strict compared to a normal functions, rather than converting the arguments the compiles generates code for the type directly.
+- Conversions made are: `const conversions`, array to pointer and function to pointers.
+- As the process is made in compilation time rather than runtime, `subtype polymorphism` will not work as expected.
+
+### Exercise 16.33: 
+
+*Name two type conversions allowed on function arguments involved in template argument deduction.*
+
+**Answer**
+- `Const` conversion.
+- Function to pointer conversion.
+- Array to pointer conversion.
+
+### Exercise 16.34: 
+
+*Given only the following code, explain whether each of these calls is legal. If so, what is the type of T? If not, why not?*
+
+```cpp
+template <class T> int compare(const T&, const T&);
+(a) compare("hi", "world");
+(b) compare("bye", "dad");
+```
+
+**Answer**
+- (a) Illegal: Both are `literal` `C-style` `strings`, but their size differs (`const char [3]` and `const char [6]`). Because the types are different, they do not match the template type.
+- (b) Legal: They are literal C-style strings (`const char [3]`). Both types match exactly to one another, as well as to the type of the template.
+
+### Exercise 16.35: 
+
+*Which, if any, of the following calls are errors? If the call is legal, what is the type of T? If the call is not legal, what is the problem?*
+
+```cpp
+template <typename T> T calc(T, int);
+template <typename T> T fcn(T, T);
+double d;    
+float f;    
+char c;
+
+(a) calc(c, 'c');
+(b) calc(d, f);
+(c) fcn(c, 'c');
+(d) fcn(d, f);
+```
+**Answer**
+- (a) Legal: T is a `char`.
+- (b) Legal: T is a `double`.
+- (c) Legal: T is a `char`.
+- (d) Illegal: the types does not match.
+
+### Exercise 16.36: 
+
+*What happens in the following calls:*
+
+```cpp
+template <typename T> f1(T, T);
+template <typename T1, typename T2) f2(T1, T2);
+
+int i = 0, j = 42, *p1 = &i, *p2 = &j;
+const int *cp1 = &i, *cp2 = &j;
+
+(a) f1(p1, p2);
+(b) f2(p1, p2);
+(c) f1(cp1, cp2);
+(d) f2(cp1, cp2);
+(e) f1(p1, cp1);
+(f) f2(p1, cp1);
+```
+
+**Answer**
+
+```cpp
+(a) f1(p1, p2);     // Legal: T = int *;
+(b) f2(p1, p2);     // Legal: T1 = int *, T2 = int *;
+(c) f1(cp1, cp2);   // Legal: T = const int *;
+(d) f2(cp1, cp2);   // Legal: T1 = const int *, T2 = const int *;
+(e) f1(p1, cp1);    // Illegal: f1(int *, const int *) types does not match;
+(f) f2(p1, cp1);    // Legal: T1 = int *, T2 = const int *;
+```
+
+
+## 16.2.2. Function-Template Explicit Arguments
+
+### Exercise 16.37: 
+
+*The library `max` function has two function parameters and returns the larger of its arguments. This function has one template type parameter. Could you call `max` passing it an `int` and a `double`? If so, how? If not, why not?*
+
+**Answer**
+- It is possible through the use of explicit template arguments, but a type conversion must be made. The most effective method for achieving this is to promote `int` to `double`.
+
+```cpp
+int x = 42;
+double d = 42.0
+
+auto ret = std::max<double>(x, d);
+```
+
+### Exercise 16.38: 
+
+*When we call `make_shared` (§ 12.1.1, p. 451), we have to provide an explicit template argument. Explain why that argument is needed and how it is used.*
+
+**Answer**
+
+```cpp
+template<typename _Tp, typename... _Args>
+inline shared_ptr<_NonArray<_Tp>> make_shared(_Args&&... __args)
+{
+    using _Alloc = allocator<void>;
+    _Alloc __a;
+    return shared_ptr<_Tp>(_Sp_alloc_shared_tag<_Alloc>{__a},
+                std::forward<_Args>(__args)...);
+}
+```
+- Because the first template parameter is used as the return's type, not as argument type in the function.
+- As we can see in the `make_shared` code above, only `args` wil be deduced, so the first template argument type must be explicitly specified.
+
+### [Exercise 16.39:](Exercise_39/Ex39.cpp)
+
+*Use an `explicit template` argument to make it sensible to pass two `string literals` to the original version of `compare` from § 16.1.1 (p.652).*
+
+
+## 16.2.3. Trailing Return Types and Type Transformation
+
+### Exercise 16.40:
+
+*Is the following function legal? If not, why not? If it is legal, what, if any, are the restrictions on the argument type(s) that can be passed, and what is the return type?*
+
+```cpp
+template <typename It>
+auto fcn3(It beg, It end) -> decltype(*beg + 0)
+{
+    // process the range
+    return *beg;  // return a copy of an element from the range
+}
+```
+
+**Answer**
+- `Decltype` will return the type of the expression `*beg + 0`, but only if the arithmetic operation can be performed.
+- The dereferenced beg must be an arithmetic type capable of performing that kind of arithmetic operation, as well as type conversion or promotion. Otherwise, an error will result if the it cannot perform that expression; for example, `std::string`.
+
+### [Exercise 16.41:](Exercise_41/Ex41.cpp)
+
+*Write a version of `sum` with a return type that is guaranteed to be large enough to hold the result of the addition.*
+
+## 16.2.5. Template Argument Deduction and References
+
+### Exercise 16.42:
+
+*Determine the type of `T` and of `val` in each of the following calls:*
+
+```cpp
+template <typename T> void g(T&& val);
+int i = 0; 
+const int ci = i;
+
+(a) g(i);
+(b) g(ci);
+(c) g(i * ci);
+```
+
+**Answer**
+- (a) int&
+- (b) const int&
+- (c) int&&
+
+### Exercise 16.43: 
+
+*Using the function defined in the previous exercise, what would the template parameter of `g` be if we called `g(i = ci)`?*
+
+**Answer**
+- `int&` because the result of `(i = ci)` is a reference to `i`.
+
+### Exercise 16.44: 
+
+*Using the same three calls as in the first exercise, determine the types for `T` if `g`’s function parameter is declared as `T` (`not T&&`). What if `g`’s function parameter is `const T&`?*
+
+**Answer**
+
+- `template <typename T> void g(T val);`:
+    - (a) int
+    - (b) int
+    - (c) int
+- `template <typename T> void g(const T& val);`
+    - (a) int
+    - (b) int
+    - (c) int.
+
+### Exercise 16.45: 
+
+*Given the following template, explain what happens if we call `g` on a literal value such as `42`. What if we call `g` on a variable of type `int`?*
+
+```cpp
+template <typename T> 
+void g(T&& val)
+{
+    vector<T> v; 
+}
+
+//(a) g(42). T
+//(b) g(int).
+```
+
+**Answer**
+- (a) T = int, val becomes int&&, vector<int> v.
+- (b) T = int&, val becomes int&, vector<int&> v.
+
+## 16.2.6. Understanding std::move
+
+### Exercise 16.46:
+
+*Explain this loop from `StrVec::reallocate` in § 13.5 (p.530):*
+
+```cpp
+for (size_t i = 0; i != size(); ++i)
+    alloc.construct(dest++, std::move(*elem++));
+```
