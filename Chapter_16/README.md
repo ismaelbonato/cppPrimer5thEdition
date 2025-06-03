@@ -561,3 +561,93 @@ void g(T&& val)
 for (size_t i = 0; i != size(); ++i)
     alloc.construct(dest++, std::move(*elem++));
 ```
+
+**Answer**
+- The loop calls the function construct, that function is responsible for calling the `dest` move constructor on each iteration.
+- The `dest` move constructor receives an `rvalue` version of the element.
+- The data held by `*elem` is moved to `*dest` on each iteration, leaving `*elem` in a valid but unspecified (moved-from) state.
+
+## 16.2.7. Forwarding
+
+### [Exercise 16.47:](Exercise_47/Ex47.cpp)
+
+*Write your own version of the flip function and test it by calling functions that have `lvalue` and `rvalue` reference parameters.*
+
+## 16.3. Overloading and Templates
+
+### [Exercise 16.48:](Exercise_48/Ex48.cpp)
+
+*Write your own versions of the debug_rep functions.*
+
+### Exercise 16.49: 
+
+*Explain what happens in each of the following calls:
+```cpp
+template <typename T> void f(T);
+template <typename T> void f(const T*);
+template <typename T> void g(T);
+template <typename T> void g(T*);
+
+int i = 42, *p = &i;
+const int ci = 0, *p2 = &ci;
+
+g(42);   g(p);   g(ci);   g(p2);
+f(42);   f(p);   f(ci);   f(p2);
+```
+
+**Answer**
+```cpp
+g(42);  // will call void g(T).
+g(p);   // Will call void g(T*) as it is more specialized that g(T).
+g(ci);  // will call void g(T).
+g(p2);  // will call void g(T*) as it is more specialized that g(T).
+f(42);  // will call void f(T);
+f(p);   // will call void f(T);
+f(ci);  // will call void f(T);
+f(p2);  // will call void f(const T*) as it is more specialized that g(T)
+```
+
+### [Exercise 16.50:](Exercise_50/Ex50.cpp)
+
+*Define the functions from the previous exercise so that they print an identifying message. Run the code from that exercise. If the calls behave differently from what you expected, make sure you understand why.*
+
+## 16.4. Variadic Templates
+
+### Exercise 16.51:
+
+*Determine what `sizeof...(Args)` and `sizeof...(rest)` return for each call to foo in this section.*
+
+```cpp
+template <typename T, typename... Args>
+void foo(const T &t, const Args& ... rest);
+
+int i = 0; 
+double d = 3.14; 
+string s = "how now brown cow";
+
+foo(i, s, 42, d);
+foo(s, 42, "hi");
+foo(d, s);
+foo("hi");
+```
+
+**Answer**
+```cpp
+foo(i, s, 42, d);   // sizeof...(Args) = 3, sizeof...(rest) = 3
+foo(s, 42, "hi");   // sizeof...(Args) = 2, sizeof...(rest) = 2
+foo(d, s);          // sizeof...(Args) = 1, sizeof...(rest) = 1
+foo("hi");          // sizeof...(Args) = 0, sizeof...(rest) = 0
+```
+
+### [Exercise 16.52:](Exercise_51/Ex51.cpp) 
+
+*Write a program to check your answer to the previous question.*
+
+**Output**
+```shell
+ARGS: 3 rest: 3
+ARGS: 2 rest: 2
+ARGS: 1 rest: 1
+ARGS: 0 rest: 0
+```
+
