@@ -639,7 +639,7 @@ foo(d, s);          // sizeof...(Args) = 1, sizeof...(rest) = 1
 foo("hi");          // sizeof...(Args) = 0, sizeof...(rest) = 0
 ```
 
-### [Exercise 16.52:](Exercise_51/Ex51.cpp) 
+### [Exercise 16.52:](Exercise_52/Ex52.cpp) 
 
 *Write a program to check your answer to the previous question.*
 
@@ -650,4 +650,101 @@ ARGS: 2 rest: 2
 ARGS: 1 rest: 1
 ARGS: 0 rest: 0
 ```
+## 16.4.1. Writing a Variadic Function Template
 
+### [Exercise 16.53:](Exercise_53/Ex53.cpp) 
+
+*Write your own version of the print functions and test them by printing one, two, and five arguments, each of which should have different types.*
+
+### Exercise 16.54: 
+
+*What happens if we call print on a type that doesn’t have an `<< operator`?*
+
+**Answer**
+- An error occurs:
+
+**Output**
+```shell
+clang++ -Wall -Wextra -pedantic -std=c++11 Ex53.cpp 
+Ex53.cpp:15:15: error: invalid operands to binary expression ('std::ostream' (aka 'basic_ostream<char>') and 'const NonOperatorObject')
+   15 |     return os << arg;
+      |            ~~ ^  ~~~
+```
+
+#### [Exercise 16.55:](Exercise_54/Ex54.cpp)
+
+*Explain how the `variadic` version of print would execute if we declared the `nonvariadic` version of print after the definition of the `variadic` version.*
+
+**Answer**
+- The `non-variadic` version is selected when there is just one last argument from the pack. If the `non-variadic` version is defined after the `variadic` version, a compilation error will occur because there is no print function with only one argument.
+
+**Output**
+```shell
+clang++ -Wall -Wextra -pedantic -std=c++11 Ex54.cpp 
+Ex54.cpp:8:13: error: no matching function for call to 'print'
+    8 |     return  print(os, rest...);
+      |             ^~~~~
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int, int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int, int, int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int, int, int, int, int>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<int, int, int, int, int, int, int, int>' requested here
+Ex54.cpp:19:5: note: in instantiation of function template specialization 'print<int, int, int, int, int, int, int, int, int>' requested here
+   19 |     print(std::cout, 1,2,3,4,5,6,7,8, 9) << std::endl;
+      |     ^
+Ex54.cpp:5:15: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided
+    5 | std::ostream &print(std::ostream &os, const T arg, const Args&... rest)
+      |               ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ex54.cpp:8:13: error: no matching function for call to 'print'
+    8 |     return  print(os, rest...);
+      |             ^~~~~
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<const char *>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<const char *, char[2]>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<const char *, char[6], char[2]>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<char, char[6], char[6], char[2]>' requested here
+Ex54.cpp:8:13: note: in instantiation of function template specialization 'print<double, char, char[6], char[6], char[2]>' requested here
+Ex54.cpp:20:5: note: in instantiation of function template specialization 'print<int, double, char, char[6], char[6], char[2]>' requested here
+   20 |     print(std::cout, 1,2.0,'3', "Hello", "World", "!") << std::endl;
+      |     ^
+Ex54.cpp:5:15: note: candidate function template not viable: requires at least 2 arguments, but 1 was provided
+    5 | std::ostream &print(std::ostream &os, const T arg, const Args&... rest)
+      |               ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 errors generated.
+```
+
+## 16.4.2. Pack Expansion
+
+### [Exercise 16.56:](Exercise_56/Ex56.cpp)
+
+*Write and test a `variadic` version of `errorMsg`.*
+
+### Exercise 16.57:
+
+*Compare your `variadic` version of `errorMsg` to the `error_msg` function in § 6.2.6 (p. 220). What are the advantages and disadvantages of each approach?*
+
+```cpp
+void error_msg(initializer_list<string> il)
+{
+    for (auto beg = il.begin(); beg != il.end(); ++beg)
+        cout << *beg << " " ;
+    cout << endl;
+}
+```
+
+**Answer**
+- errorMsg:
+    - Advantages:
+        - It can be used with different types. 
+        - It is a more generic approach.
+        - Type safe(compilations time).
+    - Disadvantages:
+        - More overhead.
+- error_msg:
+    - Advantages:
+        - Less overhead.
+    - Disadvantages:
+        - Less generic, all objects must be of the same type.
+        - Type not safety
