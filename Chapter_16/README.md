@@ -748,3 +748,70 @@ void error_msg(initializer_list<string> il)
     - Disadvantages:
         - Less generic, all objects must be of the same type.
         - Type not safety
+
+
+
+## 16.4.3. Forwarding Parameter Packs
+
+### [Exercise 16.58:](Exercise_58/Ex58.cpp)
+
+*Write the `emplace_back` function for your `StrVec` class and for the `Vec` class that you wrote for the exercises in § 16.1.2 (p. 668).
+
+### Exercise 16.59:
+
+*Assuming `s` is a `string`, explain `svec.emplace_back(s)`.*
+
+**Answer**
+- In the call to `emplace_back` the `std::string` will collapse into `std::string&`. 
+- The template will `std::forward` the type `std::string&` to `allocator` construct.
+- There is no limit of arguments to the `allocator` function `construct` other than the constructor of the type.
+
+### Exercise 16.60: 
+
+*Explain how `make_shared` (§ 12.1.1, p. 451) works.*
+
+```cpp
+template<typename _Tp, typename... _Args>
+inline shared_ptr<_NonArray<_Tp>> make_shared(_Args&&... __args)
+{
+    using _Alloc = allocator<void>;
+    _Alloc __a;
+    return shared_ptr<_Tp>(_Sp_alloc_shared_tag<_Alloc>{__a},
+                std::forward<_Args>(__args)...);
+}
+```
+**Answer**
+- The function `make_shared` deduce all the arguments passed to the function with the exception of the return type of the function in witch must be passed explicitly.
+- The parameter will be expanded in order to match the return constructor, an error will be raised if the parameter expanded does not march these parameters of the constructor. 
+- There is no limit of arguments to the `make_shared` function other than the defined number of parameters of type constructor passed explicitly.
+
+### [Exercise 16.61:](Exercise_61/Ex61.cpp)
+
+*Define your own version of `make_shared`.*
+
+## 16.5. Template Specializations
+
+### Exercise 16.62: 
+
+*Define your own version of `hash<Sales_data>` and define an `unordered_multiset` of `Sales_data` objects. Put several transactions into the container and print its contents.*
+
+### Exercise 16.63: 
+
+*Define a function template to count the number of occurrences of a given value in a `vector`. Test your program by passing it a `vector` of `doubles`, a `vector` of `ints`, and a `vector` of `strings`.*
+
+### Exercise 16.64: 
+
+*Write a specialized version of the template from the previous exercise to handle `vector<const char*>` and a program that uses this specialization.*
+
+### Exercise 16.65: 
+
+*In § 16.3 (p. 698) we defined overloaded two versions of `debug_rep` one had a `const char*` and the other a `char*` parameter. Rewrite these functions as specializations.*
+
+
+### Exercise 16.66: 
+
+*What are the advantages and disadvantages of overloading these `debug_rep` functions as compared to defining specializations?*
+
+### Exercise 16.67: 
+
+*Would defining these specializations affect function matching for `debug_rep`? If so, how? If not, why not?*
