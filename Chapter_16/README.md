@@ -791,27 +791,43 @@ inline shared_ptr<_NonArray<_Tp>> make_shared(_Args&&... __args)
 
 ## 16.5. Template Specializations
 
-### Exercise 16.62: 
+### [Exercise 16.62:](Exercise_62/Ex62.cpp)
 
 *Define your own version of `hash<Sales_data>` and define an `unordered_multiset` of `Sales_data` objects. Put several transactions into the container and print its contents.*
 
-### Exercise 16.63: 
+### [Exercise 16.63:](Exercise_63/Ex63.cpp)
 
 *Define a function template to count the number of occurrences of a given value in a `vector`. Test your program by passing it a `vector` of `doubles`, a `vector` of `ints`, and a `vector` of `strings`.*
 
-### Exercise 16.64: 
+### [Exercise 16.64:](Exercise_64/Ex64.cpp)
 
 *Write a specialized version of the template from the previous exercise to handle `vector<const char*>` and a program that uses this specialization.*
 
-### Exercise 16.65: 
+### [Exercise 16.65:](Exercise_65/Ex65.cpp)
 
 *In § 16.3 (p. 698) we defined overloaded two versions of `debug_rep` one had a `const char*` and the other a `char*` parameter. Rewrite these functions as specializations.*
 
-
-### Exercise 16.66: 
+### Exercise 16.66:
 
 *What are the advantages and disadvantages of overloading these `debug_rep` functions as compared to defining specializations?*
+
+**Answer**
+- Overloading:
+    - Advantage: 
+        - It is easier to read and maintain.
+        - Supports with Subtype Polymorphism.
+    - Disadvantage:
+        - There is no overhead unless it is used as a virtual function. 
+- Template Specialization:
+    - Advantage: 
+        - As it does not use overload it is solved in compilation time, less overhead.
+    - Disadvantage:
+        - Since it solved in compilation time, it does not work with Subtype Polymorphism.
+        - Less readable and more confusing.
 
 ### Exercise 16.67: 
 
 *Would defining these specializations affect function matching for `debug_rep`? If so, how? If not, why not?*
+
+**Answer**
+- Yes, since the function matching is performed during the compilation process, the compiler will always prefer a specialization over a generic template. However, if a `non-template` function is an equally good match, the `non-template` function will be selected.
